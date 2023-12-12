@@ -89,7 +89,10 @@ Route::middleware('admin')->group(function () {
     // FORM Edit //
     Route::get('/purchase-order/{id}/edit', [PurchaseOrderController::class, 'editData']);
     Route::post('/purchase-order_detail/add', [PurchaseOrderDetailController::class, 'storeData']); // ADD TRANSACTION DETAIL //
-
+    Route::post('/purchase-order_detail/edit', [PurchaseOrderDetailController::class, 'updateData']); // EDIT TRANSACTION DETAIL //
+    Route::delete('/purchase-order_detail/delete', [PurchaseOrderDetailController::class, 'removeData']); // DELETE TRANSACTION DETAIL //
+    
+    Route::get('/purchase-order_detail/checkData', [PurchaseOrderDetailController::class, 'checkData']); // CHECK TRANSACTION DETAIL //
     Route::get('/getPurchase_order_detail/{id}', [PurchaseOrderDetailController::class, 'getAllDetail']); // GET TRANSACTION DETAIL BY PURCHASE ID //
     
     Route::post('/submit-purchase_order', [PurchaseOrderController::class, 'submitData']); // SUBMIT TRANSACTION HEADER //
