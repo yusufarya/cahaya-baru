@@ -168,7 +168,7 @@ class UpdateStockController extends Controller
             // echo $newQty; 
             $stockFix = $qtyInStock - $curentStock;
             // dd($stockFix);
-            Inventory::where(['product_id' => $request->product_id])->update(['product_id' => $request->product_id, 'stock' => $stockFix ]);
+            Inventory::where(['product_id' => $request->product_id])->update(['stock' => $stockFix ]);
             
             return redirect('/update-stock');
         }
