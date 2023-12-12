@@ -114,15 +114,6 @@ $(async function () {
 
         $("#container-table tbody").append(htmlrow);
 
-        // $("#cancel").on("click", () => {
-        //     //
-        //     console.log($(this).closest("tr"));
-        //     no - 1;
-        //     $(this).closest("tr").remove();
-        //     // var table = document.getElementById("container-table");
-        //     // console.log(table);
-        // });
-
         $("#add").on("click", () => {
             // alert("p");
             let sequence = $("#no").val();
@@ -154,11 +145,9 @@ $(async function () {
                         ),
                     },
                     success: function (response) {
-                        console.log("add click");
-                        console.log(response);
+                        // Handle the response here
                         $("#add-new").prop("disabled", false);
                         load_data_detail(purchase_order_id);
-                        // Handle the response here
                     },
                     error: function (error) {
                         console.log("Ajax request failed");
@@ -168,11 +157,84 @@ $(async function () {
         });
     });
 
+    $(document).on("click", "#edit", function () {
+        $("#container-table tr").find("td:eq(4)").hide();
+        $(this).closest("tr").find("td:eq(4)").show();
+        $("#add-new").prop("disabled", true);
+        var no = $(this).closest("tr").find("td:eq(0)").text();
+        var qty = $(this).closest("tr").find("td:eq(2)").text();
+        var price = $(this).closest("tr").find("td:eq(3)").text();
+        var product = $(this).closest("tr").find("td:eq(1)").text();
+        var product_name = product.split("/");
+
+        $(this)
+            .closest("tr")
+            .find("td:eq(2)")
+            .html(
+                `<input type="text" name="qty_dt" id="qty_dt" class="form-control" placeholder="0" onkeyup="onlyNumbers(this);" style="text-align: right;" value="` +
+                    qty +
+                    `">`
+            );
+        $(this)
+            .closest("tr")
+            .find("td:eq(3)")
+            .html(
+                `<input type="text" name="price_dt" id="price_dt" class="form-control" placeholder="0" onkeyup="formatRupiah(this, this.value);" style="text-align: right;" value="` +
+                    price +
+                    `">`
+            );
+        $(this)
+            .closest("tr")
+            .find("td:eq(4)")
+            .html(
+                `<button type="button" onclick="updateDetail(` +
+                    no +
+                    `, '` +
+                    product_name[0] +
+                    `')" class="btn btn-add pt-1"> <i class="fas fa-plus-square"></i> </button>`
+            );
+    });
+
     $(document).on("click", "#cancel", function () {
-        console.log("cancel click");
+        // console.log("cancel click");
         $("#add-new").prop("disabled", false);
         no = no - 1;
         $(this).closest("tr").remove();
+    });
+
+    $(document).on("click", "#delete", function () {
+        $("#add-new").prop("disabled", false);
+        let purchase_order_id = $("#purchase_order_id").val();
+        var no = $(this).closest("tr").find("td:eq(0)").text();
+        var product = $(this).closest("tr").find("td:eq(1)").text();
+        var product_name = product.split("/");
+        $("#modal-delete").modal("show");
+        $("#modal-delete .modal-title").text("Hapus data nomor " + no);
+
+        $("#clickDelete").click(() => {
+            $.ajax({
+                type: "DELETE",
+                url: "/purchase-order_detail/delete", // Use the route function to generate the URL
+                data: {
+                    product_name: product_name[0],
+                    purchase_order_id: purchase_order_id,
+                    sequence: no,
+                },
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                        "content"
+                    ),
+                },
+                success: function (response) {
+                    $("#add-new").prop("disabled", false);
+                    $("#modal-delete").modal("hide");
+                    load_data_detail(purchase_order_id);
+                },
+                error: function (error) {
+                    console.log("Ajax request failed");
+                },
+            });
+        });
     });
 
     $("#saveButton").on("click", () => {
@@ -187,11 +249,11 @@ $(async function () {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
             },
             success: function (response) {
-                console.log("add click");
-                console.log(response);
+                // console.log(response);
                 $("#add-new").prop("disabled", false);
                 load_data_detail(purchase_order_id);
                 // Handle the response here
+                location.href = "/purchase-order";
             },
             error: function (error) {
                 console.log("Ajax request failed");
@@ -200,9 +262,38 @@ $(async function () {
     });
 });
 
+function updateDetail(no, product_name) {
+    let qty_dt = $("#qty_dt").val();
+    let price_dt = $("#price_dt").val();
+    let purchase_order_id = $("#purchase_order_id").val();
+    $.ajax({
+        type: "POST",
+        url: "/purchase-order_detail/edit", // Use the route function to generate the URL
+        data: {
+            product_name: product_name,
+            sequence: no,
+            qty_dt: qty_dt,
+            price_dt: price_dt,
+            purchase_order_id: purchase_order_id,
+        },
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+        success: function (response) {
+            // console.log("add update click");
+            // console.log(response);
+            // Handle the response here
+            $("#add-new").prop("disabled", false);
+            load_data_detail(purchase_order_id);
+        },
+        error: function (error) {
+            console.log("Ajax request failed");
+        },
+    });
+}
+
 async function load_data_detail(purchase_order_id) {
     $("#container-table tbody").html("");
-    console.log("load data here...");
     const headers = new Headers({
         "Content-Type": "application/json",
         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -228,8 +319,8 @@ async function load_data_detail(purchase_order_id) {
             console.error("Error fetching data:", error);
         });
 
-    console.log("dataFechhDetail => ");
-    console.log(dataFechhDetail);
+    // console.log("dataFechhDetail => ");
+    // console.log(dataFechhDetail);
 
     var html_load_row = "";
     dataFechhDetail.map((item, index) => {

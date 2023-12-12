@@ -27,12 +27,12 @@
           <table class="table table-bordered table-sm">
               <thead>
                   <tr class="my-bg-primary text-white">
-                      <th style="width: 7%">Number</th>
+                      <th style="width: 7%">Nomor</th>
                       <th style="width: 20%">Vendor</th>
                       <th style="width: 12%">Tanggal</th>
                       <th style="width: 8%; text-align: right;">Quantity</th> 
                       <th style="width: 12%; text-align: right;">Harga Total</th> 
-                      <th style="width: 10%; text-align: center;">Aksi</th>
+                      <th style="width: 8%; text-align: center;">Aksi</th>
                   </tr>
               </thead>
               <tbody>
@@ -75,8 +75,8 @@
           </div>
         </div> 
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
-          <button type="submit" class="btn btn-primary">Ya</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="n">Tidak</button>
+          <button type="submit" class="btn btn-primary" id="y">Ya</button>
         </div>
       </form>
     </div>

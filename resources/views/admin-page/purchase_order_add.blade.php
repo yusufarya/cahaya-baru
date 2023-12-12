@@ -94,3 +94,21 @@
 </section> 
 
 @endsection
+
+<div class="modal fade" id="modal-delete" tabindex="-1">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title ml-2 font-weight-bold">Title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+        <button type="button" class="btn btn-primary" id="clickDelete">Ya</button>
+        </div> 
+      </div>
+    </div>
+</div>
