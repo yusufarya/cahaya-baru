@@ -16,12 +16,12 @@ class Customer extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    public $primaryKey = 'id';
+    public $primaryKey = 'code';
     public $keyType = 'string';
     public $timestamps = false;
 
     protected $fillable = [
-        'id',
+        'code',
         'fullname',
         'username',
         'gender',
