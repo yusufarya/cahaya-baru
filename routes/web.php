@@ -18,8 +18,10 @@ use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\FE\ServiceController;
 use App\Http\Controllers\UpdateStockController;
+use App\Http\Controllers\SalesOrderController;
 use App\Http\Controllers\PurchaseOrderController;
 use App\Http\Controllers\FE\ParticipantController;
+use App\Http\Controllers\PurchaseTransactionReport;
 use App\Http\Controllers\TrainingContentController;
 use App\Http\Controllers\PurchaseOrderDetailController;
 
@@ -95,8 +97,15 @@ Route::middleware('admin')->group(function () {
     Route::get('/purchase-order_detail/checkData', [PurchaseOrderDetailController::class, 'checkData']); // CHECK TRANSACTION DETAIL //
     Route::get('/getPurchase_order_detail/{id}', [PurchaseOrderDetailController::class, 'getAllDetail']); // GET TRANSACTION DETAIL BY PURCHASE ID //
     
-    Route::post('/submit-purchase_order', [PurchaseOrderController::class, 'submitData']); // SUBMIT TRANSACTION HEADER //
+    Route::get('/purchase-report', [PurchaseTransactionReport::class, 'index']); // VIEW REPORT PURCASE TRANSACTION //
+    Route::get('/purchase-rpt', [PurchaseTransactionReport::class, 'purchaseReport']); // SROTE REQUEST TO SESSION //
+    Route::get('/open-purchase-rpt', [PurchaseTransactionReport::class, 'openPurchaseReport']); // OPEN REPORT PURCASE TRANSACTION //
 
+    Route::post('/submit-purchase_order', [PurchaseOrderController::class, 'submitData']); // SUBMIT TRANSACTION HEADER //
+    
+    // LIST SALES ORDER TRANSACTION //
+    Route::get('/sales-order', [SalesOrderController::class, 'index']);
+    Route::delete('/delete-sales-order/{id}', [SalesOrderController::class, 'deleteData']);
     
     Route::get('/settings', [SettingsController::class, 'index']);
     Route::post('/settings', [SettingsController::class, 'update']);
