@@ -161,7 +161,7 @@
                 </li> 
                 
                 {{-- <li class="nav-header">Penjualan</li> --}}
-                <li class="nav-item {{ Request::segment(1) === 'sales-order' || Request::segment(1) === 'participant-report' || Request::segment(1) === 'service-detail' ? 'menu-is-opening menu-open' : '' }}">
+                <li class="nav-item {{ Request::segment(1) === 'sales-order' || Request::segment(1) === 'sales-report' || Request::segment(1) === 'request-order' ? 'menu-is-opening menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-shopping-cart"></i>
                         <p>
@@ -170,6 +170,12 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview ml-3">
+                        <li class="nav-item">
+                            <a href="/request-order" class="nav-link {{ Request::segment(1) === 'request-order' ? 'submenu-active' : '' }}">
+                                » &nbsp;
+                                <p>Request Order </p>
+                            </a> 
+                        </li>
                         <li class="nav-item">
                             <a href="/sales-order" class="nav-link {{ Request::segment(1) === 'sales-order' ? 'submenu-active' : '' }}">
                                 » &nbsp;

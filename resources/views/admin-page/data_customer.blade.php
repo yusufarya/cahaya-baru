@@ -24,7 +24,7 @@
           <table class="table table-bordered table-sm">
               <thead>
                   <tr class="my-bg-primary text-white">
-                      <th style="width: 11%"></th>
+                      <th style="width: 11%">Nomor</th>
                       <th>Nama Lengkap</th>
                       <th style="width: 11%">Jenis Kelamin</th>
                       <th>Email</th>

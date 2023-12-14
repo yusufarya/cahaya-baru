@@ -3,7 +3,10 @@ $(async function () {
     $("#addDetail").hide();
 
     var no = 1;
-    load_data_detail($("#purchase_order_id").val());
+    var total_sequence = await load_data_detail($("#purchase_order_id").val());
+    if (total_sequence > 0) {
+        no = total_sequence;
+    }
 
     async function getAllProduct() {
         const headers = new Headers({
@@ -76,7 +79,6 @@ $(async function () {
         console.log("add new click");
         $("#add-new").prop("disabled", true);
         const otpAllProducts = allProducts.map((item, index) => {
-            console.log(item);
             var options =
                 `<option value="` +
                 item.id +
@@ -329,8 +331,9 @@ async function load_data_detail(purchase_order_id) {
     // console.log(dataFechhDetail);
 
     var html_load_row = "";
+    no = dataFechhDetail.length += 1;
+
     dataFechhDetail.map((item, index) => {
-        no = index += 1;
         $("#addDetail").hide();
         // table detail //
         html_load_row +=
@@ -358,4 +361,6 @@ async function load_data_detail(purchase_order_id) {
             </tr>`;
     });
     $("#container-table tbody").append(html_load_row);
+
+    return no;
 }

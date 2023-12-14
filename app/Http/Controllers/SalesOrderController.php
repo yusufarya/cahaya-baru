@@ -2,26 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Vendor;
 use Illuminate\Http\Request;
-use App\Models\Product;
-use App\Models\PurchaseOrder;
-use App\Models\PurchaseOrderDetail;
-use Illuminate\Support\Facades\DB;
+use App\Models\SalesOrder;
+use App\Models\SalesOrderDetail;
 use Illuminate\Support\Facades\Auth;
 
-class PurchaseOrderController extends Controller
+class SalesOrderController extends Controller
 {
     function index() {
         $filename = 'purchase_order';
         $filename_script = getContentScript(true, $filename);
 
         $user = Auth::guard('admin')->user();
-        $data = PurchaseOrder::with('vendor')->orderBy('id', 'DESC')->get();
+        $data = SalesOrder::with('vendor')->orderBy('id', 'DESC')->get();
         // dd($data);
         return view('admin-page.'.$filename, [
             'script' => $filename_script,
-            'title' => 'Pembelian ',
+            'title' => 'Penjualan ',
             'auth_user' => $user,
             'resultData' => $data
         ]);
@@ -36,7 +33,7 @@ class PurchaseOrderController extends Controller
         // dd($data);
         return view('admin-page.'.$filename, [
             'script' => $filename_script,
-            'title' => 'Tambah Pembelian ',
+            'title' => 'Tambah Penjualan ',
             'auth_user' => $user,
             'vendor' => $vendor,
         ]);
@@ -48,11 +45,11 @@ class PurchaseOrderController extends Controller
 
         $user = Auth::guard('admin')->user();
         $vendor = Vendor::get();
-        $data = PurchaseOrder::where(['id' => $id])->first();
+        $data = SalesOrder::where(['id' => $id])->first();
         // dd($data);
         return view('admin-page.'.$filename, [
             'script' => $filename_script,
-            'title' => 'Tambah Pembelian ',
+            'title' => 'Tambah Penjualan ',
             'auth_user' => $user,
             'vendor' => $vendor,
             'resultData' => $data,
@@ -78,7 +75,7 @@ class PurchaseOrderController extends Controller
 
     public function deleteData(Request $request, int $id)
     {
-        $data = PurchaseOrder::find($id);
+        $data = SalesOrder::find($id);
         $result = $data->delete();
         if($result) {
             $request->session()->flash('success', 'Transaksi berhasil diubah');
@@ -92,8 +89,8 @@ class PurchaseOrderController extends Controller
 
         $where = ['purchase_order_id' => $request->purchase_order_id];
         
-        $qty = PurchaseOrderDetail::where($where)->sum('qty');
-        $total_price = PurchaseOrderDetail::where($where)->sum('price');
+        $qty = SalesOrderDetail::where($where)->sum('qty');
+        $total_price = SalesOrderDetail::where($where)->sum('price');
 
         $data = [
             'qty' => $qty,
