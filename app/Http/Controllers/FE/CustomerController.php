@@ -6,6 +6,7 @@ use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class CustomerController extends Controller
 {
@@ -88,7 +89,7 @@ class CustomerController extends Controller
 
     function getLasNumber() {
         
-        $lastNumber = Customer::max('number');
+        $lastNumber = Customer::max('code');
 
         if($lastNumber) {
             $lastNumber = substr($lastNumber, -4);

@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class SalesOrder extends Model
 {
     use HasFactory;
-    public $guarded = ['id'];
+    public $guarded = ['code'];
     public $timestamps = false;
 
     /**
@@ -26,6 +26,6 @@ class SalesOrder extends Model
 
     public function salesOrderDetails(): BelongsTo
     {
-        return $this->belongsTo(SalesOrderDetail::class, 'id', 'sales_order_id');
+        return $this->belongsTo(SalesOrderDetail::class, 'code', 'sales_order_code');
     }
 }

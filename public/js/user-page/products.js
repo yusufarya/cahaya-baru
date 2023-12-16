@@ -84,7 +84,7 @@ function getServicesList(categoryId = "") {
                             `">`;
                     } else {
                         var logo =
-                            `<img src="{{ asset('/img/logo-bussiness.png') }}" class="card-img-top img-services p-3" alt="` +
+                            `<img src="/img/default.png" class="card-img-top img-services p-3" alt="` +
                             item.id +
                             `">`;
                     }

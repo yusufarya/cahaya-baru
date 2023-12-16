@@ -87,7 +87,7 @@ class SalesOrderController extends Controller
 
     function submitData(Request $request) {
 
-        $where = ['purchase_order_id' => $request->purchase_order_id];
+        $where = ['sales_order_code' => $request->sales_order_code];
         
         $qty = SalesOrderDetail::where($where)->sum('qty');
         $total_price = SalesOrderDetail::where($where)->sum('price');
@@ -97,7 +97,7 @@ class SalesOrderController extends Controller
             'total_price' => $total_price,
         ];
 
-        $update = DB::table('purchase_orders')->where(['id' => $request->purchase_order_id])->update($data);
+        $update = DB::table('purchase_orders')->where(['id' => $request->sales_order_code])->update($data);
         
         if($update) {
             return response()->json(['status' => 'success', 'dataId' => $update]);

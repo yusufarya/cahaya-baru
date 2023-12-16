@@ -1,9 +1,9 @@
-function delete_data(id, name) {
+function delete_data(code, name) {
     $.ajax({
         type: "GET",
         url: "/purchase-order_detail/checkData", // Use the route function to generate the URL
         data: {
-            purchase_order_id: id,
+            purchase_order_code: code,
         },
         headers: {
             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),

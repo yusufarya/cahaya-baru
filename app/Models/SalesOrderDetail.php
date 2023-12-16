@@ -18,7 +18,7 @@ class SalesOrderDetail extends Model
 
     public function sales_order(): BelongsTo
     {
-        return $this->belongsTo(SalesOrder::class, 'purchase_order_id', 'id');
+        return $this->belongsTo(SalesOrder::class, 'sales_order_code', 'code');
     } 
     
     public function products(): BelongsTo

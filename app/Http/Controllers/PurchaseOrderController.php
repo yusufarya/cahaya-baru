@@ -17,7 +17,7 @@ class PurchaseOrderController extends Controller
         $filename_script = getContentScript(true, $filename);
 
         $user = Auth::guard('admin')->user();
-        $data = PurchaseOrder::with('vendor')->orderBy('id', 'DESC')->get();
+        $data = PurchaseOrder::with('vendor')->orderBy('code', 'DESC')->get();
         // dd($data);
         return view('admin-page.'.$filename, [
             'script' => $filename_script,
@@ -76,9 +76,9 @@ class PurchaseOrderController extends Controller
 
     }
 
-    public function deleteData(Request $request, int $id)
+    public function deleteData(Request $request, string $code)
     {
-        $data = PurchaseOrder::find($id);
+        $data = PurchaseOrder::where($code);
         $result = $data->delete();
         if($result) {
             $request->session()->flash('success', 'Transaksi berhasil diubah');
@@ -90,7 +90,7 @@ class PurchaseOrderController extends Controller
 
     function submitData(Request $request) {
 
-        $where = ['purchase_order_id' => $request->purchase_order_id];
+        $where = ['purchase_order_code' => $request->purchase_order_code];
         
         $qty = PurchaseOrderDetail::where($where)->sum('qty');
         $total_price = PurchaseOrderDetail::where($where)->sum('price');
@@ -100,7 +100,7 @@ class PurchaseOrderController extends Controller
             'total_price' => $total_price,
         ];
 
-        $update = DB::table('purchase_orders')->where(['id' => $request->purchase_order_id])->update($data);
+        $update = DB::table('purchase_orders')->where(['id' => $request->purchase_order_code])->update($data);
         
         if($update) {
             return response()->json(['status' => 'success', 'dataId' => $update]);

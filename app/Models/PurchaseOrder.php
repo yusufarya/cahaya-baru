@@ -11,7 +11,7 @@ class PurchaseOrder extends Model
 {
     use HasFactory;
 
-    public $guarded = ['id'];
+    public $guarded = ['code'];
     public $timestamps = false;
 
     // public function products(): BelongsTo

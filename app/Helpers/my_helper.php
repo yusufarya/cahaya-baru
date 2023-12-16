@@ -1,11 +1,39 @@
 <?php
 
 use App\Models\Admin;
-use App\Models\Training;
+use App\Models\SalesOrder;
+use App\Models\PurchaseOrder;
 use Illuminate\Support\Facades\DB;
 
 function testHelper() {
     die('Helper is ready');
+}
+
+function getLasCodeTransaction($type) {
+    
+    if($type == 'P') {
+        $lastNumber = PurchaseOrder::max('code');
+    
+        if($lastNumber) {
+            $lastNumber = substr($lastNumber, -4);
+            $code_ = sprintf('%04d', $lastNumber+1);
+            $numberFix = "PTCB".date('ymdhis').$code_;
+        } else {
+            $numberFix = "PTCB".date('ymdhis')."0001";
+        }
+    } else if($type == 'S') {
+        $lastNumber = SalesOrder::max('code');
+    
+        if($lastNumber) {
+            $lastNumber = substr($lastNumber, -4);
+            $code_ = sprintf('%04d', $lastNumber+1);
+            $numberFix = "STCB".date('ymdhis').$code_;
+        } else {
+            $numberFix = "STCB".date('ymdhis')."0001";
+        }
+    } 
+
+    return $numberFix;
 }
 
 function cleanSpecialChar($string) {
