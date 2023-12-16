@@ -12,35 +12,48 @@ body {
 }
 
 .custom-tooltip {
-    --bs-tooltip-bg: #af4c4c;
-    --bs-tooltip-color: #477991;
+    --bs-tooltip-bg: #af4425;
+    --bs-tooltip-color: #ebdcb2;
 }
 
 .primary-color {
-    color: #477991;
+    color: #af4425;
 }
 .secondary-color {
-    color: #f98771;
+    color: #662e1c;
 }
+.tertiary-color {
+    background-color: #ebdcb2;
+}
+.last-color {
+    background-color: #c9a66b;
+}
+
 .bg-primary-color {
-    background-color: #477991;
+    background-color: #af4425;
 }
 .bg-primary-color:hover {
-    background-color: #5793af;
+    background-color: #662e1c;
 }
 .bg-secondary-color {
-    background-color: #f98771;
+    background-color: #ebdcb2;
+}
+.bg-tertiary-color {
+    background-color: #c9a66b !important;
+}
+
+.nav-link {
+    color: #ebdcb2;
 }
 
 .active-link {
     font-weight: 600;
-    color: #f98771;
-    text-shadow: 0 1px 1px #fa2601;
+    color: #662e1c;
 }
 
 .active-link:hover {
     font-weight: 600;
-    color: #fa2601;
+    color: #af4425;
 }
 
 .header-babble {
@@ -50,25 +63,25 @@ body {
 .header-babble::before {
     position: absolute;
     content: "";
-    height: 660px;
+    height: 620px;
     width: 100%;
     top: 0;
     left: 0;
-    background-image: linear-gradient(to bottom, #e1f1fa, #c4e7f9, #c4e7f9);
-    /* background-color: #c4e7f9; */
+    background-image: linear-gradient(to bottom, #c9a66b, #ebdcb2);
     border-bottom-left-radius: 60px;
     border-bottom-right-radius: 60px;
 }
 
 .button-login {
-    border: 1px solid #477991;
+    border: 1px solid #662e1c;
+    color: #d6e5e6;
 }
 .button-login:hover {
-    background-color: #477991;
+    background-color: #662e1c;
     color: aliceblue;
 }
 .button-register:hover {
-    background-color: #528ca8;
+    background-color: #af4425;
     box-shadow: 1px 1px 3px #acacac;
 }
 .layout-box {
@@ -131,7 +144,7 @@ body {
 .box-category {
     margin: 5px;
     background-color: #ffffff;
-    height: 160px;
+    height: 100px;
     border-radius: 8px;
     box-shadow: 0 2px 10px #c4e7f9;
     margin-bottom: 15px;
@@ -139,14 +152,14 @@ body {
 .box-category:hover {
     color: #8e8e8e;
     box-shadow: 0 2px 10px #364449;
-    text-shadow: 1px 2px 4px #528ca8;
+    text-shadow: 1px 2px 4px #af4425;
 }
 
 .box-category b {
     position: relative;
-    top: 55px;
+    top: 30px;
     text-transform: uppercase;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 500;
 }
 
@@ -180,7 +193,7 @@ body {
 }
 
 .img-services {
-    height: 210px;
+    height: 260px;
     width: auto;
     background-origin: border-box;
     background-repeat: no-repeat;
