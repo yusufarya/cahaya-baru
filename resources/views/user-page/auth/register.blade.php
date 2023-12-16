@@ -3,10 +3,10 @@
     <head> 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="UPTD Latihan Kerja Dinas, Tenaga Kerja Kabupaten Tangerang">
+        <meta name="description" content="CAHAYA BARU, Kabupaten Tangerang">
         <meta name="author" content="Yusuf Aryadilla and Bootstrap contributors">
-        <meta name="generator" content="UPTD">
-        <title>Register - Page · UPTD</title>
+        <meta name="generator" content="CCB">
+        <title>Register - Page · CCB</title>
     
         <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
@@ -16,7 +16,7 @@
     <body class="d-flex align-items-center py-4 bg-white">
 
         <main class="row">
-            <div class="col-lg-7 col-md-7 col-sm-7 p-5"> 
+            <div class="col-lg-7 col-md-7 col-sm-7 px-5"> 
                 <img class="hero-img" src="{{asset('img/hero.png')}}" alt="">
             </div>
             <div class="col-lg-5 col-md-5 col-sm-5 pe-5">

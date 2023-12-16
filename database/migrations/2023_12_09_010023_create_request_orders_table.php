@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('request_orders', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('customer_code');
+            $table->char('code', 20)->primary();
+            $table->char('customer_code');
             $table->foreign('customer_code')->on('customers')->references('code');
             $table->unsignedBigInteger('size_id');
             $table->foreign('size_id')->on('sizes')->references('id');

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('transaction_histories', function (Blueprint $table) {
-            $table->id('code', 20);
+            $table->char('code', 20)->primary();
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->on('products')->references('id');
             $table->string('description', 200);

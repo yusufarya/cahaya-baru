@@ -28,7 +28,7 @@ class CustomerController extends Controller
         ]);
         
         $validatedData['fullname'] = ucwords($validatedData['fullname']);
-        $validatedData['number'] = $this->getLasNumber();
+        $validatedData['code'] = $this->getLasNumber();
         $validatedData['created_at'] = date('Y-m-d H:i:s');
         $validatedData['created_by'] = $validatedData['username'];
         $validatedData['password'] = Hash::make($validatedData['password']);
@@ -93,9 +93,9 @@ class CustomerController extends Controller
         if($lastNumber) {
             $lastNumber = substr($lastNumber, -4);
             $code_ = sprintf('%04d', $lastNumber+1);
-            $numberFix = "UPTD".date('Ymd').$code_;
+            $numberFix = "CCB".date('Ymd').$code_;
         } else {
-            $numberFix = "UPTD".date('Ymd')."0001";
+            $numberFix = "CCB".date('Ymd')."0001";
         }
 
         return $numberFix;

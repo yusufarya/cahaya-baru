@@ -93,7 +93,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Customer::create([
-            'code' => date('Ymd').'1',
+            'code' => 'CCB'.date('Ymd').'0001',
             'fullname' => 'User Test',
             'username' => 'user_test',
             'gender' => 'M',

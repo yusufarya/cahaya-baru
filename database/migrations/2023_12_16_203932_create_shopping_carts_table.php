@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('shopping_carts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('customer_code');
+            $table->char('customer_code');
             $table->foreign('customer_code')->on('customers')->references('code');
             $table->unsignedBigInteger('sales_order_id');
             $table->foreign('sales_order_id')->on('sales_orders')->references('id');

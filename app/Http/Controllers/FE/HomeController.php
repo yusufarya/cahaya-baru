@@ -14,7 +14,7 @@ class HomeController extends Controller
         return view('user-page/index', [
             'title' => 'Home',
             'category' => $category,
-            'brand_name' => 'UPTD'
+            'brand_name' => 'CCB'
         ]);
     }
 
@@ -23,7 +23,7 @@ class HomeController extends Controller
         return view('user-page/posts', [
             'title' => 'Pemberitahuan',
             'posts' => $post,
-            'brand_name' => 'UPTD'
+            'brand_name' => 'CCB'
         ]);
     }
 }
