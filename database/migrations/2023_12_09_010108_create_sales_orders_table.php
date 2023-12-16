@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('customer_code');
             $table->foreign('customer_code')->on('customers')->references('code');
-            $table->string('description', 200);
-            $table->dateTime('date')->nullable()->default(date('Y-m-d H:i:s'));
+            $table->string('description', 200)->nullable();
+            $table->dateTime('date')->nullable();
             $table->double('qty')->default(0);
             $table->double('total_price')->default(0);
             $table->double('discount')->default(0);

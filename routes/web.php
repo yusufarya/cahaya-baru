@@ -16,11 +16,13 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\InventoryController;
-use App\Http\Controllers\FE\ServiceController;
-use App\Http\Controllers\UpdateStockController;
+use App\Http\Controllers\FE\PaymentController;
 use App\Http\Controllers\SalesOrderController;
+use App\Http\Controllers\FE\CustomerController;
+use App\Http\Controllers\UpdateStockController;
+use App\Http\Controllers\FE\ProductFEController;
+use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\PurchaseOrderController;
-use App\Http\Controllers\FE\ParticipantController;
 use App\Http\Controllers\PurchaseTransactionReport;
 use App\Http\Controllers\TrainingContentController;
 use App\Http\Controllers\PurchaseOrderDetailController;
@@ -103,10 +105,15 @@ Route::middleware('admin')->group(function () {
 
     Route::post('/submit-purchase_order', [PurchaseOrderController::class, 'submitData']); // SUBMIT TRANSACTION HEADER //
     
+    // =============== MODULE PENJUALAN =============== //
     // LIST SALES ORDER TRANSACTION //
     Route::get('/sales-order', [SalesOrderController::class, 'index']);
     Route::delete('/delete-sales-order/{id}', [SalesOrderController::class, 'deleteData']);
-    
+
+    // =============== MODULE KEUANGAN =============== //
+    // PAYMENT METHOD //
+    Route::resource('/payment-method', PaymentMethodController::class)->only("index", "store", "update", "destroy");
+
     Route::get('/settings', [SettingsController::class, 'index']);
     Route::post('/settings', [SettingsController::class, 'update']);
     Route::get('/set-period', [SettingsController::class, 'setPeriod']);
@@ -117,22 +124,28 @@ Route::middleware('admin')->group(function () {
 
 Route::get('/', [HomeController::class, 'index']);
 
-Route::get('/pelatihan', [ServiceController::class, 'index']);
-Route::get('/pelatihan/{id}', [ServiceController::class, 'detail']);
-Route::get('/getDataServices', [ServiceController::class, 'getDataServices']);
+Route::get('/our-products', [ProductFEController::class, 'index']);
+Route::get('/our-products/{id}', [ProductFEController::class, 'index']);
+Route::get('/detail-product/{id}', [ProductFEController::class, 'detail']);
+Route::get('/getDataProducts', [ProductFEController::class, 'getDataProducts']);
 
-Route::middleware('participant')->group(function () {
-    Route::get('/wishlist', [ParticipantController::class, 'wishlist']);
-    Route::get('/_profile', [ParticipantController::class, 'profile']);
-    Route::get('/update-profile', [ParticipantController::class, 'updateProfile']);
-    Route::put('/update-profile/{number}', [ParticipantController::class, 'updateProfileData']);
+Route::middleware('customer')->group(function () {
+    Route::get('/my-orders', [CustomerController::class, 'myOrders']);
+    Route::get('/shopping-cart', [CustomerController::class, 'shoppingCarts']);
+    Route::get('/_profile', [CustomerController::class, 'profile']);
+    Route::get('/update-profile', [CustomerController::class, 'updateProfile']);
+    Route::put('/update-profile/{number}', [CustomerController::class, 'updateProfileData']);
     Route::get('/getVillages/', [GeneralController::class, 'getVillages']);
     Route::get('/checkDataUser/{id}', [GeneralController::class, 'checkDataUser']);
     
-    Route::post('/logout', [ParticipantController::class, 'logout']);
+    Route::get('/payment/{id}', [PaymentController::class, 'index']);
+    Route::post('/pay-order/{id}', [PaymentController::class, 'payOrder']);
+    Route::delete('/cancel-order', [PaymentController::class, 'cancelOrders']);
+    
+    Route::post('/logout', [CustomerController::class, 'logout']);
 });
 
-Route::get('/register', [ParticipantController::class, 'index']);
-Route::post('/register', [ParticipantController::class, 'store']);
-Route::get('/login', [ParticipantController::class, 'login']);
-Route::post('/login', [ParticipantController::class, 'loginValidation']);
+Route::get('/register', [CustomerController::class, 'index']);
+Route::post('/register', [CustomerController::class, 'store']);
+Route::get('/login', [CustomerController::class, 'login']);
+Route::post('/login', [CustomerController::class, 'loginValidation']);

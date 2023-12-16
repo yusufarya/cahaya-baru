@@ -191,31 +191,25 @@
                     </ul>
                 </li> 
 
-                <li class="nav-item {{ Request::segment(1) === 'registrant-report' || Request::segment(1) === 'participant-report' || Request::segment(1) === 'service-detail' ? 'menu-is-opening menu-open' : '' }}">
+                <li class="nav-item {{ Request::segment(1) === 'payment-method' || Request::segment(1) === 'financial-report' ? 'menu-is-opening menu-open' : '' }}">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-file"></i>
+                        <i class="nav-icon fas fa-money-check-alt"></i>
                         <p>
-                            Data Laporan
+                            Keuangan
                         <i class="fas fa-angle-right right"></i> 
                         </p>
                     </a>
                     <ul class="nav nav-treeview ml-3">
                         <li class="nav-item">
-                            <a href="/registrant-report" class="nav-link {{ Request::segment(1) === 'registrant-report' ? 'submenu-active' : '' }}">
+                            <a href="/payment-method" class="nav-link {{ Request::segment(1) === 'payment-method' ? 'submenu-active' : '' }}">
                                 » &nbsp;
-                                <p>Laporan Pendaftar</p>
+                                <p>Metode Pembayaran</p>
                             </a> 
                         </li>
                         <li class="nav-item">
-                            <a href="/participant-report" class="nav-link {{ Request::segment(1) === 'participant-report' ? 'submenu-active' : '' }}">
+                            <a href="/financial-report" class="nav-link {{ Request::segment(1) === 'financial-report' ? 'submenu-active' : '' }}">
                                 » &nbsp;
-                                <p>Laporan Peserta</p>
-                            </a> 
-                        </li>
-                        <li class="nav-item">
-                            <a href="/categories" class="nav-link {{ Request::segment(1) === 'categories' ? 'submenu-active' : '' }}">
-                                » &nbsp;
-                                <p>Laporan Peserta UJK</p>
+                                <p>Laporan Keuangan</p>
                             </a> 
                         </li>
                     </ul>

@@ -21,6 +21,10 @@ function dateFormat(type, date) {
     }
 }
 
+function replaceRupiah(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
 function formatRupiah(event, angka, prefix = "") {
     var number_string = angka.replace(/[^,\d]/g, "").toString(),
         split = number_string.split(","),

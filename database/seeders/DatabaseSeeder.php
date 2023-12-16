@@ -52,6 +52,11 @@ class DatabaseSeeder extends Seeder
             'initial' => 'L',
             'name' => 'Large',
         ]);
+        Size::create([
+            'id' => '4',
+            'initial' => 'XL',
+            'name' => 'Extra Large',
+        ]);
         
         Category::create([
             'id' => '1',
@@ -93,7 +98,7 @@ class DatabaseSeeder extends Seeder
             'username' => 'user_test',
             'gender' => 'M',
             'phone' => '08986564321',
-            'email' => 'usertest@gmail.com',
+            'email' => 'test@gmail.com',
             'password' => Hash::make('111111'),
             'is_active' => 1,
             'created_at' => date('Y-m-d H:i:s'),

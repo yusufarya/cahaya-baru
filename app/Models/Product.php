@@ -6,6 +6,7 @@ use App\Models\Size;
 use App\Models\Unit;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Inventory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -38,5 +39,9 @@ class Product extends Model
     public function sizes(): BelongsTo
     {
         return $this->belongsTo(Size::class, 'size_id', 'id');
+    }
+    public function inventory(): BelongsTo
+    {
+        return $this->belongsTo(Inventory::class, 'id', 'product_id');
     }
 }

@@ -6,7 +6,6 @@ use App\Models\Admin;
 use App\Models\Customer;
 use App\Models\AdminLevel;
 use App\Models\Registrant;
-use App\Models\Participant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -196,7 +195,7 @@ class AdminController extends Controller
         return view('admin-page.registrant', [
             'title' => 'Data Pendaftar',
             'auth_user' => $data,
-            'participant' => $result
+            'result' => $result
         ]);
     }
     

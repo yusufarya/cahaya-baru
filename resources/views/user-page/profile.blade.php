@@ -35,11 +35,7 @@ $date_of_birth = $auth_user->date_of_birth ? date('d, M Y', strtotime($auth_user
                 </tr>
                 <tr>
                     <th style="width: 30%;">No. Telp</th>
-                    <td><b> : &nbsp; {{ $auth_user->no_telp }}</b></td>
-                </tr>
-                <tr>
-                    <th style="width: 30%;">No. Whatsapp</th>
-                    <td><b> : &nbsp; {{ $auth_user->no_wa }}</b></td>
+                    <td><b> : &nbsp; {{ $auth_user->phone }}</b></td>
                 </tr>
                 
                 <tr>
@@ -56,7 +52,7 @@ $date_of_birth = $auth_user->date_of_birth ? date('d, M Y', strtotime($auth_user
                 </tr>
             </table>
             <div class="mx-0">
-                <button type="button" class="btn btn-outline-primary py-1" id="see-more">Tampilkan lebih banyak <i class="fas fa-chevron-down ms-2"></i></button>
+                <button type="button" class="btn btn-outline-primary py-1" id="see-more">Tampilkan alamat untuk pengiriman <i class="fas fa-chevron-down ms-2"></i></button>
                 <button type="button" class="btn btn-outline-secondary py-1" id="see-less">Tutup<i class="fas fa-chevron-up ms-2"></i></button>
             </div>
         </div>
@@ -66,64 +62,18 @@ $date_of_birth = $auth_user->date_of_birth ? date('d, M Y', strtotime($auth_user
 <div class="p-3 rounded-2 shadow mt-0" id="additional-data">
     <div class="row">
         <div class="col">
-            <label class="my-3 py-1 alert alert-danger" ><b>Data lainnya</b></label>
+            {{-- <label class="my-3 py-1 alert alert-danger" ><b>Data lainnya</b></label> --}}
             <hr class="p-0 m-0">
             <table class="table">
                 <tr>
-                    <th style="width: 30%;">Alamat</th>
+                    <th style="width: 30%;">Alamat Lengkap</th>
                     <td><b> : &nbsp; {{ $auth_user->address }} </b></td>
-                </tr>
-                <tr>
-                    <th style="width: 30%;">Agama</th>
-                    <td><b> : &nbsp; {{ $auth_user->religion }} </b></td>
-                </tr>
-                <tr>
-                    <th style="width: 30%;">Status Pernikahan</th>
-                    <td><b> : &nbsp; {{ $auth_user->material_status }} </b></td>
-                </tr>
-                <tr>
-                    <th style="width: 30%;">Tinggi Badan</th>
-                    <td><b> : &nbsp; {{ $auth_user->height ? $auth_user->height.'cm' : '' }} </b></td>
-                </tr>
-                <tr>
-                    <th style="width: 30%;">Pendidikan Terakhir</th>
-                    <td><b> : &nbsp; {{ $auth_user->last_education }} </b></td>
-                </tr>
-                <tr>
-                    <th style="width: 30%;">Kecamatan</th>
-                    <td><b> : &nbsp; {{ $auth_user->sub_district_name }} </b></td>
-                </tr>
-                <tr>
-                    <th style="width: 30%;">Kelurahan</th>
-                    <td><b> : &nbsp; {{ $auth_user->village_name }} </b></td>
-                </tr>
-            </table>
-        </div>
-        <div class="col">
-            <label class="my-3 py-1 alert alert-danger" ><b>Dokumen</b></label>
-            <hr class="p-0 m-0">
-            <table class="table">
-                <tr>
-                    <th style="width: 30%;">Ak 1 / kartu kuning</th>
-                    @if ($auth_user->ak1)
-                        <td><b> : &nbsp; <a href="{{asset('/storage/'.$auth_user->ak1)}}" target="_blank">Lihat file</a> </b></td>
-                    @else
-                        <td> : &nbsp; - </td>
-                    @endif
-                </tr>
-                <tr>
-                    <th style="width: 30%;">Ijazah</th>
-                    @if ($auth_user->ijazah)
-                        <td><b> : &nbsp; <a href="{{asset('/storage/'.$auth_user->ijazah)}}" target="_blank">Lihat file</a> </b></td>
-                    @else
-                        <td> : &nbsp; - </td>
-                    @endif
                 </tr>
             </table>
         </div>
     </div>
 
-    <span>Untuk dapat melakukan pendaftaran pelatihan silahkan lengkapi data di atas. <a href="/update-profile">Lengkapi data.</a></span>
+    <span>Untuk dapat melakukan pembelian silahkan lengkapi data terlebih dahulu. <a href="/update-profile">Lengkapi data.</a></span>
 </div>
 
 @endsection
