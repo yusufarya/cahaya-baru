@@ -86,18 +86,18 @@ Route::middleware('admin')->group(function () {
 
     // LIST PURCHASE TRANSACTION
     Route::get('/purchase-order', [PurchaseOrderController::class, 'index']);
-    Route::delete('/delete-purchase-order/{id}', [PurchaseOrderController::class, 'deleteData']);
+    Route::delete('/delete-purchase-order/{code}', [PurchaseOrderController::class, 'deleteData']);
     // FORM ADD //
     Route::get('/purchase-order/create', [PurchaseOrderController::class, 'addData']);
     Route::post('/purchase-order/addDetail', [PurchaseOrderController::class, 'storeData']); // ADD TRANSACTION HEADER //
     // FORM Edit //
-    Route::get('/purchase-order/{id}/edit', [PurchaseOrderController::class, 'editData']);
+    Route::get('/purchase-order/{code}/edit', [PurchaseOrderController::class, 'editData']);
     Route::post('/purchase-order_detail/add', [PurchaseOrderDetailController::class, 'storeData']); // ADD TRANSACTION DETAIL //
     Route::post('/purchase-order_detail/edit', [PurchaseOrderDetailController::class, 'updateData']); // EDIT TRANSACTION DETAIL //
     Route::delete('/purchase-order_detail/delete', [PurchaseOrderDetailController::class, 'removeData']); // DELETE TRANSACTION DETAIL //
     
     Route::get('/purchase-order_detail/checkData', [PurchaseOrderDetailController::class, 'checkData']); // CHECK TRANSACTION DETAIL //
-    Route::get('/getPurchase_order_detail/{id}', [PurchaseOrderDetailController::class, 'getAllDetail']); // GET TRANSACTION DETAIL BY PURCHASE ID //
+    Route::get('/getPurchase_order_detail/{code}', [PurchaseOrderDetailController::class, 'getAllDetail']); // GET TRANSACTION DETAIL BY PURCHASE CODE //
     
     Route::get('/purchase-report', [PurchaseTransactionReport::class, 'index']); // VIEW REPORT PURCASE TRANSACTION //
     Route::get('/purchase-rpt', [PurchaseTransactionReport::class, 'purchaseReport']); // SROTE REQUEST TO SESSION //
@@ -107,8 +107,10 @@ Route::middleware('admin')->group(function () {
     
     // =============== MODULE PENJUALAN =============== //
     // LIST SALES ORDER TRANSACTION //
-    Route::get('/sales-order', [SalesOrderController::class, 'index']);
-    Route::delete('/delete-sales-order/{id}', [SalesOrderController::class, 'deleteData']);
+    Route::get('/orders', [SalesOrderController::class, 'index']);
+    Route::get('/order/{code}/detail', [SalesOrderController::class, 'detailOrder']);
+    Route::delete('/delete-order/{code}', [SalesOrderController::class, 'deleteData']);
+    Route::get('/sales-order', [SalesOrderController::class, 'salesOrder']);
 
     // =============== MODULE KEUANGAN =============== //
     // PAYMENT METHOD //
@@ -136,10 +138,13 @@ Route::middleware('customer')->group(function () {
     Route::get('/update-profile', [CustomerController::class, 'updateProfile']);
     Route::put('/update-profile/{number}', [CustomerController::class, 'updateProfileData']);
     Route::get('/getVillages/', [GeneralController::class, 'getVillages']);
-    Route::get('/checkDataUser/{id}', [GeneralController::class, 'checkDataUser']);
+    Route::get('/checkDataUser/{code}', [GeneralController::class, 'checkDataUser']);
     
-    Route::get('/payment/{id}', [PaymentController::class, 'index']);
-    Route::post('/pay-order/{id}', [PaymentController::class, 'payOrder']);
+    Route::get('/payment/{code}', [PaymentController::class, 'index']);
+    Route::post('/prosesPayOrder', [PaymentController::class, 'prosesPayOrder']);
+    Route::get('/pay-order/{code}', [PaymentController::class, 'payOrder']);
+    Route::post('/updatePaymentMethod', [PaymentController::class, 'updatePaymentMethod']);
+    Route::post('/uploadImgPayment', [PaymentController::class, 'uploadImgPayment']);
     Route::delete('/cancel-order', [PaymentController::class, 'cancelOrders']);
     
     Route::post('/logout', [CustomerController::class, 'logout']);
