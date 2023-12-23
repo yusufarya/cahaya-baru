@@ -125,8 +125,8 @@
 
         <div class="modal-body">
             <div class="row">
-                <div class="col-md-5 col-lg-5 col-sm-5">
-                    <img src="{{ asset('/storage').'/'.$orderPayment->image }}" alt="imgpayment" style="height: 300px; width: auto;">
+                <div class="col-md-6 col-lg-6 col-sm-5">
+                    <img src="{{ asset('/storage').'/'.$orderPayment->image }}" class="img-fluid" alt="imgpayment" style="height: 300px; width: auto;">
                 </div>
                 <div class="col">
                     <div class="mt-3">
