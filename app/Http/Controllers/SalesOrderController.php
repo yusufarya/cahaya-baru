@@ -43,7 +43,7 @@ class SalesOrderController extends Controller
         // dd($getPaymentOrder);
         return view('admin-page.'.$filename, [
             'script' => $filename_script,
-            'title' => 'Detail Penjualan ',
+            'title' => 'Detail Pesanan ',
             'auth_user' => $user,
             'dataHeader' => $resultDataHeader,
             'dataDetail' => $resultDataDetail,
