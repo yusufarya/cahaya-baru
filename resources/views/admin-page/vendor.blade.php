@@ -36,7 +36,7 @@
                       <td>{{ $row->name }}</td>
                       <td>{{ $row->address }}</td>
                       <td style=" text-align: center;">
-                        <a href="#" onclick="edit_vendor(`{{$row->code}}`, `{{$row->name}}`)" class="text-warning"><i class="fas fa-edit"></i></a>
+                        <a href="#" onclick="edit_vendor(`{{$row->code}}`, `{{$row->name}}`, `{{$row->address}}`)" class="text-warning"><i class="fas fa-edit"></i></a>
                         &nbsp;
                         <a href="#" onclick="delete_vendor(`{{$row->code}}`, `{{$row->name}}`)" class="text-danger"><i class="fas fa-trash-alt"></i></i></a> 
                       </td>

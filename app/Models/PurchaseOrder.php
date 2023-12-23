@@ -11,8 +11,22 @@ class PurchaseOrder extends Model
 {
     use HasFactory;
 
-    public $guarded = ['code'];
+    // public $guarded = ['code'];
+    public $primaryKey = 'code';
+    protected $keyType = "string";
     public $timestamps = false;
+
+    protected $fillable = [
+        'code',
+        'vendor_code',
+        'description',
+        'date',
+        'qty', 
+        'total_price',
+        'discount',
+        'charge',
+        'nett',
+    ];
 
     // public function products(): BelongsTo
     // {

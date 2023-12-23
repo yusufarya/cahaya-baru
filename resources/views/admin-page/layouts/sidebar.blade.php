@@ -75,7 +75,7 @@
                     </ul>
                 </li>
                 
-                {{-- <li class="nav-header">Layanan</li> --}}
+                {{-- <li class="nav-header">Persediaan</li> --}}
                 <li class="nav-item {{ Request::segment(1) === 'units' || Request::segment(1) === 'sizes' || Request::segment(1) === 'categories' || Request::segment(1) === 'products' || Request::segment(1) === 'brands' || Request::segment(1) === 'update-stock' || Request::segment(1) === 'inventories'  ? 'menu-is-opening menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-cubes"></i>
@@ -85,7 +85,7 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview ml-3">
-                        <li class="nav-item">
+                        <li class="nav-item" hidden>
                             <a href="/units" class="nav-link {{ Request::segment(1) === 'units' ? 'submenu-active' : '' }}">
                                 » &nbsp;
                                 <p>Master Satuan</p>
@@ -161,7 +161,7 @@
                 </li> 
                 
                 {{-- <li class="nav-header">Penjualan</li> --}}
-                <li class="nav-item {{ Request::segment(1) === 'sales-order' || Request::segment(1) === 'sales-report' || Request::segment(1) === 'request-order' ? 'menu-is-opening menu-open' : '' }}">
+                <li class="nav-item {{ Request::segment(1) === 'orders' || Request::segment(1) === 'sales-order' || Request::segment(1) === 'sales-report' || Request::segment(1) === 'request-order' ? 'menu-is-opening menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-shopping-cart"></i>
                         <p>
@@ -170,6 +170,12 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview ml-3">
+                        <li class="nav-item">
+                            <a href="/orders" class="nav-link {{ Request::segment(1) === 'orders' ? 'submenu-active' : '' }}">
+                                » &nbsp;
+                                <p>Pesanan </p>
+                            </a> 
+                        </li>
                         <li class="nav-item">
                             <a href="/request-order" class="nav-link {{ Request::segment(1) === 'request-order' ? 'submenu-active' : '' }}">
                                 » &nbsp;
@@ -186,6 +192,30 @@
                             <a href="/sales-report" class="nav-link {{ Request::segment(1) === 'sales-report' ? 'submenu-active' : '' }}">
                                 » &nbsp;
                                 <p>Laporan Penjualan</p>
+                            </a> 
+                        </li>
+                    </ul>
+                </li> 
+
+                <li class="nav-item {{ Request::segment(1) === 'delivery-types' || Request::segment(1) === 'delivery' ? 'menu-is-opening menu-open' : '' }}">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-box"></i>
+                        <p>
+                            Pengiriman
+                        <i class="fas fa-angle-right right"></i> 
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview ml-3">
+                        <li class="nav-item">
+                            <a href="/delivery-types" class="nav-link {{ Request::segment(1) === 'delivery-types' ? 'submenu-active' : '' }}">
+                                » &nbsp;
+                                <p>Jenis Pengiriman</p>
+                            </a> 
+                        </li>
+                        <li class="nav-item">
+                            <a href="/delivery" class="nav-link {{ Request::segment(1) === 'delivery' ? 'submenu-active' : '' }}">
+                                » &nbsp;
+                                <p>Pengiriman Pesanan</p>
                             </a> 
                         </li>
                     </ul>

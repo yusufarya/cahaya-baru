@@ -143,6 +143,7 @@ class CustomerController extends Controller
             'phone'         => 'required|max:15',
             'place_of_birth'=> 'required|max:30',
             'date_of_birth' => 'required',
+            'city'       => 'required|max:30',
             'address'       => 'required|max:200',
             'image'     => 'image|file|max:1024',
         ]);
@@ -174,23 +175,6 @@ class CustomerController extends Controller
         return redirect('/_profile');
     }
 
-    
-    // keranjang saya //
-    function shoppingCarts() {
-        
-        $filename = 'shopping_carts';
-        $filename_script = getContentScript(false, $filename);
-
-        $registrant = new Customer;
-        $result = $registrant->getShoppingCarts();
-        
-        return view('user-page.'.$filename, [
-            'script' => $filename_script,
-            'title' => 'Keranjang Saya',
-            'shopping_carts' => $result
-        ]);
-    }
-
     // Pesanan saya
     function myOrders() {
         
@@ -203,7 +187,8 @@ class CustomerController extends Controller
         return view('user-page.'.$filename, [
             'script' => $filename_script,
             'title' => 'Daftar Pesanan ',
-            'my_orders' => $result
+            'my_orders' => $result,
+            'status' => ''
         ]);
     }
 }

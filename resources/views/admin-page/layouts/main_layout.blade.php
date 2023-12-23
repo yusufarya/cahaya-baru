@@ -43,7 +43,7 @@
 
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="{{ asset('img/logo.png') }}" alt="AdminLTELogo" height="60" width="120">
+            <img class="animation__shake" src="{{ asset('img/logo.png') }}" alt="logo" height="60" width="120">
         </div>
 
         @include('admin-page.layouts.navbar')
@@ -58,10 +58,10 @@
         </div>
         <!-- /.content-wrapper -->
         <footer class="main-footer">
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+            <strong>Copyright &copy; Cahaya Baru - {{ date('Y') }} <a href="https://yusufarya.my.id" target="_blank" class="text-decoration-none">29tech.id</a>.</strong>
             All rights reserved.
             <div class="float-right d-none d-sm-inline-block">
-            <b>Version</b> 3.2.0
+            <b>Version</b> 1.0.0
             </div>
         </footer> 
 

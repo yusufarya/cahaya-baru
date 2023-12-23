@@ -8,12 +8,14 @@ use App\Models\Unit;
 use App\Models\Admin;
 use App\Models\Brand;
 use App\Models\Period;
+use App\Models\Vendor;
 use App\Models\Setting;
 use App\Models\Village;
 use App\Models\Category;
 use App\Models\Customer;
 use App\Models\AdminLevel;
 use App\Models\SubDistrict;
+use App\Models\DeliveryType;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -76,6 +78,24 @@ class DatabaseSeeder extends Seeder
         AdminLevel::create([
             'id' => '2',
             'name' => 'Admin Staf',
+        ]);
+        
+        Vendor::create([
+            'code' => '1',
+            'name' => 'Vendor A',
+            'address' => 'Tangerang',
+        ]);
+        
+        DeliveryType::create([
+            'name' => 'Lokal',
+            'description' => 'Pengiriman lokal digunakan untuk pengiriman area tangerang.',
+            'charge' => 5000
+        ]);
+
+        DeliveryType::create([
+            'name' => 'Ekspedisi',
+            'description' => 'Pengiriman menggunakan ekspedisi digunakan untuk pengiriman area luar tangerang.',
+            'charge' => 13000
         ]);
 
         Admin::create([

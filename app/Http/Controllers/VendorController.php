@@ -66,9 +66,9 @@ class VendorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, int $code)
     {
-        $result = Vendor::find($id)->update(['name'=>ucwords($request['name']), 'address' => ucwords($request['address'])]);
+        $result = Vendor::where('code', $code)->update(['name'=>ucwords($request['name']), 'address' => ucwords($request['address'])]);
         if($result) {
             $request->session()->flash('success', 'Vendor berhasil diubah');
         } else {
@@ -80,9 +80,9 @@ class VendorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, int $id)
+    public function destroy(Request $request, int $code)
     {
-        $result = Vendor::find($id)->delete();
+        $result = Vendor::find($code)->delete();
         if($result) {
             $request->session()->flash('success', 'Vendor berhasil dihapus');
         } else {

@@ -43,8 +43,9 @@
             </small>
         </p>
         <p class="text-black " style="font-size: 16.5px; line-height: 1.6; text-align: justify"><?= $product->description ?></p>
-        <a href="/checkDataUser/{{$product->id}}" class="btn bg-warning text-white"><i class="fas fa-cart-plus"></i> Keranjang</a> |
-        <a href="/checkDataUser/{{$product->id}}" class="btn bg-danger text-white"><i class="fas fa-dollar-sign"></i> Beli Sekarang</a>
+        
+        <button type="button" onclick="popUpAddCart()" class="btn bg-warning text-white shadow"><i class="fas fa-cart-plus"></i> Keranjang</button> 
+        <a href="/checkDataUser/{{$product->id}}" class="btn bg-danger text-white shadow"><i class="fas fa-dollar-sign"></i> Beli Sekarang</a>
 
     </div>
     <hr class="mx-3 mt-3">
@@ -55,6 +56,40 @@
     
   </div>
 
+</div>
+
+
+<div class="modal fade" id="modal-add-cart" tabindex="-1">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><b>Tambah Ke Keranjang</b></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="/add-to-cart/{{$product->id}}" method="POST">
+            @csrf
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+                        <label for="qty">Quantity</label>
+                    </div>
+                    <div class="col">
+                        <button style="display: inline" type="button" class="btn bg-primary-color text-white" id="min">-</button>
+                        <input type="text" name="qty" id="qty" class="form-control" onkeyup="onlyNumbers(this)" style="width: 62%; display: inline;" value="1">
+                        <button style="display: inline" type="button" class="btn bg-primary-color text-white" id="plus">+</button>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Ke keranjang" >
+                    Tambah
+                </button>
+            </div>
+        </form> 
+      </div>
+    </div>
 </div>
 
 @endsection

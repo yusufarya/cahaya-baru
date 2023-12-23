@@ -48,28 +48,6 @@ function getServicesList(categoryId = "") {
             if (data.status == "success") {
                 var html = "";
                 data.products.map((item, index) => {
-                    // var start_date_ = dateFormat(
-                    //     "-",
-                    //     data.active_period.start_date
-                    // );
-                    // var end_date_ = dateFormat(
-                    //     "-",
-                    //     data.active_period.end_date
-                    // );
-
-                    // if (index == 0) {
-                    //     html +=
-                    //         `<div class="text-center alert alert-warning mx-2 py-1 ms-1 mt-3">
-                    //     <i class="fas fa-calendar-minus me-2"></i>
-                    //     Pendaftaran <b>` +
-                    //         data.active_period.name +
-                    //         `</b> dibuka pada <b>` +
-                    //         start_date_ +
-                    //         `</b> s/d <b>` +
-                    //         end_date_ +
-                    //         `</b>
-                    //     </div>`;
-                    // }
                     let textLenght = item.description
                         ? item.description.length > 111
                             ? item.description + ".."

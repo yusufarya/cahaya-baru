@@ -57,7 +57,7 @@
                 <input type="text" class="form-control inline-block @error('place_of_birth')is-invalid @enderror" name="place_of_birth" id="place_of_birth" value="{{ old('place_of_birth', $auth_user->place_of_birth) }}">
                 @error('place_of_birth')
                 <small class="invalid-feedback">
-                    Tempat lahir {{ $message }}
+                    &nbsp; Tempat lahir {{ $message }}
                 </small>
                 @enderror
             </div>
@@ -66,13 +66,27 @@
                 <input type="date" class="form-control inline-block @error('date_of_birth')is-invalid @enderror" name="date_of_birth" id="date_of_birth" value="{{ old('date_of_birth', $auth_user->date_of_birth) }}">
                 @error('date_of_birth')
                 <small class="invalid-feedback">
-                    Tanggal lahir {{ $message }}
+                    &nbsp; Tanggal lahir {{ $message }}
+                </small>
+                @enderror
+            </div>
+            <div class=" mt-2 d-flex">
+                <label for="city" class="col-md-3 ms-3">Kota </label>
+                <input type="text" class="form-control inline-block @error('city')is-invalid @enderror" name="city" id="city" value="{{ old('city', $auth_user->city) }}">
+                @error('city')
+                <small class="invalid-feedback">
+                    &nbsp; Kota {{ $message }}
                 </small>
                 @enderror
             </div>
             <div class=" mt-2 d-flex">
                 <label for="address" class="col-md-3 ms-3">Alamat </label>
                 <input type="text" class="form-control inline-block @error('address')is-invalid @enderror" name="address" id="address" value="{{ old('address', $auth_user->address) }}">
+                @error('address')
+                <small class="invalid-feedback">
+                    &nbsp; Alamat {{ $message }}
+                </small>
+                @enderror
             </div>
         </div>
         <button type="submit" class="btn btn-outline-success mt-3">Simpan Data</button>

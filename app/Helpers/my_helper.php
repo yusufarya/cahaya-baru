@@ -2,7 +2,9 @@
 
 use App\Models\Admin;
 use App\Models\SalesOrder;
+use App\Models\DeliveryType;
 use App\Models\OrderPayment;
+use App\Models\RequestOrder;
 use App\Models\PurchaseOrder;
 use Illuminate\Support\Facades\DB;
 
@@ -24,6 +26,12 @@ function getLastPayCode() {
     return $numberFix;
 }
 
+function getCharge($type = '') {
+    if(!$type) {
+        return DeliveryType::first();
+    }
+}
+
 function getLasCodeTransaction($type) {
     
     if($type == 'P') {
@@ -40,11 +48,21 @@ function getLasCodeTransaction($type) {
         $lastNumber = SalesOrder::max('code');
     
         if($lastNumber) {
-            $lastNumber = substr($lastNumber, -4);
+            $lastNumber = substr($lastNumber, -3);
             $code_ = sprintf('%03d', $lastNumber+1);
             $numberFix = "STCB".date('ymdhis').$code_;
         } else {
             $numberFix = "STCB".date('ymdhis')."001";
+        }
+    } else if($type == 'R') {
+        $lastNumber = RequestOrder::max('code');
+    
+        if($lastNumber) {
+            $lastNumber = substr($lastNumber, -3);
+            $code_ = sprintf('%03d', $lastNumber+1);
+            $numberFix = "CRCB".date('ymdhis').$code_;
+        } else {
+            $numberFix = "CRCB".date('ymdhis')."001";
         }
     } 
 

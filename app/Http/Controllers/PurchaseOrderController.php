@@ -17,7 +17,7 @@ class PurchaseOrderController extends Controller
         $filename_script = getContentScript(true, $filename);
 
         $user = Auth::guard('admin')->user();
-        $data = PurchaseOrder::with('vendor')->orderBy('code', 'DESC')->get();
+        $data = PurchaseOrder::with('vendor')->orderBy('code', 'ASC')->get();
         // dd($data);
         return view('admin-page.'.$filename, [
             'script' => $filename_script,
@@ -42,13 +42,13 @@ class PurchaseOrderController extends Controller
         ]);
     }
     
-    function editData(int $id) {
+    function editData(string $code) {
         $filename = 'purchase_order_edit';
         $filename_script = getContentScript(true, $filename);
 
         $user = Auth::guard('admin')->user();
         $vendor = Vendor::get();
-        $data = PurchaseOrder::where(['id' => $id])->first();
+        $data = PurchaseOrder::find($code);
         // dd($data);
         return view('admin-page.'.$filename, [
             'script' => $filename_script,
@@ -66,10 +66,14 @@ class PurchaseOrderController extends Controller
             'date' => $request->date,
         ];
 
-        $insertedId = DB::table('purchase_orders')->insertGetId($data);
+        $code = getLasCodeTransaction('P');
+
+        $data['code'] = $code;
+        // dd($data);
+        $inserted = PurchaseOrder::create($data);
         
-        if($insertedId) {
-            return response()->json(['status' => 'success', 'dataId' => $insertedId]);
+        if($inserted) {
+            return response()->json(['status' => 'success', 'code' => $code]);
         } else {
             return response()->json(['status' => 'failed']);
         }
@@ -78,7 +82,7 @@ class PurchaseOrderController extends Controller
 
     public function deleteData(Request $request, string $code)
     {
-        $data = PurchaseOrder::where($code);
+        $data = PurchaseOrder::find($code);
         $result = $data->delete();
         if($result) {
             $request->session()->flash('success', 'Transaksi berhasil diubah');
@@ -100,10 +104,10 @@ class PurchaseOrderController extends Controller
             'total_price' => $total_price,
         ];
 
-        $update = DB::table('purchase_orders')->where(['id' => $request->purchase_order_code])->update($data);
+        $update = DB::table('purchase_orders')->where(['code' => $request->purchase_order_code])->update($data);
         
         if($update) {
-            return response()->json(['status' => 'success', 'dataId' => $update]);
+            return response()->json(['status' => 'success']);
         } else {
             return response()->json(['status' => 'failed']);
         }

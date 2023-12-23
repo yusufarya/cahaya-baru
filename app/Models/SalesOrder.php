@@ -11,7 +11,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class SalesOrder extends Model
 {
     use HasFactory;
-    public $guarded = ['code'];
+    public $guarded = ['id'];
+    public $primaryKey = 'code';
+    protected $keyType = "string";
     public $timestamps = false;
 
     /**

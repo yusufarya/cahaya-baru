@@ -10,26 +10,64 @@
         </div>
     </div>
 
-    <div class="row mt-3">
+    <div class="row mt-3 mx-auto w-75 shadow">
+      @if (count($shopping_carts))
+        <div class="mt-3 p-3 card shadow-lg">
+          <div class="row">
+            {{-- <div class="col-lg-1">
+              <div class="input-group mb-3">
+                <div class="input-group-text">
+                  <input class="form-check-input mt-0" type="checkbox" value="All" id="selectAll">
+                  &nbsp; Pilih Semua
+                </div>
+              </div>
+            </div> --}}
+            <div class="col">
+              <h5 class="font-weight-bolder pt-1" style="float: right;"> Total Harga</h5>
+            </div>
+            <div class="col-md-2">
+              <input type="text" name="vtotal_price" id="vtotal_price" class="form-control d-inline w-100" style="text-align: right;" value="0">
+              <input type="hidden" name="total_price" id="total_price" class="form-control d-inline w-100" style="text-align: right;" value="0">
+            </div>
+            <div class="col-md-2">
+              <button type="button" class="btn bg-primary-color text-white" id="checkout" style="float: right;"> Checkout </button>
+            </div>
+          </div>
+        </div>
+        <input type="hidden" name="id_cart" id="id_cart" value="">
         @foreach ($shopping_carts as $item)
             <div class="mt-3 p-3 card shadow-lg">
                 <div class="row">
-                    <div class="col-lg-8">
-                        <h2>{{$item->trainingsTitle}}</h2>
-                        <span class="alert alert-info py-0"> {{$item->category}}</span>
-                        <p class="mt-2">{{$item->description}}</p>
-                        <span class="alert alert-warning px-2 py-0"> {{$item->gelombang}}</span>
-                        <br>
-                        <button class="btn btn-success btn-sm mt-3" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Kartu Pembelian" onclick="printCard({{$item->id}})">
-                            <i class="far fa-address-card mr-1"></i> Lihat Kartu
-                        </button>
+                    <div class="col-lg-1">
+                      <div class="input-group mb-3">
+                        <div class="shadow rounded p-2">
+                          <input class="form-check-input mt-0" type="checkbox" value="{{ $item->id }}" id="items" onclick="selectItem(`{{ $item->id }}`, `{{ $item->products->purchase_price*$item->qty }}`)" style="height: 20px; width: 20px;">
+                        </div>
+                      </div>
                     </div>
-                    <div class="col-lg-4">
-                        <img src="{{asset('/storage/'.$item->image)}}" class="w-75" alt="serviceImg">
+                    <div class="col-lg-8">
+                        <h5>{{$item->products->name}}</h5>
+                        <span class="alert alert-info py-0"> {{$item->products->categories->name}}</span>
+                        <span class="alert alert-info py-0"> {{$item->products->sizes->initial}}</span>
+                        <p class="mt-2">Qty &nbsp; : {{$item->qty}}</p>
+                        <p class="mt-2">Harga &nbsp; : {{ number_format($item->products->purchase_price,2) }}</p>
+                        <p class="mt-2">Jumlah &nbsp; : {{ number_format($item->products->purchase_price*$item->qty,2) }} <sub>X{{$item->qty}}</sub></p>
+                        <br>
+                    </div>
+                    <div class="col-lg-3">
+                        <img src="{{asset('/storage/'.$item->products->image)}}" style="width: 75%" alt="serviceImg">
                     </div>
                 </div>
             </div>
         @endforeach
+      @else
+        <br><br><br>
+        <hr>
+        <div class="row text-center" >
+          <span class="alert alert-info text-danger pt-4" style="height: 80px;">Keranjang belanja masih kosong.</span>
+        </div>
+        <br><br><br><br><br><br><br><br>
+      @endif
     </div>
 
 </div>

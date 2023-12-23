@@ -57,9 +57,9 @@ class Customer extends Authenticatable
 
     function getShoppingCarts() {
         return DB::table('shopping_carts')
-                ->select('shopping_carts.*')
+                ->select('shopping_carts.*', 'customers.fullname as customer_name', 'products.name as product_name')
                 ->leftJoin('customers', 'customers.code', '=', 'shopping_carts.customer_code')
-                // ->leftJoin('periods', 'periods.id', '=', 'trainings.period_id') 
+                ->leftJoin('products', 'products.id', '=', 'shopping_carts.product_id') 
                 // ->leftJoin('categories', 'categories.id', '=', 'trainings.category_id')
                 ->where(['customer_code' => Auth::guard('customer')->user()->code])->get();
     }

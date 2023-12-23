@@ -1,4 +1,8 @@
-
+<?php 
+if(auth('customer')->user()) {
+  $getCountCart = DB::table('shopping_carts')->where('customer_code',auth('customer')->user()->code)->count();
+}
+?>
 
 <nav class="navbar navbar-expand-lg sticky-top" id="navigasi">
     <div class="container-fluid mx-0">
@@ -37,7 +41,8 @@
               </li>
               <li class="nav-item mx-2">
                 <a href="/shopping-cart" class="btn {{ Request::segment(1) == 'shopping-cart' ? 'btn-primary' : 'btn-outline-primary' }} register py-1 mt-1" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Keranjang Saya">
-                  <i class="fas fa-shopping-cart"></i>'
+                  <i class="fas fa-shopping-cart"></i> 
+                  <sup><span class="badge bg-danger">{{ $getCountCart }}</span></sup>
                 </a>
               </li>
               <li class="nav-item mx-2">

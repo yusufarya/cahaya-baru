@@ -52,11 +52,9 @@ $(async function () {
                 },
                 success: function (response) {
                     $("#addDetail").hide(100);
-                    const no_trans = get_ymd(date);
-                    // console.log(no_trans + response.dataId);
                     $("#vendor_code").prop("disabled", true);
-                    $("#codeTrans").val(no_trans + response.dataId);
-                    $("#purchase_order_code").val(response.dataId);
+                    $("#codeTrans").val(response.code);
+                    $("#purchase_order_code").val(response.code);
                     $("#detail-list").show(100);
                     // Handle the response here
                 },

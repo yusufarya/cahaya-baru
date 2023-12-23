@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('order_payments', function (Blueprint $table) {
             $table->char('code', 20)->primary();
-            $table->integer('order_id');
-            $table->dateTime('date')->nullable()->default(date('Y-m-d H:i:s'));
+            $table->char('order_code');
+            $table->dateTime('date')->nullable();
             $table->enum('status', ['Approve', 'Reject', 'Waiting'])->default('Waiting');
-            $table->text('image');
-            $table->unsignedBigInteger('payment_method_id');
+            $table->text('image')->nullable();
+            $table->unsignedBigInteger('payment_method_id')->nullable();
             $table->foreign('payment_method_id')->on('payment_methods')->references('id');
         });
     }

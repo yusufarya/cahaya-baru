@@ -15,13 +15,13 @@ function delete_data(code, name) {
                 $(".modal-title").text("Hapus Data");
                 $("#modal-delete form").attr(
                     "action",
-                    "/delete-purchase-order/" + id
+                    "/delete-purchase-order/" + code
                 );
 
                 var html =
                     `<div class="col mb-2">
                                 <input type="hidden" name="id" id="id" value="` +
-                    id +
+                    code +
                     `">
                                 <span style="margin-left: 10px;">Hapus Pembelian <b>` +
                     name +

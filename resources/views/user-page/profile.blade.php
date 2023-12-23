@@ -66,6 +66,10 @@ $date_of_birth = $auth_user->date_of_birth ? date('d, M Y', strtotime($auth_user
             <hr class="p-0 m-0">
             <table class="table">
                 <tr>
+                    <th style="width: 30%;">Kota</th>
+                    <td><b> : &nbsp; {{ $auth_user->city }} </b></td>
+                </tr>
+                <tr>
                     <th style="width: 30%;">Alamat Lengkap</th>
                     <td><b> : &nbsp; {{ $auth_user->address }} </b></td>
                 </tr>
@@ -73,7 +77,7 @@ $date_of_birth = $auth_user->date_of_birth ? date('d, M Y', strtotime($auth_user
         </div>
     </div>
 
-    <span>Untuk dapat melakukan pembelian silahkan lengkapi data terlebih dahulu. <a href="/update-profile">Lengkapi data.</a></span>
+    <span>Untuk dapat melakukan pembelian silahkan lengkapi data terlebih dahulu. <a href="/update-profile" class="text-decoration-none"><b>Lengkapi data disini</b></a></span>
 </div>
 
 @endsection

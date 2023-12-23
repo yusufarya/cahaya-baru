@@ -114,9 +114,9 @@ class PurchaseOrderDetailController extends Controller
         }
     }
 
-    function getAllDetail(int $id) {
+    function getAllDetail(string $code) {
         
-        $resuldData = PurchaseOrderDetail::with('products.categories', 'products.sizes', 'products.units')->where(['purchase_order_code' => $id])
+        $resuldData = PurchaseOrderDetail::with('products.categories', 'products.sizes', 'products.units')->where(['purchase_order_code' => $code])
                         ->orderBy('sequence', 'ASC')->get();
 
         if ($resuldData) {

@@ -2,108 +2,87 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\SalesOrder;
+use App\Models\OrderPayment;
+use Illuminate\Http\Request;
 use App\Models\SalesOrderDetail;
 use Illuminate\Support\Facades\Auth;
 
 class SalesOrderController extends Controller
 {
     function index() {
-        $filename = 'purchase_order';
+        $filename = 'orders';
         $filename_script = getContentScript(true, $filename);
 
         $user = Auth::guard('admin')->user();
-        $data = SalesOrder::with('vendor')->orderBy('id', 'DESC')->get();
+        $data = SalesOrder::with('customers')->orderBy('code', 'DESC')->where(['status'=> 'N'])->get();
         // dd($data);
         return view('admin-page.'.$filename, [
             'script' => $filename_script,
-            'title' => 'Penjualan ',
+            'title' => 'Order Pesanan',
             'auth_user' => $user,
             'resultData' => $data
         ]);
     }
     
-    function addData() {
-        $filename = 'purchase_order_add';
+    function detailOrder(Request $request, string $order_code) {
+
+        $filename = 'order_detail';
         $filename_script = getContentScript(true, $filename);
 
-        $user = Auth::guard('admin')->user();
-        $vendor = Vendor::get();
-        // dd($data);
-        return view('admin-page.'.$filename, [
-            'script' => $filename_script,
-            'title' => 'Tambah Penjualan ',
-            'auth_user' => $user,
-            'vendor' => $vendor,
-        ]);
-    }
-    
-    function editData(int $id) {
-        $filename = 'purchase_order_edit';
-        $filename_script = getContentScript(true, $filename);
-
-        $user = Auth::guard('admin')->user();
-        $vendor = Vendor::get();
-        $data = SalesOrder::where(['id' => $id])->first();
-        // dd($data);
-        return view('admin-page.'.$filename, [
-            'script' => $filename_script,
-            'title' => 'Tambah Penjualan ',
-            'auth_user' => $user,
-            'vendor' => $vendor,
-            'resultData' => $data,
-        ]);
-    }
-
-    function storeData(Request $request) {
-        
-        $data = [
-            'vendor_code' => $request->vendor_code,
-            'date' => $request->date,
-        ];
-
-        $insertedId = DB::table('purchase_orders')->insertGetId($data);
-        
-        if($insertedId) {
-            return response()->json(['status' => 'success', 'dataId' => $insertedId]);
-        } else {
-            return response()->json(['status' => 'failed']);
+        if($request->status) {
+            SalesOrder::where('code', $order_code)->update(['status' => (string)$request->status]);
+            OrderPayment::where('order_code', $order_code)->update(['status' => "Approve"]);
         }
 
+        $user = Auth::guard('admin')->user();
+        $resultDataHeader = SalesOrder::with('customers')->find($order_code);
+        $resultDataDetail = SalesOrderDetail::with('products.sizes')->where(['sales_order_code' => $order_code])->get();
+        
+        $getPaymentOrder = OrderPayment::with('payment_methods')->where(['order_code' => $order_code])->first();
+        // dd($getPaymentOrder);
+        return view('admin-page.'.$filename, [
+            'script' => $filename_script,
+            'title' => 'Detail Penjualan ',
+            'auth_user' => $user,
+            'dataHeader' => $resultDataHeader,
+            'dataDetail' => $resultDataDetail,
+            'orderPayment' => $getPaymentOrder,
+        ]);
     }
 
-    public function deleteData(Request $request, int $id)
+    function productOrderDetails(Request $request, int $sequence) {
+        dd($request->order_code);
+    }
+
+    function salesOrder() {
+        $filename = 'sales_order';
+        $filename_script = getContentScript(true, $filename);
+
+        $user = Auth::guard('admin')->user();
+        $data = SalesOrder::with('customers')
+                            ->select('sales_orders.*', 'order_payments.status as status_payment')
+                            ->leftJoin('order_payments', 'sales_orders.code', '=', 'order_payments.order_code')
+                            ->orderBy('sales_orders.code', 'DESC')->where(['sales_orders.status'=> 'Y'])->get();
+        // dd($data);
+        return view('admin-page.'.$filename, [
+            'script' => $filename_script,
+            'title' => 'Order Penjualan ',
+            'auth_user' => $user,
+            'resultData' => $data
+        ]);
+    }
+
+    public function updateStatusDelivery(Request $request)
     {
-        $data = SalesOrder::find($id);
-        $result = $data->delete();
+        $data = ['delivery' => $request->delivery];
+        $result = SalesOrder::find($request->code)->update($data);
         if($result) {
-            $request->session()->flash('success', 'Transaksi berhasil diubah');
+            $request->session()->flash('success', 'Transaksi berhasil diperbaharui');
         } else {
             $request->session()->flash('success', 'Proses gagal, Hubungi administrator');
         }
-        return redirect('/purchase-order');
+        return redirect('/sales-order');
     }
 
-    function submitData(Request $request) {
-
-        $where = ['sales_order_code' => $request->sales_order_code];
-        
-        $qty = SalesOrderDetail::where($where)->sum('qty');
-        $total_price = SalesOrderDetail::where($where)->sum('price');
-
-        $data = [
-            'qty' => $qty,
-            'total_price' => $total_price,
-        ];
-
-        $update = DB::table('purchase_orders')->where(['id' => $request->sales_order_code])->update($data);
-        
-        if($update) {
-            return response()->json(['status' => 'success', 'dataId' => $update]);
-        } else {
-            return response()->json(['status' => 'failed']);
-        }
-
-    }
 }

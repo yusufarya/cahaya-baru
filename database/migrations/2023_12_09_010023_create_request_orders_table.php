@@ -17,11 +17,16 @@ return new class extends Migration
             $table->foreign('customer_code')->on('customers')->references('code');
             $table->unsignedBigInteger('size_id');
             $table->foreign('size_id')->on('sizes')->references('id');
-            $table->dateTime('date')->nullable()->default(date('Y-m-d H:i:s'));
+            $table->dateTime('date')->nullable()->default();
             $table->string('description', 200);
             $table->double('qty')->default(0);
             $table->double('price')->default(0);
+            $table->double('charge')->default(0);
+            $table->double('nett')->default(0);
             $table->text('image')->nullable();
+            $table->enum('status', ['Y', 'N'])->default('N'); // Y terjual N masih dalam pesanan
+            // 0 pesanan 1 persiapan 2 pengiriman 3 selesai / pesanan sampai tujuan
+            $table->enum('delivery', ['0','1', '2', '3'])->default('0');
         });
     }
 

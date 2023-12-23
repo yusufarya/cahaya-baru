@@ -31,14 +31,17 @@ class GeneralController extends Controller {
                 $request->session()->flash('message', 'Produk yang anda pilih telah habis.');
                 return redirect('/detail-product/'.$productId);
             }
+
             $checkOrderHeader = SalesOrder::with('salesOrderDetails.products')
                                 ->where(['customer_code' => $user->code])
                                 ->first();
                                 // dd($checkOrderHeader);
             if($checkOrderHeader) {
-                if($productId == $checkOrderHeader->salesOrderDetails->products->id) {
-                    $request->session()->flash('message', 'Anda mempunyai pesanan pada produk yang sama, <a href="/payment/'.$checkOrderHeader->id.'">lihat pesanan</a>.');
-                    return redirect('/detail-product/'.$productId);
+                if($checkOrderHeader->salesOrderDetails != NULL) {
+                    if($productId == $checkOrderHeader->salesOrderDetails->products->id) {
+                        $request->session()->flash('message', 'Anda mempunyai pesanan pada produk yang sama, <a href="/payment/'.$checkOrderHeader->code.'">lihat pesanan</a>.');
+                        return redirect('/detail-product/'.$productId);
+                    }
                 }
             }
 
@@ -48,19 +51,27 @@ class GeneralController extends Controller {
                 'customer_code' => $user->code,
                 'date' => date('Y-m-d'),
             ];
+
             
-            $getIdHeader = SalesOrder::insertGetId($dataHeader);
+            if(!$checkOrderHeader) {
+                $code = getLasCodeTransaction('S');
+    
+                $dataHeader['code'] = $code;
+                SalesOrder::create($dataHeader);
+            } else {
+                $code = $checkOrderHeader->code;
+            }
 
             $dataDetail = [
-                'sales_order_id' => $getIdHeader,
-                'customer_code' => $user->code,
+                'sequence' => 1,
+                'sales_order_code' => $checkOrderHeader->code,
                 'product_id' => $productId,
                 'date' => date('Y-m-d'),
             ];
 
             SalesOrderDetail::create($dataDetail);
 
-            return redirect('/payment/'.$getIdHeader);
+            return redirect('/payment/'.$code);
             
         }
         

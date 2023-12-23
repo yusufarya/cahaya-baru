@@ -21,22 +21,31 @@ function add_vendor() {
     $("#content-add").append(html);
 }
 
-function edit_vendor(id, name) {
+function edit_vendor(id, name, address) {
     $("#modal-edit").modal("show");
     $(".modal-title").text("Ubah Data");
     $("#modal-edit form").attr("action", "/vendors/" + id);
     $("#content-edit").html("");
 
     var html =
-        `<div class="col mb-2">
-                <input type="hidden" name="id" id="id" value="` +
-        id +
-        `">
-                <label for="name" style="margin-left: 10px;">Nama Vendor<label>
-                <input type="text" autocomplete="off" name="name" id="name" class="form-control" style="margin-left: 30px;" value="` +
+        `<div class="row mt-2 px-3">
+                <div class="col-md-4 mb-2">
+                    <label for="name">Nama Vendor<label>
+                </div>
+                <div class="col-md-8 mb-2">
+                    <input type="text" autocomplete="off" name="name" id="name" class="form-control" style="margin-left: 0px;" value="` +
         name +
         `">
-                </div>`;
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label for="address">Alamat<label>
+                </div>
+                <div class="col-md-8 mb-2">
+                    <input type="text" autocomplete="off" name="address" id="address" class="form-control" style="margin-left: 0px;" value="` +
+        address +
+        `">
+                </div>
+            </div>`;
 
     $("#content-edit").append(html);
 }

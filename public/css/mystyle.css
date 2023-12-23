@@ -72,6 +72,14 @@ body {
     border-bottom-right-radius: 60px;
 }
 
+.button-submit {
+    border: 1px solid #662e1c;
+}
+.button-submit:hover {
+    background-color: #662e1c;
+    color: aliceblue;
+}
+
 .button-login {
     border: 1px solid #662e1c;
     color: #d6e5e6;

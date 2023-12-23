@@ -1,7 +1,7 @@
 @extends('admin-page.layouts.main_layout')
 
 <?php 
-  $no = 1;
+// dd($resultData[0]->code);
 ?>
 
 @section('content-pages')
@@ -38,15 +38,15 @@
               <tbody>
                 @foreach ($resultData as $row)
                   <tr>
-                      <td>{{ date('ymd', strtotime($row->date)).'-0'. $row->id }}</td>
+                      <td><?= $row->code ?></td>
                       <td>{{ $row->vendor->name }}</td>
                       <td>{{ date('d - m - Y', strtotime($row->date)) }}</td>
                       <td style=" text-align: right;">{{ number_format($row->qty,2) }}</td> 
                       <td style=" text-align: right;">{{ number_format($row->total_price,2) }}</td> 
                       <td style=" text-align: center;">
-                        <a href="/purchase-order/{{$row->id}}/edit" class="text-warning"><i class="fas fa-edit"></i></a>
+                        <a href="/purchase-order/{{$row->code}}/edit" class="text-warning"><i class="fas fa-edit"></i></a>
                         &nbsp;
-                        <a href="#" onclick="delete_data(`{{$row->id}}`, `{{$row->name}}`)" class="text-danger"><i class="fas fa-trash-alt"></i></i></a> 
+                        <a href="#" onclick="delete_data(`{{$row->code}}`, `{{$row->name}}`)" class="text-danger"><i class="fas fa-trash-alt"></i></i></a> 
                       </td>
                   </tr>
                 @endforeach

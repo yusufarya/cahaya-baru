@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->char('customer_code');
             $table->foreign('customer_code')->on('customers')->references('code');
-            $table->unsignedBigInteger('sales_order_id');
-            $table->foreign('sales_order_id')->on('sales_orders')->references('id');
+            // $table->char('sales_order_code');
+            // $table->foreign('sales_order_code')->on('sales_orders')->references('code');
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->on('products')->references('id');
             $table->double('qty')->default(0);

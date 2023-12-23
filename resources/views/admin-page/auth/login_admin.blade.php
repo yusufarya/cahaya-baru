@@ -6,12 +6,13 @@
         <meta name="description" content="CV CAHAYA BARU, Tangerang">
         <meta name="author" content="Yusuf Aryadilla and Bootstrap contributors">
         <meta name="generator" content="CCB">
-        <title>Register - Page · CCB</title>
+        <title>Login - Page · CCB</title>
       
         <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
      
     </head>
+    
     <body class="d-flex align-items-center py-4 bg-white">
 
         <main class="row m-auto">

@@ -15,11 +15,13 @@ return new class extends Migration
             $table->char('code', 20)->primary();
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->on('products')->references('id');
-            $table->string('description', 200);
+            $table->string('description', 200)->nullable();
             $table->dateTime('date')->nullable();
-            $table->enum('flag', [1, 2]);
+            $table->enum('flag', [1, 2, 3]);
             $table->double('qty')->default(0);
             $table->double('price')->default(0);
+            $table->double('discount')->default(0);
+            $table->double('charge')->default(0);
         });
     }
 
