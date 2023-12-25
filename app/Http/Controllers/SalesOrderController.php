@@ -40,7 +40,7 @@ class SalesOrderController extends Controller
         $resultDataDetail = SalesOrderDetail::with('products.sizes')->where(['sales_order_code' => $order_code])->get();
         
         $getPaymentOrder = OrderPayment::with('payment_methods')->where(['order_code' => $order_code])->first();
-        // dd($getPaymentOrder);
+        // dd($resultDataDetail);
         return view('admin-page.'.$filename, [
             'script' => $filename_script,
             'title' => 'Detail Pesanan ',
@@ -52,7 +52,15 @@ class SalesOrderController extends Controller
     }
 
     function productOrderDetails(Request $request, int $sequence) {
-        dd($request->order_code);
+        $code = $request->order_code;
+
+        $result = SalesOrderDetail::with('products.brands', 'products.sizes', 'products.categories')->where(['sales_order_code' => $code])->first();
+        
+        if($result) {
+            return response()->json(['status' => 'success', 'result' => $result]);
+        } else {
+            return response()->json(['status' => 'failed']);
+        }
     }
 
     function salesOrder() {

@@ -9,15 +9,15 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('delivery_orders', function (Blueprint $table) {
-            $table->id();
-            $table->integer('order_code');
-            $table->dateTime('date')->nullable()->default(date('Y-m-d H:i:s'));
-            $table->char('status');
-        });
-    }
+    // public function up(): void
+    // {
+    //     Schema::create('delivery_orders', function (Blueprint $table) {
+    //         $table->id();
+    //         $table->integer('order_code');
+    //         $table->dateTime('date')->nullable()->default(date('Y-m-d H:i:s'));
+    //         $table->char('status');
+    //     });
+    // }
 
     /**
      * Reverse the migrations.

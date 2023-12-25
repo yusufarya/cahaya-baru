@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\FE;
 
 use App\Models\Customer;
+use App\Models\SalesOrder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -145,7 +146,7 @@ class CustomerController extends Controller
             'date_of_birth' => 'required',
             'city'       => 'required|max:30',
             'address'       => 'required|max:200',
-            'image'     => 'image|file|max:1024',
+            'image'     => 'file|image|max:1024',
         ]);
 
         // dd($validatedData);
@@ -176,19 +177,33 @@ class CustomerController extends Controller
     }
 
     // Pesanan saya
-    function myOrders() {
-        
+    function myOrders(Request $request) {
+        $status = $request->status ? $request->status : 'N';
+        $delivery = $request->status ? $request->delivery : '';
+
         $filename = 'my_orders';
         $filename_script = getContentScript(false, $filename);
 
         $registrant = new Customer;
-        $result = $registrant->getMyOrders();
+        $result = $registrant->getMyOrders($status, $delivery);
         // dd($result);
         return view('user-page.'.$filename, [
             'script' => $filename_script,
             'title' => 'Daftar Pesanan ',
             'my_orders' => $result,
-            'status' => ''
+            'status' => $status,
+            'delivery' => $delivery
         ]);
+    }
+
+    function accOrder(Request $request) {
+        // dd($request);
+        $result = SalesOrder::where('code', $request->code)->update(['delivery' => $request->delivery]);
+
+        if($result) {
+            return response()->json(['status' => 'success']);
+        } else {
+            return response()->json(['status' => 'failed']);
+        }
     }
 }

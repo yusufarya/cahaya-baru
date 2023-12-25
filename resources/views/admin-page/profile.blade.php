@@ -32,7 +32,9 @@
                     <div class="col-lg-8">
                         <h4 class="font-weight-bold">{{ $auth_user->code }}</h4>
                         <h4>{{ $auth_user->fullname }}</h4>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis fuga totam sapiente animi corrupti est cum necessitatibus pariatur dolores laborum vero, atque accusantium in quam, quia incidunt laboriosam qui voluptas.
+                        <p>Anda Masuk sebagai &nbsp; <span class="badge bg-info">{{ $auth_user->admin_level->name }}</span></p>
+                        <br>
+                        <hr>
                     </div>
                 </div>
             </div>

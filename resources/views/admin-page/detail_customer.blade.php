@@ -55,16 +55,10 @@ $date_of_birth = $detailCustomer->date_of_birth ? date('d, M Y', strtotime($deta
                         <th style="width: 30%;">Email</th>
                         <td> {{ $detailCustomer->email }} </td>
                     </tr>
-
-                    {{-- lainnya --}}
+ 
+                  </table>
                     
-                    <tr>
-                        <th style="width: 30%;">Alamat</th>
-                        <td> {{ $detailCustomer->address }} </td>
-                    </tr>
-                    {{-- dokument --}}
-                     
-                </table>
+                  <a href="/data-customer" class="btn btn-secondary">Kembali</a>
             </div>
 
             <div class="col-lg-5">

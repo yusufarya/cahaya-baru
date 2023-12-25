@@ -90,6 +90,13 @@ function getServicesList(categoryId = "") {
                             <div class="card-footer">
                                 <p>
                                 <small class="card-text"> 
+                                    Ukuran : &nbsp;
+                                    ` +
+                        item.sizes.initial +
+                        `
+                                </small>
+                                <br>
+                                <small class="card-text"> 
                                     <i class="fas fa-certificate me-2"></i>
                                     ` +
                         item.categories.name +

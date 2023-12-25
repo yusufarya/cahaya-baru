@@ -22,7 +22,7 @@
     <div class="container-fluid">
         <div class="row mx-2">
           <div class="row justify-content-end mb-2 w-100">
-            <a href="/purchase-order/create" class="btn float-right btn-add "><i class="fas fa-plus-square"></i> &nbsp; Data</a>
+            {{-- <a href="/purchase-order/create" class="btn float-right btn-add "><i class="fas fa-plus-square"></i> &nbsp; Data</a> --}}
           </div>
           <table class="table table-bordered table-sm">
               <thead>
@@ -33,7 +33,7 @@
                       <th style="width: 8%; text-align: right;">Quantity</th> 
                       <th style="width: 12%; text-align: right;">Harga Total</th> 
                       {{-- <th style="width: 12%; text-align: center;">Status Pembayaran</th>  --}}
-                      <th style="width: 12%; text-align: center;">Status Pengiriman</th> 
+                      <th style="width: 12%; text-align: center;">Status Pesanan</th> 
                       <th style="width: 10%; text-align: center;">Aksi</th>
                   </tr>
               </thead>
@@ -61,11 +61,11 @@
                       <td>{{ $row->customers->fullname }}</td>
                       <td>{{ date('d - m - Y', strtotime($row->date)) }}</td>
                       <td style=" text-align: right;">{{ number_format($row->qty,2) }}</td> 
-                      <td style=" text-align: right;">{{ number_format($row->total_price,2) }}</td> 
+                      <td style=" text-align: right;">{{ number_format($row->price,2) }}</td> 
                       {{-- <td style=" text-align: center;">{{ $row->status_payment }}</td> --}}
                       <td style=" text-align: center;"><?= $delivery_status ?> </td>
                       <td style=" text-align: center;">
-                        <a href="/detail-request-order/{{ $row->code }}" class="text-success shadow px-2 py-1"> Detail</a>
+                        <a href="/request-order/{{ $row->code }}/detail" class="text-success shadow px-2 py-1"> Detail</a>
                         <a href="#" onclick="process(`{{ $row->code }}`, `{{ $row->delivery }}`)" class="text-info shadow px-2 py-1"> Proses</a>
                       </td>
                   </tr>

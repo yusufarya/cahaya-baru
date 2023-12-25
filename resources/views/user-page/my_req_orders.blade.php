@@ -13,7 +13,7 @@
 
     <div class="row justify-content-center bg-secondary-color rounded pb-3 px-3 mt-3 mx-auto w-75">
 
-      <form id="submitForm" action="/my-orders" class="pb-3 mt-3" action="registrant" method="GET">
+      <form id="submitForm" action="/my-req-orders" class="pb-3 mt-3" action="registrant" method="GET">
         @csrf
         <div class="row">
           <div class="col-md-4">
@@ -28,12 +28,11 @@
             <div class="col-md-4">
               <label for="status"> Status Pengiriman</label>
               <select name="delivery" id="delivery" class="form-select form-control">
-                <option value=""> Pilih </option>
+                {{-- <option value=""> » Status Pengiriman</option> --}}
                 {{-- <option value="0" {{ $delivery == '0' ? 'selected' : '' }}> Pemesanan</option> --}}
                 <option value="1" {{ $delivery == '1' ? 'selected' : '' }}> Siap untuk dikirim</option>
                 <option value="2" {{ $delivery == '2' ? 'selected' : '' }}> Dalam Perjalanan Pengiriman</option>
-                <option value="3" {{ $delivery == '3' ? 'selected' : '' }}> Pesanan telah sampai tujuan</option>
-                <option value="4" {{ $delivery == '4' ? 'selected' : '' }}> Selesai</option>
+                <option value="3" {{ $delivery == '3' ? 'selected' : '' }}> Pesanan telah diterima</option>
               </select>
             </div>
           @endif
@@ -45,26 +44,29 @@
         @foreach ($my_orders as $item)
         <?php 
         // dd($item);
-        $qty_dt = $item->salesOrderDetails->qty;
-        $price_dt = $item->salesOrderDetails->price;
-        $charge = $item->salesOrderDetails->charge;
-        $purchase_price = $item->salesOrderDetails->products->purchase_price;
-        $total_price = $item->total_price;
-        $nett = $item->nett;
+        $qty_dt = $item->qty;
+        $price_dt = $item->price;
+        $charge = $item->charge;
+        $purchase_price = $item->price;
+        $total_price = $item->price*$item->qty;
+        $nett = ($item->price*$item->qty)+$charge;
 
         $order_code = $item->code;
-        $checkPayment = DB::table('order_payments')->where('order_code', $order_code)->first();
+
+        // dd ($item->status);
+        if($item->status == 'Y') {
+          $checkPayment = DB::table('order_payments')->where('order_code', $order_code)->first();
+        } else {
+          $checkPayment = FALSE;
+        }
         
         ?>
             <div class="mt-3 p-3 card shadow-lg">
                 <div class="row">
                     <div class="col-lg-8">
                         <h5 style="font-weight: 600;">{{$order_code}}</h5>
-                        <h2>{{$item->salesOrderDetails->products->name}} <small><sup style="font-size: 11px;" class="alert alert-info py-0"> {{$item->salesOrderDetails->products->categories->name}}</sup></small></h2>
-                        <p class="mt-2">{{$item->description}}</p>
+                        <p class="mt-2"><b>Catatan :</b> &nbsp; {{$item->description}}</p>
                         <div class="alert alert-warning px-2 py-0">
-                          Merek &nbsp; : {{$item->salesOrderDetails->products->brands->name}} <br>
-                          Ukuran &nbsp; : {{$item->salesOrderDetails->products->sizes->initial}} <br>
                         </div>
                         <div class="shadow px-2 py-0">
                           <table class="table">
@@ -97,54 +99,54 @@
                           </table>
                         </div>
                         {{-- <br> --}}
-                        @if ($checkPayment) 
-                                
-                          @if (!$checkPayment->image)
-                            <a href="/pay-order/{{ $order_code }}" type="button" style="float: right;" class="btn btn-danger ms-2" >Pembayaran</a>
-                            <span class="pt-1" style="float: right;">Anda belum mengirimkan bukti pembayaran</span> 
+                        @if ($item->status == "Y")
+
+                          @if ($checkPayment) 
+                                  
+                            @if (!$checkPayment->image)
+                              <a href="/pay-order/{{ $order_code }}" type="button" style="float: right;" class="btn btn-danger ms-2" >Pembayaran</a>
+                              <span class="pt-1" style="float: right;">Anda belum mengirimkan bukti pembayaran</span> 
+                            @else
+                            
+                              @switch($item->delivery)
+                                @case(1)
+                                    <div class="alert mt-4 py-1 alert-info">Siap untuk dikirim</div>
+                                    @break
+                                @case(2)
+                                    <div class="alert mt-4 py-1 alert-primary">Dalam Perjalanan Pengiriman</div>
+                                    @break
+                                @case(3)
+                                    <div class="alert alert-success py-1 mt-4">Pesanan telah diterima</div>
+                                    @break
+                                @default
+                                  @switch($checkPayment->status)
+                                    @case('Approve')
+                                      <div class="alert alert-success py-1 mt-4">Pesanan sedang dipersiapkan</div>
+                                      @break
+                                    @case('Reject')
+                                      <div class="alert alert-success py-1 mt-4">Pesanan ditolak</div>
+                                      @break
+                                    @default
+                                      <div class="alert alert-success py-1 mt-4">Pesanan dalam proses pengecekan</div>  
+                                  @endswitch
+                              @endswitch
+                            @endif
+                              
                           @else
-                          
-                            @switch($item->delivery)
-                              @case(1)
-                                  <div class="alert mt-4 py-1 alert-info">Siap untuk dikirim</div>
-                                  @break
-                              @case(2)
-                                  <div class="alert mt-4 py-1 alert-primary">Dalam Perjalanan Pengiriman</div>
-                                  @break
-                              @case(3)
-                                  <div class="alert alert-warning py-1 mt-4">Pesanan telah sampai tujuan</div>
-                                  <button type="button" class="btn button-submit" onclick="acc_order(`{{ $order_code }}`)">Terima Pesanan</button>
-                                  @break
-                              @case(4)
-                                  <div class="alert alert-success py-1 mt-4">Pesanan telah diterima</div>
-                                  @break
-                              @default
-                                @switch($checkPayment->status)
-                                  @case('Approve')
-                                    <div class="alert alert-success py-1 mt-4">Pesanan sedang dipersiapkan</div>
-                                    @break
-                                  @case('Reject')
-                                    <div class="alert alert-success py-1 mt-4">Pesanan ditolak</div>
-                                    @break
-                                  @default
-                                    <div class="alert alert-success py-1 mt-4">Pesanan dalam proses pengecekan</div>  
-                                @endswitch
-                            @endswitch
+                            <a href="/payment-req/{{ $item->code }}" class="btn btn-warning btn-sm mt-3" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Lanjutkan Pembelian">
+                              <i class="fas fa-comment-dollar"></i>&nbsp; Pembayaran
+                            </a>
                           @endif
                             
                         @else
-                          <a href="/payment/{{ $item->code }}" class="btn btn-warning btn-sm mt-3" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Lanjutkan Pembelian">
-                            <i class="fas fa-comment-dollar"></i>&nbsp; Pembayaran
-                          </a>
-                          <a href="/detail-product/{{ $item->salesOrderDetails->products->id }}" class="btn btn-info btn-sm mt-3" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Lanjutkan Detail Produk">
-                            <i class="fas fa-info-circle"></i>&nbsp; Detail Produk
-                          </a>
+                            <div class="alert alert-danger">
+                              Pesanan anda sedang dalam proses pengecekan
+                            </div>
                         @endif
                     </div>
                     <div class="col-lg-4">
-                      <div class="mt-5">&nbsp;</div>
-                      <div class="mt-4">&nbsp;</div>
-                        <img src="{{asset('/storage/'.$item->salesOrderDetails->products->image)}}" class="w-75" alt="serviceImg">
+                      <div class="mt-3">&nbsp;</div>
+                        <img src="{{asset('/storage/'.$item->image)}}" class="w-75" alt="serviceImg">
                     </div>
                 </div>
             </div>
@@ -159,7 +161,12 @@
         <br><br><br><br><br><br><br><br>
 
       @endif
-
+        <br>
+          <hr>
+          <hr>
+        <div class="row">
+          <a href="/custom-request" class="text-decoration-none"><< Kembali</a>
+        </div>
     </div>
 
 </div>

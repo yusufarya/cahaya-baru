@@ -22,7 +22,7 @@
     <div class="container-fluid">
         <div class="row mx-2">
           <div class="row justify-content-end mb-2 w-100">
-            <a href="/purchase-order/create" class="btn float-right btn-add "><i class="fas fa-plus-square"></i> &nbsp; Data</a>
+            {{-- <a href="/purchase-order/create" class="btn float-right btn-add "><i class="fas fa-plus-square"></i> &nbsp; Data</a> --}}
           </div>
           <table class="table table-bordered table-sm">
               <thead>
@@ -42,13 +42,16 @@
                 <?php 
                 switch ($row->delivery) {
                   case 1:
-                    $delivery_status = '<span class="alert py-1 alert-info">Siap untuk dikirim</span>';
+                    $delivery_status = '<span class="alert py-1 alert-info">Siap dikirim</span>';
                     break;
                   case 2:
                     $delivery_status = '<span class="alert py-1 alert-primary">Pengiriman</span>';
                     break;
                   case 3:
-                    $delivery_status = '<span class="alert py-1 alert-success">Selesai</span>';
+                    $delivery_status = '<span class="alert py-1 alert-warning">Selesai</span>';
+                    break;
+                  case 4:
+                    $delivery_status = '<span class="alert py-1 alert-success">Diterima</span>';
                     break;
                     default:
                     $delivery_status = '<span class="alert py-1 alert-secondary">Pengemasan</span>';
@@ -65,7 +68,11 @@
                       {{-- <td style=" text-align: center;">{{ $row->status_payment }}</td> --}}
                       <td style=" text-align: center;"><?= $delivery_status ?> </td>
                       <td style=" text-align: center;">
-                        <a href="#" onclick="process(`{{ $row->code }}`, `{{ $row->delivery }}`)" class="text-info shadow px-2 py-1"> Proses</a>
+                        @if ($row->delivery == 4)
+                          <a href="#" class="text-info shadow px-2 py-1"> ✅ </a>
+                        @else
+                          <a href="#" onclick="process(`{{ $row->code }}`, `{{ $row->delivery }}`)" class="text-info shadow px-2 py-1"> Proses</a>
+                        @endif
                       </td>
                   </tr>
                 @endforeach
@@ -95,7 +102,7 @@
               <label for="delivery">Status Pengiriman</label>
               <select name="delivery" id="delivery" class="form-control form-select">
                 <option value="0">Pengemasan</option>
-                <option value="1">Siap untuk dikirim</option>
+                <option value="1">Siap dikirim</option>
                 <option value="2">Pengiriman</option>
                 <option value="3">Selesai</option>
               </select>

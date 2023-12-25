@@ -16,6 +16,7 @@ use App\Models\Customer;
 use App\Models\AdminLevel;
 use App\Models\SubDistrict;
 use App\Models\DeliveryType;
+use App\Models\PaymentMethod;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -80,6 +81,11 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin Staf',
         ]);
         
+        AdminLevel::create([
+            'id' => '3',
+            'name' => 'Driver',
+        ]);
+        
         Vendor::create([
             'code' => '1',
             'name' => 'Vendor A',
@@ -99,14 +105,42 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Admin::create([
-            'code' => 'ADM'.date('Ymd').'1',
-            'fullname' => 'Admin Cahaya Baru',
+            'code' => 'ADM'.date('Ymd').'01',
+            'fullname' => 'User Cahaya Baru',
             'username' => 'admin_123',
             'gender' => 'M',
             'phone' => '08986564321',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('111111'),
             'level_id' => 1,
+            'is_active' => 1,
+            'created_at' => date('Y-m-d H:i:s'),
+            'created_by' => 'admin_123',
+        ]);
+
+        Admin::create([
+            'code' => 'ADM'.date('Ymd').'02',
+            'fullname' => 'Staf Cahaya Baru',
+            'username' => 'staf_toko',
+            'gender' => 'M',
+            'phone' => '08986564321',
+            'email' => 'staf@gmail.com',
+            'password' => Hash::make('111111'),
+            'level_id' => 2,
+            'is_active' => 1,
+            'created_at' => date('Y-m-d H:i:s'),
+            'created_by' => 'admin_123',
+        ]);
+        
+        Admin::create([
+            'code' => 'ADM'.date('Ymd').'03',
+            'fullname' => 'Driver Cahaya Baru',
+            'username' => 'driver_toko',
+            'gender' => 'M',
+            'phone' => '08986564321',
+            'email' => 'driver@gmail.com',
+            'password' => Hash::make('111111'),
+            'level_id' => 3,
             'is_active' => 1,
             'created_at' => date('Y-m-d H:i:s'),
             'created_by' => 'admin_123',
@@ -124,5 +158,10 @@ class DatabaseSeeder extends Seeder
             'created_at' => date('Y-m-d H:i:s'),
         ]);
 
+        
+        PaymentMethod::create([
+            'bank_name' => 'BCA',
+            'account_number' => '9390309390'
+        ]);
     }
 }

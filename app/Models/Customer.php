@@ -64,7 +64,20 @@ class Customer extends Authenticatable
                 ->where(['customer_code' => Auth::guard('customer')->user()->code])->get();
     }
     
-    function getMyOrders() {
+    function getMyOrders($status, $delivery) {
+        $where_ = ['customer_code' => Auth::guard('customer')->user()->code];
+
+        if($status && $status != "00") {
+            $where_['status'] = $status;
+        } else if($status == '00') {
+            unset($where_['status']);
+        }
+
+        if($delivery) {
+            $where_['delivery'] = $delivery;
+        }
+
+        // dd($where_);
         // return DB::table('sales_orders')
         //         ->select('sales_orders.*')
         //         ->leftJoin('customers', 'customers.code', '=', 'sales_orders.customer_code')
@@ -73,7 +86,33 @@ class Customer extends Authenticatable
         //         ->where(['customer_code' => Auth::guard('customer')->user()->code])->get();
 
         $data = SalesOrder::with('customers', 'salesOrderDetails.products.categories', 'salesOrderDetails.products.brands', 'salesOrderDetails.products.sizes')
-                            ->where(['customer_code' => Auth::guard('customer')->user()->code])->get();
+                            ->where($where_)->get();
+        return $data;
+    }
+   
+    function getMyReqOrders($status, $delivery) {
+        $where_ = ['customer_code' => Auth::guard('customer')->user()->code];
+
+        if($status && $status != "00") {
+            $where_['status'] = $status;
+        } else if($status == '00') {
+            unset($where_['status']);
+        }
+
+        if($delivery) {
+            $where_['delivery'] = $delivery;
+        }
+
+        // dd($where_);
+        // return DB::table('sales_orders')
+        //         ->select('sales_orders.*')
+        //         ->leftJoin('customers', 'customers.code', '=', 'sales_orders.customer_code')
+        //         ->leftJoin('sales_order_details', 'sales_order_details.sales_order_id', '=', 'sales_orders.id') 
+        //         // ->leftJoin('categories', 'categories.id', '=', 'trainings.category_id')
+        //         ->where(['customer_code' => Auth::guard('customer')->user()->code])->get();
+
+        $data = RequestOrder::with('customers', 'sizes')
+                            ->where($where_)->get();
         return $data;
     }
 }

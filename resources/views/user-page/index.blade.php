@@ -37,7 +37,7 @@
     @foreach ($category as $item)
         
       <div class="category-panel">
-        <a href="/our-products/{{$item->id}}" class="text-decoration-none text-dark-emphasis">
+        <a href="/our-products" class="text-decoration-none text-dark-emphasis">
           <div class="box-category">
             <div class="text-center">
               <b class="text-center">{{ $item->name }} </b>
@@ -52,5 +52,19 @@
 
 </div>
 
+<div class="row">
+  <div class="col">
+    <h5 class="ms-3">Cara Pemesanan</h5>
+    <ul>
+      <li >Pergi ke halaman "<b>Produk</b>"</li>
+      <li >Pilih produk yg anda inginkan, lalu klik "<b>Beli Sekarang</b>"</li>
+      <li> Anda akan di arahkan ke halaman "<b>Detail Pesanan</b>"</li>
+      <li> Selanjutnya klik tombol "<b>Pembayaran</b>"</li>
+      <li> Kemudian anda akan di arahkan ke halaman "<b>Pembayaran</b>" dan silahkan pilih Metode Pembayaran </li>
+      <li> Setelah anda melakukan pembayaran silahkan kirim bukti pembayaran</li>
+      <li> Dan selesai Pesanan anda akan segera di proses.</li>
+    </ul>
+  </div>
+</div>
 
 @endsection

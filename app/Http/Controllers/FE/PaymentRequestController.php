@@ -3,29 +3,24 @@
 namespace App\Http\Controllers\FE;
 
 use App\Models\Customer;
-use App\Models\SalesOrder;
+use App\Models\RequestOrder;
 use App\Models\OrderPayment;
 use Illuminate\Http\Request;
-use App\Models\PaymentMethod;
-use App\Models\SalesOrderDetail;
+use App\Models\PaymentMethod; 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class PaymentController extends Controller
+class PaymentRequestController extends Controller
 {
-    function index(string $code_tr, string $from_page = null) {
-        // dd($from_page);
-        $filename = 'payment';
+    function index(string $code_tr) {
+        
+        $filename = 'payment_req';
         $filename_script = getContentScript(false, $filename);
 
         $code = Auth::guard('customer')->user()->code;
         $data = Customer::find($code)->first();  
         
-        $result = SalesOrder::with('salesOrderDetails.products.categories', 'salesOrderDetails.products.sizes', 'salesOrderDetails.products.brands')
-                ->find($code_tr);
-        $resultDetail = SalesOrderDetail::with('sales_order', 'products.categories', 'products.sizes', 'products.brands')
-                                          ->where('sales_order_code', $code_tr)->get();
-        // dd($resultDetail);
+        $result = RequestOrder::with('customers', 'sizes')->find($code_tr); 
         $checkOrderPayment = OrderPayment::where(['order_code' => $code_tr])->first();
         
         if($checkOrderPayment) {
@@ -37,90 +32,63 @@ class PaymentController extends Controller
             'title' => 'Detail Pesanan Saya',
             'auth_user' => $data,
             'resultData' => $result,
-            'resultDataDetail' => $resultDetail,
-            'pageCart' => $from_page ? true : false
         ]);
     }
 
     function prosesPayOrder(Request $request) {
-        $sales_order_code = $request->code;
-        $pageCart = $request->pageCart;
-        
-        if($pageCart != "false") {
-            // dd(1);
-            $orderHD = [
-                'charge' => cleanSpecialChar($request->charge),
-                'nett' => cleanSpecialChar($request->netto)
-            ];
-            $orderDT = [
-                'charge' => $request->charge
-            ];
-        } else {
-            // dd(2);
-            $orderHD = [
-                'qty' => $request->qty_dt,
-                'total_price' => cleanSpecialChar($request->total_price),
-                'charge' => cleanSpecialChar($request->charge),
-                'nett' => cleanSpecialChar($request->netto)
-            ];
-            $orderDT = [
-                'qty' => $request->qty_dt,
-                'price' => $request->price,
-                'charge' => $request->charge
-            ];
-        }
+        // dd($request);
+        $req_order_code = $request->code;
+         
+        $orderHD = [
+            'nett' => cleanSpecialChar($request->netto)
+        ]; 
         // dd($request);
 
         $user = Customer::find(Auth::guard('customer')->user()->code)->first();
 
-        SalesOrder::where(['customer_code' => $user->code, 'code' => $sales_order_code])->update($orderHD);
-        SalesOrderDetail::where(['sales_order_code' => $sales_order_code])->update($orderDT);
+        RequestOrder::where(['customer_code' => $user->code, 'code' => $req_order_code])->update($orderHD); 
         
-        $order_result = SalesOrder::with('salesOrderDetails.products.categories', 'salesOrderDetails.products.sizes', 'salesOrderDetails.products.brands')
-                ->find($sales_order_code);
-        // dd($order_result);
         $order_payment_code = getLastPayCode();
 
         $dataInsert = [
             'code' => $order_payment_code,
-            'order_code' => $sales_order_code,
+            'order_code' => $req_order_code,
             'date' => date('Y-m-d h:i:s')
         ];
 
-        $checkOrderPayment = OrderPayment::where(['order_code' => $sales_order_code])->first();
+        $checkOrderPayment = OrderPayment::where(['order_code' => $req_order_code])->first();
 
         if($checkOrderPayment) {
-            $result = OrderPayment::where(['order_code' => $sales_order_code])->update(['date' => date('Y-m-d h:i:s')]);
+            $result = OrderPayment::where(['order_code' => $req_order_code])->update(['date' => date('Y-m-d h:i:s')]);
         } else {
             $result = OrderPayment::create($dataInsert);
         }
 
         if($result) {
-            return response()->json(['status' => 'success', 'resultData' => $order_result]);
+            return response()->json(['status' => 'success', 'code' => $req_order_code]);
         } else {
             return response()->json(['status' => 'failed']);
         }
         
     }
 
-    function payOrder(string $sales_order_code) {
+    function payOrder(string $req_order_code) {
         
-        if($sales_order_code) {
-            $filename = 'pay_order';
+        if($req_order_code) {
+            $filename = 'pay_order_req';
             $filename_script = getContentScript(false, $filename);
     
             $user = Customer::find(Auth::guard('customer')->user()->code)->first();
             
             $payment_method = PaymentMethod::get();  
             
-            $result = SalesOrder::with('salesOrderDetails.products.categories', 'salesOrderDetails.products.sizes', 'salesOrderDetails.products.brands')
-                    ->find($sales_order_code);
+            $result = RequestOrder::with('sizes', 'customers')->find($req_order_code);
             
             if(!$result) {
                 return redirect('/');    
             }
     
-            $checkOrderPayment = OrderPayment::where(['order_code' => $sales_order_code])->first();
+            $checkOrderPayment = OrderPayment::where(['order_code' => $req_order_code])->first();
     
             // dd($result);
             return view('user-page.'.$filename, [
@@ -161,7 +129,7 @@ class PaymentController extends Controller
 
     function cancelOrders(Request $request) {
         // dd($request->code);
-        $salesDetail = SalesOrderDetail::where(['sales_order_code' => $request->code])->delete();
+        $salesDetail = SalesOrderDetail::where(['req_order_code' => $request->code])->delete();
         $sales = SalesOrder::where(['code' => $request->code])->delete();
         return true;
     }

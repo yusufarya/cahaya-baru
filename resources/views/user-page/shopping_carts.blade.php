@@ -64,7 +64,7 @@
         <br><br><br>
         <hr>
         <div class="row text-center" >
-          <span class="alert alert-info text-danger pt-4" style="height: 80px;">Keranjang belanja masih kosong.</span>
+          <span class="alert alert-info text-danger pt-4 ms-2" style="height: 80px;">Keranjang belanja masih kosong.</span>
         </div>
         <br><br><br><br><br><br><br><br>
       @endif

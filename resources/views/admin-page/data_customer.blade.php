@@ -27,6 +27,7 @@
                       <th style="width: 11%">Nomor</th>
                       <th>Nama Lengkap</th>
                       <th style="width: 11%">Jenis Kelamin</th>
+                      <th>Kota / Wilayah</th>
                       <th>Email</th>
                       <th style="width: 10%; text-align: center;">Status</th>
                       <th style="width: 10%; text-align: center;">Aksi</th>
@@ -38,6 +39,7 @@
                       <td>{{ $row->code }}</td>
                       <td>{{ $row->fullname }}</td>
                       <td>{{ $row->gender == 'M' ? 'Laki-laki' : 'Perempuan' }}</td>
+                      <td>{{ $row->city }}</td>
                       <td>{{ $row->email }}</td>
                       <td style=" text-align: center;">
                         <?= $row->is_active == 'Y' ? ' <i class="fas fa-check-square text-success"></i>' : ' <i class="fas fa-window-close text-danger"></i>' ?>

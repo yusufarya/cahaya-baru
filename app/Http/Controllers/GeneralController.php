@@ -35,8 +35,8 @@ class GeneralController extends Controller {
             $checkOrderHeader = SalesOrder::with('salesOrderDetails.products')
                                 ->where(['customer_code' => $user->code])
                                 ->first();
-                                // dd($checkOrderHeader);
-            if($checkOrderHeader) {
+                                
+            if($checkOrderHeader->status == 'N') {
                 if($checkOrderHeader->salesOrderDetails != NULL) {
                     if($productId == $checkOrderHeader->salesOrderDetails->products->id) {
                         $request->session()->flash('message', 'Anda mempunyai pesanan pada produk yang sama, <a href="/payment/'.$checkOrderHeader->code.'">lihat pesanan</a>.');
@@ -53,7 +53,7 @@ class GeneralController extends Controller {
             ];
 
             
-            if(!$checkOrderHeader) {
+            if($checkOrderHeader->status == 'Y') {
                 $code = getLasCodeTransaction('S');
     
                 $dataHeader['code'] = $code;
@@ -64,7 +64,7 @@ class GeneralController extends Controller {
 
             $dataDetail = [
                 'sequence' => 1,
-                'sales_order_code' => $checkOrderHeader->code,
+                'sales_order_code' => $code,
                 'product_id' => $productId,
                 'date' => date('Y-m-d'),
             ];

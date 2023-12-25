@@ -30,6 +30,7 @@ use App\Http\Controllers\FE\RequestOrderController;
 use App\Http\Controllers\FE\ShoppingCartController;
 use App\Http\Controllers\PurchaseTransactionReport;
 use App\Http\Controllers\TrainingContentController;
+use App\Http\Controllers\FE\PaymentRequestController;
 use App\Http\Controllers\DeliveryTransactionController;
 use App\Http\Controllers\PurchaseOrderDetailController;
 
@@ -71,6 +72,7 @@ Route::middleware('admin')->group(function () {
     Route::post('/add-new-admin', [AdminController::class, 'storeAdmin']);
     Route::get('/form-edit-admin/{number}', [AdminController::class, 'editFormAdmin']);
     Route::post('/edit-new-admin', [AdminController::class, 'updateAdmin']);
+    Route::delete('/delete-admin/{number}', [AdminController::class, 'deleteAdmin']);
 
     Route::get('/data-customer', [AdminController::class, 'dataCustomer']);
     Route::get('/detail-customer/{code}', [AdminController::class, 'detailCustomer']); 
@@ -121,7 +123,8 @@ Route::middleware('admin')->group(function () {
     Route::post('/update-status-delivery', [SalesOrderController::class, 'updateStatusDelivery']);
     
     Route::get('/request-order', [CustomOrdersController::class, 'index']);
-    Route::get('/detail-request-order/{code}', [CustomOrdersController::class, 'DetailRequest']);
+    Route::get('/request-order/{code}/detail', [CustomOrdersController::class, 'detailRequest']);
+    Route::post('/update-price-req-order/{code}', [CustomOrdersController::class, 'updatePriceRequest']);
     Route::post('/update-req-status-delivery', [CustomOrdersController::class, 'updateStatusDelivery']);
 
     Route::get('/sales-report', [SalesTransactionReport::class, 'index']); // VIEW REPORT PURCASE TRANSACTION //
@@ -131,6 +134,7 @@ Route::middleware('admin')->group(function () {
     // =============== MODULE PENGIRIMAN ================== //
     Route::resource('/delivery-types', DeliveryController::class)->only("index", "store", "update", "destroy");
     Route::get('/delivery', [DeliveryTransactionController::class, 'index']);
+    Route::post('/update-status-delivery-d', [DeliveryTransactionController::class, 'updateStatusDelivery']);
 
     // =============== MODULE KEUANGAN =============== //
     // PAYMENT METHOD //
@@ -154,8 +158,10 @@ Route::get('/getDataProducts', [ProductFEController::class, 'getDataProducts']);
 Route::middleware('customer')->group(function () {
     Route::get('/custom-request', [RequestOrderController::class, 'index']);
     Route::post('/send-custom-request', [RequestOrderController::class, 'store']);
+    Route::get('/my-req-orders', [RequestOrderController::class, 'myRequestOrders']);
 
     Route::get('/my-orders', [CustomerController::class, 'myOrders']);
+    Route::post('/acc-order', [CustomerController::class, 'accOrder']);
     Route::get('/_profile', [CustomerController::class, 'profile']);
     Route::get('/update-profile', [CustomerController::class, 'updateProfile']);
     Route::put('/update-profile/{number}', [CustomerController::class, 'updateProfileData']);
@@ -165,6 +171,7 @@ Route::middleware('customer')->group(function () {
     Route::post('/add-to-cart/{id}', [ShoppingCartController::class, 'store']);
     Route::post('/submit-from-cart', [ShoppingCartController::class, 'submitCart']);
     
+    // PAYMENT SALES ORDER //
     Route::get('/payment/{code}', [PaymentController::class, 'index']);
     Route::get('/payment/{code}/{page}', [PaymentController::class, 'index']);
     Route::post('/prosesPayOrder', [PaymentController::class, 'prosesPayOrder']);
@@ -172,6 +179,15 @@ Route::middleware('customer')->group(function () {
     Route::post('/updatePaymentMethod', [PaymentController::class, 'updatePaymentMethod']);
     Route::post('/uploadImgPayment', [PaymentController::class, 'uploadImgPayment']);
     Route::delete('/cancel-order', [PaymentController::class, 'cancelOrders']);
+    
+    // PAYMENT REQUEST ORDER //
+    Route::get('/payment-req/{code}', [PaymentRequestController::class, 'index']);
+    // Route::get('/payment-req/{code}/{page}', [PaymentRequestController::class, 'index']);
+    Route::post('/prosesPayOrder-req', [PaymentRequestController::class, 'prosesPayOrder']);
+    Route::get('/pay-order-req/{code}', [PaymentRequestController::class, 'payOrder']);
+    // Route::post('/updatePaymentMethod', [PaymentRequestController::class, 'updatePaymentMethod']);
+    Route::post('/uploadImgPayment-req', [PaymentRequestController::class, 'uploadImgPayment']);
+    Route::delete('/cancel-order', [PaymentRequestController::class, 'cancelOrders']);
     
     Route::post('/logout', [CustomerController::class, 'logout']);
 });

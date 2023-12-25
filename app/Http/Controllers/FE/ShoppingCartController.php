@@ -20,7 +20,7 @@ class ShoppingCartController extends Controller
         $filename = 'shopping_carts';
         $filename_script = getContentScript(false, $filename);
 
-        $result = ShoppingCart::with('customers', 'products.categories', 'products.sizes')->where(['customer_code' => $user->code])->get();
+        $result = ShoppingCart::with('customers', 'products.categories', 'products.sizes')->where(['customer_code' => $user->code, 'updated_at' => NULL])->get();
         // dd($result);
         return view('user-page.'.$filename, [
             'script' => $filename_script,
@@ -95,14 +95,13 @@ class ShoppingCartController extends Controller
             foreach ($requestId as $item) {
                 $getCart = ShoppingCart::with('products')->where('id', $item)->first();
                 
-    
                 $dataDetail = [
                     'sequence' => $seq++,
                     'sales_order_code' => $sales_code,
                     'product_id' => $getCart->product_id,
                     'date' => date('Y-m-d'),
                     'qty' => $getCart->qty,
-                    'price' => $getCart->products->purchase_price,
+                    'price' => $getCart->products->selling_price,
                 ];
                 
                 $result = SalesOrderDetail::create($dataDetail);

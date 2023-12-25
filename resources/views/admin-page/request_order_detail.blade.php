@@ -23,59 +23,43 @@
                     
                     <div class="col-lg-4 col-md-4 col-sm-4 mt-2">
                         <label for="vendor_code">Nomor Transaksi</label>
-                        <input type="text" class="form-control" name="purchase_order_code" id="purchase_order_code" readonly value="{{ $dataHeader->code }}">
+                        <input type="text" class="form-control" name="order_code" id="order_code" readonly value="{{ $resultData->code }}">
                     </div>
 
                     <div class="col-lg-4 col-md-4 col-sm-4 mt-2">
                         <label for="text">Nama Pelanggan</label>
-                        <input type="text" name="text" id="text" class="form-control" value="{{ $dataHeader->customers->fullname }}" readonly>
+                        <input type="text" name="text" id="text" class="form-control" value="{{ $resultData->customers->fullname }}" readonly>
                     </div>
 
                     <div class="col-lg-4 col-md-4 col-sm-4 mt-2">
                         <label for="date">Tanggal</label>
-                        <input type="date" name="date" id="date" class="form-control" value="{{ date('Y-m-d', strtotime($dataHeader->date)) }}" readonly>
+                        <input type="date" name="date" id="date" class="form-control" value="{{ date('Y-m-d', strtotime($resultData->date)) }}" readonly>
                     </div>
 
-                    {{-- TABLE PURCHASE ORDER DETAIL --}}
-                    <div class="col-lg-12 col-md-12 col-sm-12 mt-2" id="detail-list">
-                        <button type="button" id="detailPayment" class="btn btn-primary btn-sm mb-2 float-left"> Status Pembayaran </button>
-                        <table class="table" id="container-table">
-                            <thead>
-                                <tr>
-                                    <th style="width: 15px">No.</th>
-                                    <th colspan="2">Rincian Produk</th>
-                                    <th style="text-align: right; width: 100px;">Qty</th>
-                                    <th style="text-align: right; width: 120px;">Harga</th>
-                                    <th style="text-align: right; width: 100px;">Ongkir</th>
-                                    <th style="text-align: right; width: 130px;">Total Harga</th>
-                                    <th style="text-align: center; width: 120px;">
-                                        Actions
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php 
-                                $no = 1;
-                                ?>
-                                @foreach ($dataDetail as $item)
-                                    <tr>
-                                        <td>{{ $no++ }}</td>
-                                        <td>{{ $item->products->name }}</td>
-                                        <td style="width: 100px;">Ukuran : &nbsp; {{ $item->products->sizes->initial }}</td>
-                                        <td style="text-align: right;">{{ number_format($item->qty,2) }}</td>
-                                        <td style="text-align: right;">{{ number_format($item->price,2) }}</td>
-                                        <td style="text-align: right;">{{ number_format($item->charge,2) }}</td>
-                                        <td style="text-align: right;">{{ number_format(($item->qty*$item->price)+$item->charge,2) }}</td>
-                                        <td style="text-align: center">
-                                            <a href="#" class="text-success shadow px-2 py-1" onclick="detail(`{{ $item->sequence }}`, `{{ $item->products->name }}`)"><i class="fas fa-info-circle"></i> Produk</a>
-                                        </td>
-                                    </tr>
-                                    
-                                @endforeach
-                            </tbody>
-                        </table>
+                    <div class="col-lg-4 col-md-4 col-sm-4 mt-2">
+                        <label for="size">Ukuran</label>
+                        <input type="text" name="size" id="size" class="form-control" value="{{ $resultData->sizes->initial .' - '.$resultData->sizes->name }}" readonly>
                     </div>
 
+                    <div class="col-lg-4 col-md-4 col-sm-4 mt-2">
+                        <label for="qty">Quantity</label>
+                        <input type="text" name="qty" id="qty" class="form-control" value="{{ number_format($resultData->qty,2) }}" readonly>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 mt-2">
+                        <label for="price">Harga</label>
+                        <input type="text" name="price" id="price" class="form-control" onkeyup="formatRupiah(this, this.value)" value="{{ number_format($resultData->price,2) }}">
+                    </div>
+
+                    <div class="col-lg-8 col-md-8 col-sm-8 mt-2">
+                        <label for="description">Catatan :</label>
+                        <textarea rows="5" name="description" id="description" readonly class="form-control">{{ $resultData->description }}</textarea>
+                    </div>
+                    <div class="col-md-4 col-lg-4 mt-3">
+                        {{-- <label for="img">Gambar</label> --}}
+                        <img src="{{ asset('/storage').'/'.$resultData->image }}" class="shadow p-2 mt-4 img-fluid w-100" alt="img-request">
+                    </div>
+                    <button type="button" id="detailPayment" class="btn btn-primary btn-sm mb-2 float-left"> Status Pembayaran </button>
                 </div>
     
                 <hr style="margin: 0 22px 20px;">
@@ -83,6 +67,7 @@
                     <section class="col-lg-4">
                         <section style="float: right;">
                             <a href="/orders" class="btn btn-outline-secondary mr-2"><i class="fas fa-backspace"></i> Kembali</a>
+                            <button type="button" id="save" class="btn btn-success">Simpan</button>
                         </section>
                     </section>
                 </div>
@@ -94,8 +79,8 @@
 </section> 
 
 
-<div class="modal fade" id="modal-product-detail" tabindex="-1">
-    <div class="modal-dialog modal-lg">
+<div class="modal fade" id="modal-proses" tabindex="-1">
+    <div class="modal-dialog modal-md">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title ml-2 font-weight-bold">Persetujuan</h5>
@@ -103,45 +88,15 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-            <div class="row" id="content-detail">
-                <div class="col-md-5 col-lg-5">
-                    <img src="" alt="img-product" class="img-fluid" id="img-product">
-                </div>
-                <div class="col">
-                    <table class="table">
-                        <tr>
-                            <th>Nama</th>
-                            <td>:&nbsp;</td>
-                            <td id="name"></td>
-                        </tr> 
-                        <tr>
-                            <th>Kategori</th>
-                            <td>:&nbsp;</td>
-                            <td id="category"></td>
-                        </tr>
-                        <tr>
-                            <th>Merek</th>
-                            <td>:&nbsp;</td>
-                            <td id="brand"></td>
-                        </tr>
-                        <tr>
-                            <th>Ukuran</th>
-                            <td>:&nbsp;</td>
-                            <td id="size"></td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </div>
         
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-            {{-- <button type="button" class="btn btn-primary" id="clickDelete">Ya</button> --}}
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+        <button type="button" class="btn btn-primary" id="clickDelete">Ya</button>
         </div> 
       </div>
     </div>
 </div>
+
 
 <div class="modal fade" id="modal-detail" tabindex="-1">
     <div class="modal-dialog modal-lg">
@@ -167,7 +122,7 @@
                         </div>
                         <div class="mt-3">
                             <label for="payment_methods">Nominal Pembayaran</label>
-                            <div>Rp. {{ number_format($dataHeader->nett,2) }},-</div>
+                            <div>Rp. {{ number_format($resultData->nett,2) }},-</div>
                         </div>
                         <div class="mt-3">
                             <label for="payment_methods">Status Pesanan</label>
@@ -181,7 +136,7 @@
                                         @break
                                     @default
                                     <div class="alert alert-warning"> Menunggu Persetujuan </div>
-                                    <form action="/orders/{{$dataHeader->code}}/detail" method="GET">
+                                    <form action="/request-orders/{{$resultData->code}}/detail" method="GET">
                                         @csrf
                                         <input type="hidden" name="status" value="Y">
                                         <button type="submit" class="btn btn-success"> Terima Pesanan </button>

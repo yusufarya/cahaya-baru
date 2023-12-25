@@ -18,9 +18,9 @@ function getLastPayCode() {
     if($lastNumber) {
         $lastNumber = substr($lastNumber, -3);
         $code_ = sprintf('%03d', $lastNumber+1);
-        $numberFix = "TR".date('ymdhis').$code_;
+        $numberFix = "TR".date('ymd').$code_;
     } else {
-        $numberFix = "TR".date('ymdhis')."001";
+        $numberFix = "TR".date('ymd')."001";
     }
 
     return $numberFix;
@@ -40,19 +40,19 @@ function getLasCodeTransaction($type) {
         if($lastNumber) {
             $lastNumber = substr($lastNumber, -3);
             $code_ = sprintf('%03d', $lastNumber+1);
-            $numberFix = "PTCB".date('ymdhis').$code_;
+            $numberFix = "PTCB".date('ymd').$code_;
         } else {
-            $numberFix = "PTCB".date('ymdhis')."001";
+            $numberFix = "PTCB".date('ymd')."001";
         }
     } else if($type == 'S') {
         $lastNumber = SalesOrder::max('code');
-    
         if($lastNumber) {
             $lastNumber = substr($lastNumber, -3);
             $code_ = sprintf('%03d', $lastNumber+1);
-            $numberFix = "STCB".date('ymdhis').$code_;
+            $numberFix = "STCB".date('ymd').$code_;
+            dd($numberFix);
         } else {
-            $numberFix = "STCB".date('ymdhis')."001";
+            $numberFix = "STCB".date('ymd')."001";
         }
     } else if($type == 'R') {
         $lastNumber = RequestOrder::max('code');
@@ -60,9 +60,9 @@ function getLasCodeTransaction($type) {
         if($lastNumber) {
             $lastNumber = substr($lastNumber, -3);
             $code_ = sprintf('%03d', $lastNumber+1);
-            $numberFix = "CRCB".date('ymdhis').$code_;
+            $numberFix = "CRCB".date('ymd').$code_;
         } else {
-            $numberFix = "CRCB".date('ymdhis')."001";
+            $numberFix = "CRCB".date('ymd')."001";
         }
     } 
 
@@ -153,8 +153,8 @@ function getLasCodeAdmin() {
     $lastCode = Admin::max('code');
 
     if($lastCode) {
-        $lastCode = substr($lastCode, -1);
-        $code_ = sprintf('%04d', $lastCode+1);
+        $lastCode = substr($lastCode, -2);
+        $code_ = sprintf('%02d', $lastCode+1);
         $codeFix = "ADM".date('Ymd').$code_;
     } else {
         $codeFix = "ADM".date('Ymd')."0001";
@@ -163,19 +163,5 @@ function getLasCodeAdmin() {
     return $codeFix;
 }
 
-function getLasIdTraining() {
-        
-    $lastId = Training::max('id');
-
-    if($lastId) {
-        $lastId = $lastId;
-        $code_ = sprintf('%03d', $lastId+1);
-        $code = $code_;
-    } else {
-        $code = 001;
-    }
-
-    return $code;
-}
 
 ?>

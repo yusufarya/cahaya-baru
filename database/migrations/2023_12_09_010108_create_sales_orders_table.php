@@ -23,8 +23,8 @@ return new class extends Migration
             $table->double('charge')->default(0);
             $table->double('nett')->default(0);
             $table->enum('status', ['Y', 'N'])->default('N'); // Y terjual N masih dalam pesanan
-            // 0 pesanan 1 persiapan 2 pengiriman 3 selesai / pesanan sampai tujuan
-            $table->enum('delivery', ['0','1', '2', '3'])->default('0');
+            // 0 pesanan 1 persiapan 2 pengiriman 3 selesai / pesanan sampai tujuan 4 acc_order
+            $table->enum('delivery', ['0','1', '2', '3', '4'])->default('0'); 
         });
     }
 

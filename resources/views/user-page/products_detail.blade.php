@@ -46,7 +46,13 @@
         
         <button type="button" onclick="popUpAddCart()" class="btn bg-warning text-white shadow"><i class="fas fa-cart-plus"></i> Keranjang</button> 
         <a href="/checkDataUser/{{$product->id}}" class="btn bg-danger text-white shadow"><i class="fas fa-dollar-sign"></i> Beli Sekarang</a>
+        <br> <br> <br>
+        <div class="row mt-3">
+            <div class="col">
+                <a href="/our-products" style="float: right" class="btn btn-sm btn-secondary">Kembali</a>
+            </div>
 
+        </div>
     </div>
     <hr class="mx-3 mt-3">
 

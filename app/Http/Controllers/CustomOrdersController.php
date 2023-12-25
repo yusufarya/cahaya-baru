@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\OrderPayment;
 use App\Models\RequestOrder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,8 +24,38 @@ class CustomOrdersController extends Controller
         ]);
     }
 
-    function DetailRequest(string $order_code) {
-        dd($order_code);
+    function detailRequest(Request $request, string $order_code) {
+        // dd($order_code);
+        $filename = 'request_order_detail';
+        $filename_script = getContentScript(true, $filename);
+
+        if($request->status) {
+            RequestOrder::with('sizes')->where('code', $order_code)->update(['status' => (string)$request->status]);
+            OrderPayment::where('order_code', $order_code)->update(['status' => "Approve"]);
+        }
+
+        $user = Auth::guard('admin')->user();
+        $resultDataHeader = RequestOrder::with('customers')->find($order_code);
+        
+        $getPaymentOrder = OrderPayment::with('payment_methods')->where(['order_code' => $order_code])->first();
+        // dd($getPaymentOrder);
+        return view('admin-page.'.$filename, [
+            'script' => $filename_script,
+            'title' => 'Detail Custom Pesanan ',
+            'auth_user' => $user,
+            'resultData' => $resultDataHeader,
+            'orderPayment' => $getPaymentOrder,
+        ]);
+    }
+
+    function updatePriceRequest(Request $request, string $order_code) {
+        $data = ['price' => cleanSpecialChar($request->price), 'status' => 'Y'];
+        $result = RequestOrder::find($request->code)->update($data);
+        if($result) {
+            return response()->json(['status' => 'success']);
+        } else {
+            return response()->json(['status' => 'failed']);
+        }
     }
 
     public function updateStatusDelivery(Request $request) {

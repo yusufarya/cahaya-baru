@@ -1,5 +1,6 @@
 <?php
     $profileImg = $auth_user->image ? $auth_user->image : 'userDefault.png'; 
+    $level_user =  $auth_user->admin_level->id;
 ?>
 
 <!-- Main Sidebar Container -->
@@ -44,14 +45,14 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                     with font-awesome or any other icon font library -->
-                <li class="nav-item">
+                <li class="nav-item" {{ $level_user == 3 ? 'hidden' : '' }}>
                     <a href="/dashboard" class="nav-link {{ Request::segment(1) === 'dashboard' ? 'menu-active' : '' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p> Dashboard  </p>
                     </a> 
                 </li> 
                 
-                <li class="nav-item {{ Request::segment(1) === 'data-admin' || Request::segment(1) === 'data-customer' || Request::segment(1) === 'detail-customer' ? 'menu-is-opening menu-open' : '' }}">
+                <li class="nav-item {{ Request::segment(1) === 'data-admin' || Request::segment(1) === 'data-customer' || Request::segment(1) === 'detail-customer' ? 'menu-is-opening menu-open' : '' }}" {{ $level_user == 3 ? 'hidden' : '' }}>
                     <a href="#" class="nav-link ">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
@@ -63,7 +64,7 @@
                         <li class="nav-item">
                             <a href="/data-admin" class="nav-link {{ Request::segment(1) === 'data-admin' ? 'submenu-active' : '' }}">
                                 » &nbsp;
-                                <p>Data Admin</p>
+                                <p>Data Pegawai</p>
                             </a> 
                         </li>
                         <li class="nav-item">
@@ -76,7 +77,7 @@
                 </li>
                 
                 {{-- <li class="nav-header">Persediaan</li> --}}
-                <li class="nav-item {{ Request::segment(1) === 'units' || Request::segment(1) === 'sizes' || Request::segment(1) === 'categories' || Request::segment(1) === 'products' || Request::segment(1) === 'brands' || Request::segment(1) === 'update-stock' || Request::segment(1) === 'inventories'  ? 'menu-is-opening menu-open' : '' }}">
+                <li class="nav-item {{ Request::segment(1) === 'units' || Request::segment(1) === 'sizes' || Request::segment(1) === 'categories' || Request::segment(1) === 'products' || Request::segment(1) === 'brands' || Request::segment(1) === 'update-stock' || Request::segment(1) === 'inventories'  ? 'menu-is-opening menu-open' : '' }}" {{ $level_user == 3 ? 'hidden' : '' }}>
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-cubes"></i>
                         <p>
@@ -130,7 +131,7 @@
                     </ul>
                 </li> 
                 {{-- <li class="nav-header">Pembelian</li> --}}
-                <li class="nav-item {{ Request::segment(1) === 'vendors' || Request::segment(1) === 'purchase-order' || Request::segment(1) === 'purchase-report' ? 'menu-is-opening menu-open' : '' }}">
+                <li class="nav-item {{ Request::segment(1) === 'vendors' || Request::segment(1) === 'purchase-order' || Request::segment(1) === 'purchase-report' ? 'menu-is-opening menu-open' : '' }}" {{ $level_user == 3 ? 'hidden' : '' }}>
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-shopping-basket"></i>
                         <p>
@@ -161,7 +162,7 @@
                 </li> 
                 
                 {{-- <li class="nav-header">Penjualan</li> --}}
-                <li class="nav-item {{ Request::segment(1) === 'orders' || Request::segment(1) === 'sales-order' || Request::segment(1) === 'sales-report' || Request::segment(1) === 'request-order' ? 'menu-is-opening menu-open' : '' }}">
+                <li class="nav-item {{ Request::segment(1) === 'orders' || Request::segment(1) === 'sales-order' || Request::segment(1) === 'sales-report' || Request::segment(1) === 'request-order' ? 'menu-is-opening menu-open' : '' }}" {{ $level_user == 3 ? 'hidden' : '' }}>
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-shopping-cart"></i>
                         <p>
@@ -221,7 +222,7 @@
                     </ul>
                 </li> 
 
-                <li class="nav-item {{ Request::segment(1) === 'payment-method' || Request::segment(1) === 'financial-report' ? 'menu-is-opening menu-open' : '' }}">
+                <li class="nav-item {{ Request::segment(1) === 'payment-method' || Request::segment(1) === 'financial-report' ? 'menu-is-opening menu-open' : '' }}" {{ $level_user == 3 ? 'hidden' : '' }}>
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-money-check-alt"></i>
                         <p>
@@ -236,7 +237,7 @@
                                 <p>Metode Pembayaran</p>
                             </a> 
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" hidden>
                             <a href="/financial-report" class="nav-link {{ Request::segment(1) === 'financial-report' ? 'submenu-active' : '' }}">
                                 » &nbsp;
                                 <p>Laporan Keuangan</p>
@@ -245,7 +246,7 @@
                     </ul>
                 </li> 
                 
-                <li class="nav-header">Lainnya</li>
+                {{-- <li class="nav-header">Lainnya</li>
                 <li class="nav-item">
                     <a href="/set-period" class="nav-link {{ Request::segment(1) === 'set-period' ? 'submenu-active' : '' }}">
                         <i class="nav-icon fas fa-calendar-minus"></i>
@@ -258,7 +259,7 @@
                         <i class="nav-icon fas fa-tools"></i>
                         <p>Pengaturan</p>
                     </a>
-                </li> 
+                </li>  --}}
 
             </ul>
         </nav>

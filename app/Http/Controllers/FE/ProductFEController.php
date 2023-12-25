@@ -25,15 +25,15 @@ class ProductFEController extends Controller
     }
 
     function getDataProducts(Request $request) {
-        
+        $active = "Y";
         $categorySelected = $request->categoryId;
         if($categorySelected) {
-            $filter = ['is_active' => 'Y', 'category_id' => $categorySelected];
+            $filter = ['is_active' => (string)$active, 'category_id' => $categorySelected];
         } else {
-            $filter = ['is_active' => 'Y'];
+            $filter = ['is_active' => (string)$active];
         }
 
-        $products = Product::with('categories')->where($filter)->get();
+        $products = Product::with('categories', 'sizes')->where($filter)->get();
         
         $result = array('status' => 'success', 'products' => $products);
         

@@ -17,6 +17,9 @@ class Dashboard extends Controller
     function index() {
         $cur_route = Route::current()->uri();
         $data = Auth::guard('admin')->user();
+        if($data->level_id == 3) {
+            return redirect('/delivery');
+        }
         return view('admin-page.dashboard', [
             'title' => 'Dashboard',
             'cur_page' => $cur_route,

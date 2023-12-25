@@ -71,7 +71,8 @@
                         <div class="col-md-2">Total Harga</div>
                         <div class="col-md-2"></div>
                         <div class="col-md-2">
-                            <input type="text" name="total_price" id="total_price" class="form-control bg-transparent" readonly value="{{ $dataDetail->qty ? number_format($dataDetail->products->selling_price*$dataDetail->qty,2) : number_format($dataDetail->products->selling_price,2) }}">
+                            <input type="text" name="vtotal_price" id="vtotal_price" class="form-control bg-transparent" readonly value="{{ $dataDetail->qty ? number_format($dataDetail->products->selling_price*$dataDetail->qty,2) : number_format($dataDetail->products->selling_price,2) }}">
+                            <input type="hidden" name="total_price" id="total_price" class="form-control bg-transparent" readonly value="{{ $dataDetail->qty ? $dataDetail->products->selling_price*$dataDetail->qty : $dataDetail->products->selling_price }}">
                         </div>
                     </div>
                     <div class="row mt-3">

@@ -20,6 +20,11 @@
 <section class="content">
     <div class="container-fluid">
         <div class="row mx-2">
+          @if (session()->has('failed'))
+            <div class="alert alert-danger py-1">
+              <?= session()->get('failed') ?>
+            </div>
+          @endif
           <div class="row justify-content-end mb-2 w-100">
             <a href="/form-add-admin" class="btn float-right btn-add "><i class="fas fa-plus-square"></i> &nbsp; Data</a>
           </div>
@@ -36,8 +41,9 @@
               </thead>
               <tbody>
                 @foreach ($dataAdmin as $row)
-                  <tr>
-                      <td onclick="getDetailUser(`{{$row->code}}`)" style="cursor: pointer" class="text-info">{{ $row->code }}</td>
+                  @if ($row->level_id != 1)
+                    <tr>
+                      <td >{{ $row->code }}</td>
                       <td>{{ $row->fullname }}</td>
                       <td>{{ $row->gender == 'M' ? 'Laki-laki' : 'Perempuan' }}</td>
                       <td>{{ $row->email }}</td>
@@ -45,9 +51,12 @@
                       <td style=" text-align: center;">
                         <a href="/form-edit-admin/{{$row->code}}" class="text-warning"><i class="fas fa-edit"></i></a>
                         &nbsp;
-                        <a href="/delete-data" class="text-danger"><i class="fas fa-trash-alt"></i></a>
+                        @if ($row->level_id == 1)
+                          <a href="#" onclick="delete_data(`{{$row->code}}`, `{{$row->fullname}}`)" class="text-danger"><i class="fas fa-trash-alt"></i></a>
+                        @endif
                       </td>
-                  </tr>
+                    </tr>
+                  @endif  
                 @endforeach
               </tbody>
           </table>
@@ -104,6 +113,33 @@
           </div> 
         </div>
       </div> 
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="modal-delete" tabindex="-1">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title ml-2 font-weight-bold">Title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="POST">
+        @csrf
+        @method('DELETE')
+        <div class="modal-body p-3">
+          <div class="row" id="content-delete">
+            
+          </div>
+        </div> 
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+          <button type="submit" class="btn btn-primary">Ya</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

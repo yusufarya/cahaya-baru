@@ -6,11 +6,11 @@ $(function () {
     var totals = qty * price;
     totals += parseFloat(charge);
 
-    let pageCart = $("#pageCart").val();
-    if (!pageCart) {
-        $("#vnetto").val(replaceRupiah(totals + ".00"));
-        $("#netto").val(totals);
-    }
+    // let pageCart = $("#pageCart").val();
+    // if (!pageCart) {
+    //     $("#vnetto").val(replaceRupiah(totals + ".00"));
+    //     $("#netto").val(totals);
+    // }
 });
 
 function changeQty() {
@@ -34,7 +34,7 @@ function changeQty() {
     $("#netto").val(totals);
 }
 
-function payOrder(code, pageCart) {
+function payOrder(code) {
     // console.log(code);
     var qty_dt = $("#qty_dt").val();
     var price = $("#price").val();
@@ -42,7 +42,7 @@ function payOrder(code, pageCart) {
     var charge = $("#charge").val();
     var netto = $("#netto").val();
 
-    var route = "/prosesPayOrder";
+    var route = "/prosesPayOrder-req";
 
     $.ajax({
         type: "POST",
@@ -54,7 +54,6 @@ function payOrder(code, pageCart) {
             total_price: total_price,
             charge: charge,
             netto: netto,
-            pageCart: pageCart ? true : false,
         },
         headers: {
             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -62,9 +61,9 @@ function payOrder(code, pageCart) {
         success: function (response) {
             console.log(response);
             if (response.status == "success") {
-                const code = response.resultData.code;
+                const code = response.code;
                 setTimeout(() => {
-                    location.href = "/pay-order/" + code;
+                    location.href = "/pay-order-req/" + code;
                 }, 100);
             } else {
                 alert("Proses gagal, Hubungi Administrator.");

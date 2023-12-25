@@ -8,7 +8,8 @@
         <h3 style="font-size: 26px; font-weight: 600"> {{ $title }} </h3>
         </div>
     </div>
-
+    <a href="/my-req-orders" class="ms-3 btn btn-danger">Permintaan Saya</a> 
+    <div class="pt-2 ms-3"> <p>Note : Jasa pengiriman luar Tangerang akan di alihkan ke jasa expedisi</p> </div>
     <form action="/send-custom-request" method="POST" enctype="multipart/form-data">
         <div class="row mt-3 bg-secondary-color mx-3 p-3">
             @csrf
@@ -45,18 +46,19 @@
                         </small>
                         @enderror
                     </div>
-                    <div class="col-md-4 col-lg-4 mt-3" hidden>
+                    <div class="col-md-4 col-lg-4 mt-3">
                         <label for="delivery">Jenis Pengiriman</label>
                         <input type="text" class="form-control" name="delivery" id="delivery" value="{{ $delivery->name }}" readonly>
                     </div>
                     <div class="col-md-4 col-lg-4 mt-3">
-                        <label for="charge">Ongkos Kirim</label>
-                        <input type="text" class="form-control" name="charge" id="charge" value="{{ number_format($delivery->charge,2) }}" readonly style="text-align: right;">
+                        <label for="vcharge">Ongkos Kirim</label>
+                        <input type="text" class="form-control" name="vcharge" id="vcharge" value="{{ number_format($delivery->charge,2) }}" readonly style="text-align: right;">
+                        <input type="hidden" class="form-control" name="charge" id="charge" value="{{ $delivery->charge }}" readonly style="text-align: right;">
                     </div>
                     
                     <div class="col-md-12 col-lg-12 mt-3">
                         <label for="description">Catatan : </label>
-                        <textarea type="text" class="form-control" rows="5" name="description" id="description"></textarea>
+                        <textarea type="text" class="form-control" rows="5" name="description" id="description" value="{{ number_format($delivery->charge,2) }}"></textarea>
                     </div>
                     
                     <div class="col">

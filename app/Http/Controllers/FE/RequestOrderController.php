@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\FE;
 
 use App\Models\Size;
+use App\Models\Customer;
 use App\Models\DeliveryType;
 use App\Models\RequestOrder;
 use Illuminate\Http\Request;
@@ -37,13 +38,13 @@ class RequestOrderController extends Controller
     }
 
     function store(Request $request) {
-        // dd($request);
+        // dd(substr($request->charge, -2));
         $user = Auth::guard('customer')->user();
 
         $validateData = $request->validate([
             'size_id' => 'required',
             'qty' => 'required',
-            'image'         => 'file|image|max:1024'
+            'image' => 'file|image|max:1024'
         ]);
 
         $data = [
@@ -53,9 +54,9 @@ class RequestOrderController extends Controller
             'description' => $request->description,
             'size_id' => $request->size_id,
             'qty' => $request->qty,
-            'charge' => $request->charge,
+            'charge' => cleanSpecialChar($request->charge),
         ];
-
+        // dd($data);
         if($request->file('image')) {
             $data['image'] = $request->file('image')->store('request-images');
         }
@@ -63,9 +64,29 @@ class RequestOrderController extends Controller
         $result = RequestOrder::create($data);
         if($result) {
             $request->session()->flash('success', 'Akun berhasil dibuat');
-            return redirect('/products');
+            return redirect('/my-req-orders');
         } else {
             die('Proses gagal, Hubungi administrator');
         }
+    }
+
+    // Request Pesanan saya
+    function myRequestOrders(Request $request) {
+        $status = $request->status ? $request->status : 'N';
+        $delivery = $request->status == 'Y' ? $request->delivery : '';
+
+        $filename = 'my_req_orders';
+        $filename_script = getContentScript(false, $filename);
+
+        $registrant = new Customer;
+        $result = $registrant->getMyReqOrders($status, $delivery);
+        // dd($result);
+        return view('user-page.'.$filename, [
+            'script' => $filename_script,
+            'title' => 'Daftar Custom Permintaan ',
+            'my_orders' => $result,
+            'status' => $status,
+            'delivery' => $delivery
+        ]);
     }
 }
