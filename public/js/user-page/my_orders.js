@@ -23,7 +23,7 @@ function acc_order(code) {
             },
             success: function (response) {
                 // Handle the response here
-                console.log(response);
+                // console.log(response);
                 if (response.status == "success") {
                     setTimeout(() => {
                         $("#delivery").val(4);

@@ -3,6 +3,10 @@ $(function () {
         $("#modal-detail").modal("show");
     });
 
+    $("#vprice").on("change", function () {
+        $("#price").val($(this).val());
+    });
+
     $("#save").on("click", () => {
         let order_code = $("#order_code").val();
         let price = $("#price").val();

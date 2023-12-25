@@ -53,7 +53,7 @@
                   case 4:
                     $delivery_status = '<span class="alert py-1 alert-success">Diterima</span>';
                     break;
-                    default:
+                  default:
                     $delivery_status = '<span class="alert py-1 alert-secondary">Pengemasan</span>';
                     break;
                 }

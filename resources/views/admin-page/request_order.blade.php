@@ -48,9 +48,12 @@
                     $delivery_status = '<span class="alert py-1 alert-primary">Pengiriman</span>';
                     break;
                   case 3:
-                    $delivery_status = '<span class="alert py-1 alert-success">Selesai</span>';
+                    $delivery_status = '<span class="alert py-1 alert-warning">Selesai</span>';
                     break;
-                    default:
+                  case 4:
+                    $delivery_status = '<span class="alert py-1 alert-success">Diterima</span>';
+                    break;
+                  default:
                     $delivery_status = '<span class="alert py-1 alert-secondary">Pengemasan</span>';
                     break;
                 }
@@ -65,8 +68,12 @@
                       {{-- <td style=" text-align: center;">{{ $row->status_payment }}</td> --}}
                       <td style=" text-align: center;"><?= $delivery_status ?> </td>
                       <td style=" text-align: center;">
-                        <a href="/request-order/{{ $row->code }}/detail" class="text-success shadow px-2 py-1"> Detail</a>
-                        <a href="#" onclick="process(`{{ $row->code }}`, `{{ $row->delivery }}`)" class="text-info shadow px-2 py-1"> Proses</a>
+                        @if ($row->delivery == 4)
+                          <a href="#" class="text-info shadow px-2 py-1"> ✅ </a>
+                        @else
+                          <a href="/request-order/{{ $row->code }}/detail" class="text-success shadow px-2 py-1"> Detail</a>
+                          <a href="#" onclick="process(`{{ $row->code }}`, `{{ $row->delivery }}`)" class="text-info shadow px-2 py-1"> Proses</a>
+                        @endif
                       </td>
                   </tr>
                 @endforeach

@@ -48,7 +48,8 @@
 
                     <div class="col-lg-4 col-md-4 col-sm-4 mt-2">
                         <label for="price">Harga</label>
-                        <input type="text" name="price" id="price" class="form-control" onkeyup="formatRupiah(this, this.value)" value="{{ number_format($resultData->price,2) }}">
+                        <input type="text" name="vprice" id="vprice" class="form-control" onkeyup="formatRupiah(this, this.value)" value="{{ number_format($resultData->price,2) }}">
+                        <input type="text" name="price" id="price" class="form-control" value="{{ $resultData->price }}">
                     </div>
 
                     <div class="col-lg-8 col-md-8 col-sm-8 mt-2">
