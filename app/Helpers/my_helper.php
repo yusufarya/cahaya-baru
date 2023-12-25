@@ -50,7 +50,6 @@ function getLasCodeTransaction($type) {
             $lastNumber = substr($lastNumber, -3);
             $code_ = sprintf('%03d', $lastNumber+1);
             $numberFix = "STCB".date('ymd').$code_;
-            dd($numberFix);
         } else {
             $numberFix = "STCB".date('ymd')."001";
         }
