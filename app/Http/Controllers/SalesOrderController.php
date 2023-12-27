@@ -40,7 +40,7 @@ class SalesOrderController extends Controller
         $resultDataDetail = SalesOrderDetail::with('products.sizes')->where(['sales_order_code' => $order_code])->get();
         
         $getPaymentOrder = OrderPayment::with('payment_methods')->where(['order_code' => $order_code])->first();
-        // dd($resultDataDetail);
+        // dd($getPaymentOrder);
         return view('admin-page.'.$filename, [
             'script' => $filename_script,
             'title' => 'Detail Pesanan ',

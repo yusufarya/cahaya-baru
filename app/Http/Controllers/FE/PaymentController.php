@@ -45,7 +45,7 @@ class PaymentController extends Controller
     function prosesPayOrder(Request $request) {
         $sales_order_code = $request->code;
         $pageCart = $request->pageCart;
-        
+        // dd($request);
         if($pageCart != "false") {
             // dd(1);
             $orderHD = [
@@ -69,13 +69,13 @@ class PaymentController extends Controller
                 'charge' => $request->charge
             ];
         }
-        // dd($request);
-
-        $user = Customer::find(Auth::guard('customer')->user()->code)->first();
-
-        SalesOrder::where(['customer_code' => $user->code, 'code' => $sales_order_code])->update($orderHD);
+        
+        $code_pelanggan = Auth::guard('customer')->user()->code;
+        
+        SalesOrder::where(['customer_code' => $code_pelanggan, 'code' => $sales_order_code])->update($orderHD);
         SalesOrderDetail::where(['sales_order_code' => $sales_order_code])->update($orderDT);
         
+        // dd($code_pelanggan);
         $order_result = SalesOrder::with('salesOrderDetails.products.categories', 'salesOrderDetails.products.sizes', 'salesOrderDetails.products.brands')
                 ->find($sales_order_code);
         // dd($order_result);

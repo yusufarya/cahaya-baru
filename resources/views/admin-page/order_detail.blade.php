@@ -143,6 +143,7 @@
     </div>
 </div>
 
+
 <div class="modal fade" id="modal-detail" tabindex="-1">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">

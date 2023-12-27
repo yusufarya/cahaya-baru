@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\FE;
 
 use App\Models\Customer;
-use App\Models\RequestOrder;
+use App\Models\SalesOrder;
 use App\Models\OrderPayment;
+use App\Models\RequestOrder;
 use Illuminate\Http\Request;
 use App\Models\PaymentMethod; 
+use App\Models\SalesOrderDetail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 

@@ -188,7 +188,7 @@ Route::middleware('customer')->group(function () {
     Route::get('/pay-order-req/{code}', [PaymentRequestController::class, 'payOrder']);
     // Route::post('/updatePaymentMethod', [PaymentRequestController::class, 'updatePaymentMethod']);
     Route::post('/uploadImgPayment-req', [PaymentRequestController::class, 'uploadImgPayment']);
-    Route::delete('/cancel-order', [PaymentRequestController::class, 'cancelOrders']);
+    Route::delete('/cancel-order-req', [PaymentRequestController::class, 'cancelOrders']);
     
     Route::post('/logout', [CustomerController::class, 'logout']);
 });

@@ -54,7 +54,7 @@
             <table class="table" style="width: 100%; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
                 <tr>
                     <th style="text-align: left; width: 10%;">Nomor Transaksi</th>
-                    <th style="text-align: left;">Vendor</th>
+                    <th style="text-align: left;">Pelanggan</th>
                     <th style="text-align: left;">Tanggal</th>
                     <th style="text-align: left;">Rincian Produk</th>
                     <th style="text-align: right;">Qty</th>

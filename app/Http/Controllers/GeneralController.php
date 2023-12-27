@@ -35,12 +35,13 @@ class GeneralController extends Controller {
             $checkOrderHeader = SalesOrder::with('salesOrderDetails.products')
                                 ->where(['customer_code' => $user->code])
                                 ->first();
-                                
-            if($checkOrderHeader->status == 'N') {
-                if($checkOrderHeader->salesOrderDetails != NULL) {
-                    if($productId == $checkOrderHeader->salesOrderDetails->products->id) {
-                        $request->session()->flash('message', 'Anda mempunyai pesanan pada produk yang sama, <a href="/payment/'.$checkOrderHeader->code.'">lihat pesanan</a>.');
-                        return redirect('/detail-product/'.$productId);
+            if($checkOrderHeader) {
+                if($checkOrderHeader->status == 'N') {
+                    if($checkOrderHeader->salesOrderDetails != NULL) {
+                        if($productId == $checkOrderHeader->salesOrderDetails->products->id) {
+                            $request->session()->flash('message', 'Anda mempunyai pesanan pada produk yang sama, <a href="/payment/'.$checkOrderHeader->code.'">lihat pesanan</a>.');
+                            return redirect('/detail-product/'.$productId);
+                        }
                     }
                 }
             }
@@ -52,16 +53,22 @@ class GeneralController extends Controller {
                 'date' => date('Y-m-d'),
             ];
 
-            
-            if($checkOrderHeader->status == 'Y') {
+            if($checkOrderHeader) {
+                if($checkOrderHeader->status == 'Y') {
+                    $code = getLasCodeTransaction('S');
+        
+                    $dataHeader['code'] = $code;
+                    SalesOrder::create($dataHeader);
+                } else {
+                    $code = $checkOrderHeader->code;
+                }
+            } else {
                 $code = getLasCodeTransaction('S');
     
                 $dataHeader['code'] = $code;
                 SalesOrder::create($dataHeader);
-            } else {
-                $code = $checkOrderHeader->code;
             }
-
+            
             $dataDetail = [
                 'sequence' => 1,
                 'sales_order_code' => $code,
