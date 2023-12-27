@@ -162,6 +162,7 @@ Route::middleware('customer')->group(function () {
 
     Route::get('/my-orders', [CustomerController::class, 'myOrders']);
     Route::post('/acc-order', [CustomerController::class, 'accOrder']);
+    
     Route::get('/_profile', [CustomerController::class, 'profile']);
     Route::get('/update-profile', [CustomerController::class, 'updateProfile']);
     Route::put('/update-profile/{number}', [CustomerController::class, 'updateProfileData']);

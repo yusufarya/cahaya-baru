@@ -1,4 +1,4 @@
-function add_vendor() {
+function add_data() {
     $("#modal-add").modal("show");
     $(".modal-title").text("Tambah Data");
     $("#content-add").html("");
@@ -21,7 +21,7 @@ function add_vendor() {
     $("#content-add").append(html);
 }
 
-function edit_vendor(id, name, account_number) {
+function edit_data(id, name, account_number) {
     $("#modal-edit").modal("show");
     $(".modal-title").text("Ubah Data");
     $("#modal-edit form").attr("action", "/payment-method/" + id);
@@ -50,7 +50,7 @@ function edit_vendor(id, name, account_number) {
     $("#content-edit").append(html);
 }
 
-function delete_vendor(id, name) {
+function delete_data(id, name) {
     $("#modal-delete").modal("show");
     $(".modal-title").text("Hapus Data");
     $("#modal-delete form").attr("action", "/payment-method/" + id);

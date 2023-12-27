@@ -198,6 +198,7 @@
                     </ul>
                 </li> 
 
+                {{-- Delivery --}}
                 <li class="nav-item {{ Request::segment(1) === 'delivery-types' || Request::segment(1) === 'delivery' ? 'menu-is-opening menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-box"></i>
@@ -222,6 +223,7 @@
                     </ul>
                 </li> 
 
+                {{-- Finance --}}
                 <li class="nav-item {{ Request::segment(1) === 'payment-method' || Request::segment(1) === 'financial-report' ? 'menu-is-opening menu-open' : '' }}" {{ $level_user == 3 ? 'hidden' : '' }}>
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-money-check-alt"></i>

@@ -26,6 +26,7 @@
                       <th style="width: 4%">Id</th>
                       <th>Jenis Pengiriman</th>
                       <th>Keterangan</th>
+                      <th style="text-align: right; width: 140px;">Biaya</th>
                       <th style="width: 10%; text-align: center;">Aksi</th>
                   </tr>
               </thead>
@@ -35,6 +36,7 @@
                       <td>{{ $row->id }}</td>
                       <td>{{ $row->name }}</td>
                       <td>{{ $row->description }}</td>
+                      <td style="text-align: right;">{{ number_format($row->charge,2) }}</td>
                       <td style=" text-align: center;">
                         <a href="#" onclick="edit_data(`{{$row->id}}`, `{{$row->name}}` , `{{$row->description}}`)" class="text-warning"><i class="fas fa-edit"></i></a>
                         &nbsp;

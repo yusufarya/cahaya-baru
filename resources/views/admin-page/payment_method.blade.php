@@ -18,7 +18,7 @@
     <div class="container-fluid">
         <div class="row mx-2">
           <div class="row justify-content-end mb-2 w-100">
-            <button onclick="add_vendor()" class="btn float-right btn-add "><i class="fas fa-plus-square"></i> &nbsp; Data</button>
+            <button onclick="add_data()" class="btn float-right btn-add "><i class="fas fa-plus-square"></i> &nbsp; Data</button>
           </div>
           <table class="table table-bordered table-sm">
               <thead>
@@ -36,9 +36,9 @@
                       <td>{{ $row->bank_name }}</td>
                       <td>{{ $row->account_number }}</td>
                       <td style=" text-align: center;">
-                        <a href="#" onclick="edit_vendor(`{{$row->id}}`, `{{$row->bank_name}}`, `{{$row->account_number}}`)" class="text-warning"><i class="fas fa-edit"></i></a>
+                        <a href="#" onclick="edit_data(`{{$row->id}}`, `{{$row->bank_name}}`, `{{$row->account_number}}`)" class="text-warning"><i class="fas fa-edit"></i></a>
                         &nbsp;
-                        <a href="#" onclick="delete_vendor(`{{$row->id}}`, `{{$row->bank_name}}`)" class="text-danger"><i class="fas fa-trash-alt"></i></i></a> 
+                        <a href="#" onclick="delete_data(`{{$row->id}}`, `{{$row->bank_name}}`)" class="text-danger"><i class="fas fa-trash-alt"></i></i></a> 
                       </td>
                   </tr>
                 @endforeach
