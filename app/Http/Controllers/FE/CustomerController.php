@@ -104,7 +104,7 @@ class CustomerController extends Controller
         return $numberFix;
     }
 
-    // USER PROFILE - PARTICIPANT (PESERTA) //
+    // USER PROFILE - Pelanggan //
 
     function profile() {
         $filename = 'profile';
