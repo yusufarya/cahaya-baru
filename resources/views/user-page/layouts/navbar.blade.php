@@ -16,7 +16,7 @@ if(auth('customer')->user()) {
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav">
             <li class="nav-item mx-2">
-              <a class="nav-link {{ Request::segment(1) == '' ? 'active-link' : '' }}" aria-current="page" href="/">Profile</a>
+              <a class="nav-link {{ Request::segment(1) == '' ? 'active-link' : '' }}" aria-current="page" href="/">Home </a>
             </li>
             <li class="nav-item mx-2">
               <a class="nav-link {{ Request::segment(1) == 'our-products' ? 'active-link' : '' }}" aria-current="page" href="/our-products">Produk</a>
