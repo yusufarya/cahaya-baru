@@ -151,6 +151,7 @@
                     </div>
         
                     <hr style="margin: 0 22px 20px;">
+                    
                     <div class="row justify-content-end mx-3">
                         <section class="col-lg-4">
                             <section style="float: right;">
