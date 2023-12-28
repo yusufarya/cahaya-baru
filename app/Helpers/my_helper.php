@@ -26,10 +26,9 @@ function getLastPayCode() {
     return $numberFix;
 }
 
-function getCharge($type = '') {
-    if(!$type) {
-        return DeliveryType::find($type);
-    }
+function getCharge(int $type) {
+    $type = $type ? $type : 1;
+    return DeliveryType::find($type);
 }
 
 function getLasCodeTransaction($type) {

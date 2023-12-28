@@ -25,6 +25,7 @@
                 $deliveryId = 2;
             }
             $charge = getCharge($deliveryId)->charge;
+            $charge_name = getCharge($deliveryId)->name;
             $total_price = 0;
         ?>
 
@@ -82,7 +83,7 @@
                     </div>
                     <div class="row mt-3">
                         <div class="col-md-2">Jenis Pengiriman</div>
-                        <div class="col-md-2"><span class="alert alert-success py-0">Local</span></div>
+                        <div class="col-md-2"><span class="alert alert-success py-0">{{ $charge_name }}</span></div>
                         <div class="col-md-2">
                             <input type="text" name="charge_" id="charge_" class="form-control bg-transparent" readonly value="{{ number_format($charge,2) }}">
                             <input type="hidden" name="charge" id="charge" class="form-control bg-transparent" readonly value="{{$charge}}">
