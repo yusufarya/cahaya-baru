@@ -67,4 +67,14 @@
   </div>
 </div>
 
+<div class="row">
+  <div class="col">
+    <h5 class="ms-3">Info Perusahaan</h5>
+      <div><i class="fas fa-phone me-2"></i> Telp. (021) 5451808 / 081219577966</div>
+      <div><i class="fas fa-map-marker-alt me-2"></i> Jl. Semanan Raya Blok B3 No. 5 Kota Jakarta Barat 11850</div>
+      <div><i class="fas fa-envelope me-2"></i> Email: cahayabarujkrt@gmail.com </div>
+    </ul>
+  </div>
+</div>
+
 @endsection
