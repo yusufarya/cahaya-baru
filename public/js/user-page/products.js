@@ -83,7 +83,7 @@ function getServicesList(categoryId = "") {
                                 <h5 class="card-title" style="font-weight: 700; text-transform: uppercase;">` +
                         item.name +
                         `</h5>
-                                <p class="card-text" style="font-size: 14.5px;">` +
+                                <p class="card-text" style="font-size: 14.5px;" hidden>` +
                         textLenght +
                         `</p>
                             </div>
