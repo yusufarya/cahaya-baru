@@ -49,8 +49,8 @@ function getServicesList(categoryId = "") {
                 var html = "";
                 data.products.map((item, index) => {
                     let textLenght = item.description
-                        ? item.description.length > 111
-                            ? item.description.substring(0, 110) + ".."
+                        ? item.description.length > 90
+                            ? item.description.substring(0, 90) + ".."
                             : item.description
                         : "";
                     if (item.image) {

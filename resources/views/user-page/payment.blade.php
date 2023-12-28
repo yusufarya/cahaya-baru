@@ -19,7 +19,12 @@
         <input type="hidden" name="pageCart" id="pageCart" value="{{$pageCart}}">
 
         <?php 
-            $charge = getCharge()->charge;
+            if(ucwords(trim($user->city)) == 'Tangerang') {
+                $deliveryId = 1;
+            } else {
+                $deliveryId = 2;
+            }
+            $charge = getCharge($deliveryId)->charge;
             $total_price = 0;
         ?>
 

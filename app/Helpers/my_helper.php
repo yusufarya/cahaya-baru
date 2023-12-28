@@ -28,7 +28,7 @@ function getLastPayCode() {
 
 function getCharge($type = '') {
     if(!$type) {
-        return DeliveryType::first();
+        return DeliveryType::find($type);
     }
 }
 
