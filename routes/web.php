@@ -125,6 +125,7 @@ Route::middleware('admin')->group(function () {
     Route::get('/request-order', [CustomOrdersController::class, 'index']);
     Route::get('/request-order/{code}/detail', [CustomOrdersController::class, 'detailRequest']);
     Route::post('/update-price-req-order/{code}', [CustomOrdersController::class, 'updatePriceRequest']);
+    Route::post('/request-orders/{code}', [CustomOrdersController::class, 'accPaymentRequest']);
     Route::post('/update-req-status-delivery', [CustomOrdersController::class, 'updateStatusDelivery']);
 
     Route::get('/sales-report', [SalesTransactionReport::class, 'index']); // VIEW REPORT PURCASE TRANSACTION //
@@ -171,6 +172,7 @@ Route::middleware('customer')->group(function () {
     Route::get('/shopping-cart', [ShoppingCartController::class, 'index']);
     Route::post('/add-to-cart/{id}', [ShoppingCartController::class, 'store']);
     Route::post('/submit-from-cart', [ShoppingCartController::class, 'submitCart']);
+    Route::delete('/submit-del-cart', [ShoppingCartController::class, 'deleteCart']);
     
     // PAYMENT SALES ORDER //
     Route::get('/payment/{code}', [PaymentController::class, 'index']);

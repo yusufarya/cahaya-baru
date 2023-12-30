@@ -61,7 +61,7 @@
                                     <tr>
                                         <td>{{ $no++ }}</td>
                                         <td>{{ $item->products->name }}</td>
-                                        <td style="width: 100px;">Ukuran : &nbsp; {{ $item->products->sizes->initial }}</td>
+                                        <td style="width: 120px;">Ukuran : &nbsp; {{ $item->products->sizes->initial }}</td>
                                         <td style="text-align: right;">{{ number_format($item->qty,2) }}</td>
                                         <td style="text-align: right;">{{ number_format($item->price,2) }}</td>
                                         <td style="text-align: right;">{{ number_format($item->charge,2) }}</td>

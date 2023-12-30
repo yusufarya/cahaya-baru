@@ -5,6 +5,7 @@ namespace App\Http\Controllers\FE;
 use App\Models\Customer;
 use App\Models\SalesOrder;
 use App\Models\OrderPayment;
+use App\Models\ShoppingCart;
 use Illuminate\Http\Request;
 use App\Models\PaymentMethod;
 use App\Models\SalesOrderDetail;
@@ -165,4 +166,5 @@ class PaymentController extends Controller
         $sales = SalesOrder::where(['code' => $request->code])->delete();
         return true;
     }
+
 }

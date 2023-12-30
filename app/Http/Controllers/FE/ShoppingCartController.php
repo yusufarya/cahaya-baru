@@ -121,11 +121,24 @@ class ShoppingCartController extends Controller
             $update = SalesOrder::where(['code' => $sales_code])->update($dataHeader);
             
             if($update) {
+                foreach ($requestId as $item) {
+                    ShoppingCart::where('id', $item)->delete();
+                }
+
                 return response()->json(['status' => 'success', 'code' => $sales_code]);
             } else {
                 return response()->json(['status' => 'failed']);
             }
         }
 
+    }
+    
+    function deleteCart(Request $request) {
+        
+        $requestId = explode(',', $request->arrCartId);
+        foreach ($requestId as $item) {
+            ShoppingCart::where('id', $item)->delete();
+        }
+        return true;
     }
 }

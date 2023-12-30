@@ -14,6 +14,9 @@ $(function () {
     //     }
     // });
 
+    $("#checkout").hide();
+    $("#delete").hide();
+
     $("#checkout").on("click", function () {
         let id_cart = $("#id_cart").val();
         if (id_cart) {
@@ -54,6 +57,13 @@ function selectItem(item, price) {
         total_price += parseFloat(price);
         arrQty.push(item);
     }
+    if (arrQty) {
+        $("#checkout").show();
+        $("#delete").show();
+    } else {
+        $("#checkout").hide();
+        $("#delete").hide();
+    }
     $("#id_cart").val(arrQty);
     $("#vtotal_price").val(replaceRupiah(total_price));
     $("#total_price").val(total_price);
@@ -72,3 +82,32 @@ function remove(arr) {
     }
     return arr;
 }
+
+$("#delete").on("click", function () {
+    $("#deleteCart").modal("show");
+    const arrCartId = $("#id_cart").val();
+
+    $("#deleteCart #ya").click(function () {
+        // console.log(id_cart);
+
+        $.ajax({
+            type: "DELETE",
+            dataType: "json",
+            url: "/submit-del-cart", // Use the route function to generate the URL
+            // url: "/del-from-cart", // Use the route function to generate the URL
+            data: {
+                arrCartId: arrCartId,
+            },
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            success: function (response) {
+                // Handle the response here
+                location.href = "/shopping-cart";
+            },
+            error: function (error) {
+                console.log("Ajax request failed");
+            },
+        });
+    });
+});

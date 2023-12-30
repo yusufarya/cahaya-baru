@@ -55,10 +55,10 @@
 
         // dd ($item->status);
         if($item->status == 'Y') {
-          $checkPayment = DB::table('order_payments')->where('order_code', $order_code)->first();
         } else {
           $checkPayment = FALSE;
         }
+        $checkPayment = DB::table('order_payments')->where('order_code', $order_code)->first();
         
         ?>
             <div class="mt-3 p-3 card shadow-lg">
@@ -99,8 +99,8 @@
                           </table>
                         </div>
                         {{-- <br> --}}
-                        @if ($item->status == "Y")
-
+                        @if ($item->price > 0)
+                        
                           @if ($checkPayment) 
                                   
                             @if (!$checkPayment->image)

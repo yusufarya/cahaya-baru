@@ -100,8 +100,12 @@
                         @if ($checkPayment) 
                                 
                           @if (!$checkPayment->image)
+
                             <a href="/pay-order/{{ $order_code }}" type="button" style="float: right;" class="btn btn-danger ms-2" >Pembayaran</a>
                             <span class="pt-1" style="float: right;">Anda belum mengirimkan bukti pembayaran</span> 
+                            <button type="button" style="float: right;" class="btn btn-secondary me-3" onclick="cancelOrder(`{{$order_code}}`)">
+                                Batalkan Pesanan
+                            </button>
                           @else
                           
                             @switch($item->delivery)
@@ -165,6 +169,24 @@
 </div>
 
 @endsection
+
+<div class="modal fade" id="cancelOrder" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><b><i class="fas fa-exclamation-triangle text-warning"></i>&nbsp; Batalkan Pesanan</b></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Anda yakin ingin membatalkan pembayaran? <br> Pesanan ini akan dihapus.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
+          <button type="button" class="btn btn-primary" id="Y">Ya</button>
+        </div>
+      </div>
+    </div>
+</div>
 
 <div class="modal fade" id="printCard" tabindex="-1">
     <div class="modal-dialog modal-lg">

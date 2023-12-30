@@ -49,10 +49,22 @@ class CustomOrdersController extends Controller
     }
 
     function updatePriceRequest(Request $request, string $order_code) {
-        $data = ['price' => cleanSpecialChar($request->price), 'status' => 'Y'];
+        $data = ['price' => cleanSpecialChar($request->price)];
         $result = RequestOrder::find($request->code)->update($data);
         if($result) {
             return response()->json(['status' => 'success']);
+        } else {
+            return response()->json(['status' => 'failed']);
+        }
+    }
+
+    function accPaymentRequest(Request $request, string $order_code) {
+        $data = ['status' => 'Y'];
+        $result = RequestOrder::find($request->code)->update($data);
+        $data2 = ['status' => 'Approve'];
+        $result = OrderPayment::where('order_code',$request->code)->update($data2);
+        if($result) {
+            return redirect('/request-order/'.$order_code.'/detail');
         } else {
             return response()->json(['status' => 'failed']);
         }

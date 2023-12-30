@@ -13,6 +13,7 @@ $(function () {
         var thisVal = $("#payment_method").val();
 
         var val = thisVal ? thisVal.split("-") : "";
+        console.log(val[0]);
         if (val) {
             updatePaymentMethod(val[0]);
             var html =

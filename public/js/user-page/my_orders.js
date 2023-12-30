@@ -7,6 +7,34 @@ $(function () {
     });
 });
 
+function cancelOrder(code) {
+    $("#cancelOrder").modal("show");
+
+    $("#Y").click(function () {
+        var route = "/cancel-order";
+
+        $.ajax({
+            type: "DELETE",
+            url: route,
+            data: {
+                code: code,
+            },
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            success: function (response) {
+                // Handle the response here
+                setTimeout(() => {
+                    location.href = "/my-orders";
+                }, 100);
+            },
+            error: function (error) {
+                console.log("Ajax request failed");
+            },
+        });
+    });
+}
+
 function acc_order(code) {
     console.log(code);
     var acc = confirm("terima Pesanan");

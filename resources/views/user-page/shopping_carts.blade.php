@@ -32,6 +32,9 @@
             <div class="col-md-2">
               <button type="button" class="btn bg-primary-color text-white" id="checkout" style="float: right;"> Checkout </button>
             </div>
+            <div class="col-md-2">
+              <button type="button" class="btn bg-danger text-white" id="delete" style="float: right;"> Hapus </button>
+            </div>
           </div>
         </div>
         <input type="hidden" name="id_cart" id="id_cart" value="">
@@ -75,21 +78,40 @@
 @endsection
 
 <div class="modal fade" id="printCard" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title"><b>Kartu Pembelian</b></h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p>Modal body text goes here.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-          <button class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Kartu Pembelian" >
-            <i class="fas fa-print me-1"></i> Cetak
-        </button>
-        </div>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><b>Kartu Pembelian</b></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+        <button class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Kartu Pembelian" >
+          <i class="fas fa-print me-1"></i> Cetak
+      </button>
       </div>
     </div>
   </div>
+</div>
+
+  
+<div class="modal fade" id="deleteCart" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><b><i class="fas fa-exclamation-triangle text-warning"></i>&nbsp; Hapus Item</b></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Anda yakin ingin menghapus item ? </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
+        <button type="button" class="btn btn-primary" id="ya">Ya</button>
+      </div>
+    </div>
+  </div>
+</div>

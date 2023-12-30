@@ -17,7 +17,13 @@
         </div>
 
         <?php 
-            $charge = getCharge()->charge;
+            if(ucwords(trim($auth_user->city)) == 'Tangerang') {
+                $deliveryId = 1;
+            } else {
+                $deliveryId = 2;
+            }
+            $charge = getCharge($deliveryId)->charge;
+            $charge_name = getCharge($deliveryId)->name;
             $total_price = 0;
         ?>
     
@@ -35,19 +41,19 @@
             </div>
         
             <div class="col mx-3">
-                <h4 style="font-size: 28px; font-weight: 700; text-transform: uppercase;"> sdsadsada  </h4>
+                {{-- <h4 style="font-size: 28px; font-weight: 700; text-transform: uppercase;"> {{  }}  </h4> --}}
                 
                 <p>
                     <small class="card-text"> 
                         Ukuran : {{ $resultData->sizes->initial }}
                     </small><br>
                 </p>
-                {{-- <p class="text-black " style="font-size: 16.5px; line-height: 1.6; text-align: justify"><?= $resultData->description ?></p> --}}
+                <p class="text-black " style="font-size: 16.5px; line-height: 1.6; text-align: justify"><?= $resultData->description ?></p>
                 <div class="row">
                     <div class="col-md-2">Quantity</div>
                     <div class="col-md-2"></div>
                     <div class="col-md-2">
-                        <input type="number" onchange="changeQty()" onkeyup="onlyNumbers(this)" name="qty_dt" id="qty_dt" class="form-control" value="{{ $resultData->qty ? $resultData->qty : '1' }}" >
+                        <input type="number" onchange="changeQty()" onkeyup="onlyNumbers(this)" name="qty_dt" id="qty_dt" class="form-control" value="{{ $resultData->qty }}" >
                     </div>
                 </div>
                 <div class="row">
@@ -68,7 +74,7 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-2">Jenis Pengiriman</div>
-                    <div class="col-md-2"><span class="alert alert-success py-0">Local</span></div>
+                    <div class="col-md-2"><span class="alert alert-success py-0">{{ $charge_name }}</span></div>
                     <div class="col-md-2">
                         <input type="text" name="charge_" id="charge_" class="form-control bg-transparent" readonly value="{{ number_format($charge,2) }}">
                         <input type="hidden" name="charge" id="charge" class="form-control bg-transparent" readonly value="{{$charge}}">
@@ -81,7 +87,7 @@
         <?php 
             if($resultData->qty) {
                 $total_price += ($resultData->price*$resultData->qty)+$charge;
-                // echo $total_price;
+                echo $total_price;
             }
         ?>
         

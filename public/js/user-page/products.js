@@ -36,13 +36,19 @@ function getCategory(id) {
     }
 }
 
-function getServicesList(categoryId = "") {
+function searchButton() {
+    var category = $("#category").val();
+    var search_name = $("#keyword").val();
+    getServicesList(category, search_name);
+}
+
+function getServicesList(categoryId = "", search_name) {
     var route = "getDataProducts";
     $.ajax({
         type: "GET",
         dataType: "JSON",
         url: route,
-        data: { categoryId: categoryId },
+        data: { categoryId: categoryId, search_name: search_name },
         success: function (data) {
             console.log(data);
             if (data.status == "success") {
@@ -83,19 +89,16 @@ function getServicesList(categoryId = "") {
                                 <h5 class="card-title" style="font-weight: 700; text-transform: uppercase;">` +
                         item.name +
                         `</h5>
-                                <p class="card-text" style="font-size: 14.5px;" hidden>` +
-                        textLenght +
-                        `</p>
+                        <small class="card-text"> 
+                            Ukuran : &nbsp;
+                            ` +
+                        item.sizes.initial +
+                        `
+                        </small>
+                        <br>
                             </div>
                             <div class="card-footer">
                                 <p>
-                                <small class="card-text"> 
-                                    Ukuran : &nbsp;
-                                    ` +
-                        item.sizes.initial +
-                        `
-                                </small>
-                                <br>
                                 <small class="card-text"> 
                                     <i class="fas fa-certificate me-2"></i>
                                     ` +

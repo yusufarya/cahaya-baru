@@ -49,7 +49,7 @@
                     <div class="col-lg-4 col-md-4 col-sm-4 mt-2">
                         <label for="price">Harga</label>
                         <input type="text" name="vprice" id="vprice" class="form-control" onkeyup="formatRupiah(this, this.value)" value="{{ number_format($resultData->price,2) }}">
-                        <input type="text" name="price" id="price" class="form-control" value="{{ $resultData->price }}">
+                        <input type="hidden" name="price" id="price" class="form-control" value="{{ $resultData->price }}">
                     </div>
 
                     <div class="col-lg-8 col-md-8 col-sm-8 mt-2">
@@ -98,7 +98,6 @@
     </div>
 </div>
 
-
 <div class="modal fade" id="modal-detail" tabindex="-1">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -137,8 +136,9 @@
                                         @break
                                     @default
                                     <div class="alert alert-warning"> Menunggu Persetujuan </div>
-                                    <form action="/request-orders/{{$resultData->code}}/detail" method="GET">
+                                    <form action="/request-orders/{{$resultData->code}}" method="POST">
                                         @csrf
+                                        @method("POST")
                                         <input type="hidden" name="status" value="Y">
                                         <button type="submit" class="btn btn-success"> Terima Pesanan </button>
                                     </form>
