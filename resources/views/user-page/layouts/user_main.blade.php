@@ -33,7 +33,7 @@
       <footer style="bottom:0 !important;">
         <br>
         <hr>
-        <div> &copy; CV CAHAYA BARU {{ date('Y') }} by 
+        <div> &copy; CV Cahaya Baru {{ date('Y') }} by 
             <a href="https://yusufarya.my.id" target="_blank" class="text-decoration-none">29tech.id</a>
             All rights reserved.</div>
       </footer>
