@@ -4,7 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CAHAYA BARU - {{$title}}</title>
-  
+  <link rel="icon" type="image/x-icon" href="{{ asset('/img/logo_s.png') }}">
+
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <!-- Google Font: Source Sans Pro -->
