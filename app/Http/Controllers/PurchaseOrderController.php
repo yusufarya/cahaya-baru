@@ -97,8 +97,9 @@ class PurchaseOrderController extends Controller
         $where = ['purchase_order_code' => $request->purchase_order_code];
         
         $qty = PurchaseOrderDetail::where($where)->sum('qty');
-        $total_price = PurchaseOrderDetail::where($where)->sum('price');
-
+        $getTotal = PurchaseOrderDetail::select(DB::raw('sum(price*qty) as tot_price'))->where($where)->first();
+        $total_price = $getTotal->tot_price;
+        
         $data = [
             'qty' => $qty,
             'total_price' => $total_price,

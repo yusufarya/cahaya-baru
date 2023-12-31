@@ -17,6 +17,7 @@ use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\ExportDataController;
 use App\Http\Controllers\FE\PaymentController;
 use App\Http\Controllers\SalesOrderController;
 use App\Http\Controllers\FE\CustomerController;
@@ -110,6 +111,7 @@ Route::middleware('admin')->group(function () {
     Route::get('/purchase-report', [PurchaseTransactionReport::class, 'index']); // VIEW REPORT PURCASE TRANSACTION //
     Route::get('/purchase-rpt', [PurchaseTransactionReport::class, 'purchaseReport']); // SROTE REQUEST TO SESSION //
     Route::get('/open-purchase-rpt', [PurchaseTransactionReport::class, 'openPurchaseReport']); // OPEN REPORT PURCASE TRANSACTION //
+    Route::get('/export_purchase_report', [ExportDataController::class, 'purchase_export_data']);
 
     Route::post('/submit-purchase_order', [PurchaseOrderController::class, 'submitData']); // SUBMIT TRANSACTION HEADER //
     
@@ -131,6 +133,7 @@ Route::middleware('admin')->group(function () {
     Route::get('/sales-report', [SalesTransactionReport::class, 'index']); // VIEW REPORT PURCASE TRANSACTION //
     Route::get('/sales-rpt', [SalesTransactionReport::class, 'salesReport']); // SROTE REQUEST TO SESSION //
     Route::get('/open-sales-rpt', [SalesTransactionReport::class, 'openSalesReport']); // OPEN REPORT PURCASE TRANSACTION //
+    Route::get('/export_sales_report', [ExportDataController::class, 'sales_export_data']);
 
     // =============== MODULE PENGIRIMAN ================== //
     Route::resource('/delivery-types', DeliveryController::class)->only("index", "store", "update", "destroy");

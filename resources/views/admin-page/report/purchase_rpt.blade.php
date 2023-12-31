@@ -43,7 +43,7 @@
 
     <div class="wrapper">
         <div style="float: right;">
-            <a href="/export_registrant">
+            <a href="/export_purchase_report">
                 <img src="{{ asset('img/excel.png') }}" alt="excel" style="height: 40px;">
                 <label for="print" style="display : block; font-size: 12px; margin-left: 4px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">export</label>
                 <br>
@@ -69,7 +69,7 @@
                 @foreach ($data as $item)
                     @if ($temp_idOrder <> $item->purchase_order_code)
                         <tr style="font-weight: 600;">
-                            <td>{{ date('ymd', strtotime($item->date)).'-0'.$item->purchase_order_code }}</td>
+                            <td>{{  $item->purchase_order_code }}</td>
                             <td>{{ $item->vendor_name }}</td>
                             <td>{{ date('d/m/Y', strtotime($item->date)) }}</td>
                             <td></td>
