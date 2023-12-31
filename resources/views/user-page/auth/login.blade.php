@@ -6,7 +6,8 @@
         <meta name="description" content="CAHAYA BARU, Kabupaten Jakarta">
         <meta name="author" content="Yusuf Aryadilla and Bootstrap contributors">
         <meta name="generator" content="CCB">
-        <title>Login - Page · CCB</title>
+        <title>Login - Page · Cahaya Baru</title>
+        <link rel="icon" type="image/x-icon" href="{{ asset('img/logo_s.png') }}">
       
         <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/auth.css') }}">

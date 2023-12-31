@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cahaya Baru - {{ $title }} </title>
-    <link rel="icon" type="image/x-icon" href="{{ asset('/img/logo_s.png') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('img/logo_s.png') }}">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
