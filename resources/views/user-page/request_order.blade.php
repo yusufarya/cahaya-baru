@@ -9,7 +9,7 @@
         </div>
     </div>
     <a href="/my-req-orders" class="ms-3 btn btn-danger">Permintaan Saya</a> 
-    <div class="pt-2 ms-3"> <p>Note : Jasa pengiriman luar Tangerang akan di alihkan ke jasa expedisi</p> </div>
+    <div class="pt-2 ms-3"> <p>Note : Jasa pengiriman luar Jakarta akan di alihkan ke jasa expedisi</p> </div>
     <form action="/send-custom-request" method="POST" enctype="multipart/form-data">
         <div class="row mt-3 bg-secondary-color mx-3 p-3">
             @csrf

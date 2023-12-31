@@ -21,7 +21,7 @@ class RequestOrderController extends Controller
         // dd($result);
         $sizes = Size::get();
 
-        if(ucwords(trim($user->city)) == 'Tangerang') {
+        if(ucwords(trim($user->city)) == 'Jakarta') {
             $deliveryId = 1;
         } else {
             $deliveryId = 2;

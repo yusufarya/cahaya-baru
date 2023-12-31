@@ -3,7 +3,7 @@
     <head> 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="CV CAHAYA BARU, Tangerang">
+        <meta name="description" content="CV CAHAYA BARU, Jakarta">
         <meta name="author" content="Yusuf Aryadilla and Bootstrap contributors">
         <meta name="generator" content="CCB">
         <title>Login - Page · CCB</title>

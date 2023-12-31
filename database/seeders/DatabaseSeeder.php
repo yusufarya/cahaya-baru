@@ -94,13 +94,13 @@ class DatabaseSeeder extends Seeder
         
         DeliveryType::create([
             'name' => 'Lokal',
-            'description' => 'Pengiriman lokal digunakan untuk pengiriman area tangerang.',
+            'description' => 'Pengiriman lokal digunakan untuk pengiriman area Jakarta.',
             'charge' => 5000
         ]);
 
         DeliveryType::create([
             'name' => 'Ekspedisi',
-            'description' => 'Pengiriman menggunakan ekspedisi digunakan untuk pengiriman area luar tangerang.',
+            'description' => 'Pengiriman menggunakan ekspedisi digunakan untuk pengiriman area luar Jakarta.',
             'charge' => 13000
         ]);
 

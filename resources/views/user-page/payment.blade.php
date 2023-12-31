@@ -19,7 +19,7 @@
         <input type="hidden" name="pageCart" id="pageCart" value="{{$pageCart}}">
 
         <?php 
-            if(ucwords(trim($auth_user->city)) == 'Tangerang') {
+            if(ucwords(trim($auth_user->city)) == 'Jakarta') {
                 $deliveryId = 1;
             } else {
                 $deliveryId = 2;

@@ -17,7 +17,7 @@
         </div>
 
         <?php 
-            if(ucwords(trim($auth_user->city)) == 'Tangerang') {
+            if(ucwords(trim($auth_user->city)) == 'Jakarta') {
                 $deliveryId = 1;
             } else {
                 $deliveryId = 2;
