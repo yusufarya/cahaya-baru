@@ -75,9 +75,9 @@ class PaymentRequestController extends Controller
     }
 
     function payOrder(string $req_order_code) {
-
+        $getData = RequestOrder::find($req_order_code);
         $orderHD = [
-            'nett' => cleanSpecialChar($request->netto)
+            'nett' => ($getData->qty*$getData->price)+$getData->charge
         ];
 
         $user = Customer::find(Auth::guard('customer')->user()->code)->first();
