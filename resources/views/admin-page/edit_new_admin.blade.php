@@ -23,7 +23,6 @@
                     <div class="col-lg-6 col-md-6 col-sm-12" >
                         <div class="row">
                             
-                            <a href="/update-profile" class="text-decoration-none text-dark font-weight-bolder"> <?php echo session()->get('failed') ?></a>
                             <input type="hidden" id="valid" value="<?= session()->has('success') ?>">
                             <input type="hidden" id="invalid" value="<?= session()->has('failed') ?>">
     
