@@ -44,7 +44,7 @@
                     <div class="col-lg-1">
                       <div class="input-group mb-3">
                         <div class="shadow rounded p-2">
-                          <input class="form-check-input mt-0" type="checkbox" value="{{ $item->id }}" id="items" onclick="selectItem(`{{ $item->id }}`, `{{ $item->products->purchase_price*$item->qty }}`)" style="height: 20px; width: 20px;">
+                          <input class="form-check-input mt-0" type="checkbox" value="{{ $item->id }}" id="items" onclick="selectItem(`{{ $item->id }}`, `{{ $item->products->selling_price*$item->qty }}`)" style="height: 20px; width: 20px;">
                         </div>
                       </div>
                     </div>
@@ -53,8 +53,8 @@
                         <span class="alert alert-info py-0"> {{$item->products->categories->name}}</span>
                         <span class="alert alert-info py-0"> {{$item->products->sizes->initial}}</span>
                         <p class="mt-2">Qty &nbsp; : {{$item->qty}}</p>
-                        <p class="mt-2">Harga &nbsp; : {{ number_format($item->products->purchase_price,2) }}</p>
-                        <p class="mt-2">Jumlah &nbsp; : {{ number_format($item->products->purchase_price*$item->qty,2) }} <sub>X{{$item->qty}}</sub></p>
+                        <p class="mt-2">Harga &nbsp; : {{ number_format($item->products->selling_price,2) }}</p>
+                        <p class="mt-2">Jumlah &nbsp; : {{ number_format($item->products->selling_price*$item->qty,2) }} <sub>X{{$item->qty}}</sub></p>
                         <br>
                     </div>
                     <div class="col-lg-3">
