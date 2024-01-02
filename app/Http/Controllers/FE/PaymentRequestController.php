@@ -102,7 +102,7 @@ class PaymentRequestController extends Controller
             return view('user-page.'.$filename, [
                 'script' => $filename_script,
                 'title' => 'Pembayaran',
-                'auth_user' => $user,
+                'auth_user' => Auth::guard('customer')->user(),
                 'resultData' => $result,
                 'payment_method' => $payment_method,
                 'payment_id' => $checkOrderPayment ? $checkOrderPayment->payment_method_id : ''
