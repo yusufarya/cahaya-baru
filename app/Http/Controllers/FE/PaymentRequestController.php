@@ -75,6 +75,14 @@ class PaymentRequestController extends Controller
     }
 
     function payOrder(string $req_order_code) {
+
+        $orderHD = [
+            'nett' => cleanSpecialChar($request->netto)
+        ];
+
+        $user = Customer::find(Auth::guard('customer')->user()->code)->first();
+
+        RequestOrder::where(['customer_code' => $user->code, 'code' => $req_order_code])->update($orderHD); 
         
         if($req_order_code) {
             $filename = 'pay_order_req';
