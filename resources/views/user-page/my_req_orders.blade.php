@@ -104,7 +104,7 @@
                           @if ($checkPayment) 
                                   
                             @if (!$checkPayment->image)
-                              <a href="/pay-order/{{ $order_code }}" type="button" style="float: right;" class="btn btn-danger ms-2" >Pembayaran</a>
+                              <a href="/pay-order-req/{{ $order_code }}" type="button" style="float: right;" class="btn btn-danger ms-2" >Pembayaran</a>
                               <span class="pt-1" style="float: right;">Anda belum mengirimkan bukti pembayaran</span> 
                             @else
                             

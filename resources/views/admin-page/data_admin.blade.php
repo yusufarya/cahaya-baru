@@ -28,7 +28,9 @@
           <div class="row justify-content-end mb-2 w-100">
             <a href="/form-add-admin" class="btn float-right btn-add "><i class="fas fa-plus-square"></i> &nbsp; Data</a>
           </div>
+          
           <table class="table table-bordered table-sm">
+
               <thead>
                   <tr class="my-bg-primary text-white">
                       <th style="width: 11%">Kode</th>
@@ -40,8 +42,9 @@
                   </tr>
               </thead>
               <tbody>
+                
                 @foreach ($dataAdmin as $row)
-                  @if ($row->level_id > 1)
+                  @if ($row->level_id >= $auth_user->level_id)
                     <tr>
                       <td >{{ $row->code }}</td>
                       <td>{{ $row->fullname }}</td>
@@ -51,7 +54,7 @@
                       <td style=" text-align: center;">
                         <a href="/form-edit-admin/{{$row->code}}" class="text-warning"><i class="fas fa-edit"></i></a>
                         &nbsp;
-                        @if ($row->level_id == 1)
+                        @if ($row->level_id >= $auth_user->level_id)
                           <a href="#" onclick="delete_data(`{{$row->code}}`, `{{$row->fullname}}`)" class="text-danger"><i class="fas fa-trash-alt"></i></a>
                         @endif
                       </td>

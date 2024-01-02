@@ -18,7 +18,7 @@
     <div class="container-fluid">
         <div class="row mx-2">
           <div class="row justify-content-end mb-2 w-100">
-            <button onclick="add_data()" class="btn float-right btn-add "><i class="fas fa-plus-square"></i> &nbsp; Data</button>
+            {{-- <button onclick="add_data()" class="btn float-right btn-add "><i class="fas fa-plus-square"></i> &nbsp; Data</button> --}}
           </div>
           <table class="table table-bordered table-sm">
               <thead>
