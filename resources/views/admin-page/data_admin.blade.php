@@ -41,7 +41,7 @@
               </thead>
               <tbody>
                 @foreach ($dataAdmin as $row)
-                  @if ($row->level_id != 1)
+                  @if ($row->level_id > 1)
                     <tr>
                       <td >{{ $row->code }}</td>
                       <td>{{ $row->fullname }}</td>

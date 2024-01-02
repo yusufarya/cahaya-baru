@@ -27,7 +27,8 @@ class AdminController extends Controller
         $filename_script = getContentScript(true, $filename);
 
         $data = Auth::guard('admin')->user();  
-        $admin = Admin::with('admin_level')->get();  
+        $admin = Admin::with('admin_level')->get();
+        // dd($admin);
         return view('admin-page.'.$filename, [
             'script' => $filename_script,
             'title' => 'Data Pegawai',
