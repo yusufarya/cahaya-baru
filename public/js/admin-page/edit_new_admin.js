@@ -5,7 +5,7 @@ $(function () {
 function changeUsername() {
     const username = document.getElementById("username").value;
     const usnm = username.replaceAll(" ", "_");
-    console.log(usnm);
+    // console.log(usnm);
     document.getElementById("username").value = usnm.toLowerCase();
 }
 
@@ -14,7 +14,7 @@ function generateUsername() {
     const username = document.getElementById("username");
     const usnm = fullname.replace(" ", "_");
 
-    username.value = usnm.substring(0, 10).toLowerCase();
+    // username.value = usnm.substring(0, 10).toLowerCase();
 }
 
 var invalid = document.getElementById("invalid").value;
