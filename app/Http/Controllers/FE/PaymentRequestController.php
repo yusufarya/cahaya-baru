@@ -80,19 +80,17 @@ class PaymentRequestController extends Controller
             'nett' => ($getData->qty*$getData->price)+$getData->charge
         ];
 
-        $user = Customer::find(Auth::guard('customer')->user()->code)->first();
+        $code_user = Auth::guard('customer')->user()->code;
 
-        RequestOrder::where(['customer_code' => $user->code, 'code' => $req_order_code])->update($orderHD); 
+        RequestOrder::where(['customer_code' => $code_user, 'code' => $req_order_code])->update($orderHD); 
         
         if($req_order_code) {
             $filename = 'pay_order_req';
             $filename_script = getContentScript(false, $filename);
-    
-            $user = Customer::find(Auth::guard('customer')->user()->code)->first();
             
             $payment_method = PaymentMethod::get();  
             
-            $result = RequestOrder::with('sizes', 'customers')->where(['customer_code' => $user->code, 'code' => $req_order_code])->first();
+            $result = RequestOrder::with('sizes', 'customers')->where(['customer_code' => $code_user, 'code' => $req_order_code])->first();
             // dd($result);
             if(!$result) {
                 return redirect('/');    

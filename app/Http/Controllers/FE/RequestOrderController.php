@@ -78,8 +78,8 @@ class RequestOrderController extends Controller
         $filename = 'my_req_orders';
         $filename_script = getContentScript(false, $filename);
 
-        $registrant = new Customer;
-        $result = $registrant->getMyReqOrders($status, $delivery);
+        $customer = new Customer;
+        $result = $customer->getMyReqOrders($status, $delivery);
         // dd($result);
         return view('user-page.'.$filename, [
             'script' => $filename_script,
