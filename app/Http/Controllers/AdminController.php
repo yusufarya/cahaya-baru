@@ -138,6 +138,7 @@ class AdminController extends Controller
         }
         
         $validatedData['code'] = $request['code'];
+        $validatedData['address'] = $request['address'];
         $validatedData['updated_at'] = date('Y-m-d H:i:s');
         $validatedData['updated_by'] = Auth::guard('admin')->user()->username;
         if($request['password']) {
