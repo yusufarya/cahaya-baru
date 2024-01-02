@@ -92,7 +92,7 @@ class PaymentRequestController extends Controller
             
             $payment_method = PaymentMethod::get();  
             
-            $result = RequestOrder::with('sizes', 'customers')->find($req_order_code);
+            $result = RequestOrder::with('sizes', 'customers')->where(['customer_code' => $user->code, 'code' => $req_order_code]);
             
             if(!$result) {
                 return redirect('/');    
