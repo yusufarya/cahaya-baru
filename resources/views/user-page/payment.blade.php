@@ -96,7 +96,6 @@
             <?php 
                 if($dataDetail->qty) {
                     $total_price += $dataDetail->products->selling_price*$dataDetail->qty+$charge;
-                    // echo $total_price;
                 }
             ?>
         @endforeach
