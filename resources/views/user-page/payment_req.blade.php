@@ -87,7 +87,6 @@
         <?php 
             if($resultData->qty) {
                 $total_price += ($resultData->price*$resultData->qty)+$charge;
-                echo $total_price;
             }
         ?>
         
