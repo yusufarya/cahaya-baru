@@ -40,7 +40,7 @@ class GeneralController extends Controller {
             if($checkOrderHeader) {
                 if($checkOrderHeader->status == 'N') {
                     $salesOrderDetails = SalesOrderDetail::where('product_id', $productId)->first();
-                    dd($salesOrderDetails);
+                    // dd($salesOrderDetails);
                     if($salesOrderDetails != NULL) {
                         if($productId == $salesOrderDetails->product_id) {
                             $request->session()->flash('message', 'Anda mempunyai pesanan pada produk yang sama, <a href="/payment/'.$checkOrderHeader->code.'">lihat pesanan</a>.');
