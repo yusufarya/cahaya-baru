@@ -7,7 +7,7 @@ function delete_product(id, name) {
     $.ajax({
         type: "GET",
         dataType: "JSON",
-        url: "/checkTransactionProduct",
+        url: "/check-product",
         data: { product_id: id },
         success: function (result) {
             console.log(result);
