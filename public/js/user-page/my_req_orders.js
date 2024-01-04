@@ -40,3 +40,31 @@ function acc_order(code) {
         });
     }
 }
+
+function cancelOrder(code) {
+    $("#cancelOrder").modal("show");
+
+    $("#Y").click(function () {
+        var route = "/cancel-order-req";
+
+        $.ajax({
+            type: "DELETE",
+            url: route,
+            data: {
+                code: code,
+            },
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            success: function (response) {
+                // Handle the response here
+                setTimeout(() => {
+                    location.href = "/my-req-orders";
+                }, 100);
+            },
+            error: function (error) {
+                console.log("Ajax request failed");
+            },
+        });
+    });
+}
