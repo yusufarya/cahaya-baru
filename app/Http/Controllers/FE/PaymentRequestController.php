@@ -8,7 +8,6 @@ use App\Models\OrderPayment;
 use App\Models\RequestOrder;
 use Illuminate\Http\Request;
 use App\Models\PaymentMethod; 
-use App\Models\SalesOrderDetail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -137,8 +136,7 @@ class PaymentRequestController extends Controller
 
     function cancelOrders(Request $request) {
         // dd($request->code);
-        $salesDetail = SalesOrderDetail::where(['req_order_code' => $request->code])->delete();
-        $sales = SalesOrder::where(['code' => $request->code])->delete();
+        RequestOrder::where(['code' => $request->code])->delete();
         return true;
     }
 }
