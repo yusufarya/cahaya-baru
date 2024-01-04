@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Customer;
+use App\Models\Inventory;
 use App\Models\SalesOrder;
 use Illuminate\Http\Request;
-use App\Models\PurchaseOrderDetail;
 use App\Models\SalesOrderDetail;
 use Illuminate\Support\Facades\DB;
+use App\Models\PurchaseOrderDetail;
 use Illuminate\Support\Facades\Auth;
 
 class GeneralController extends Controller {
@@ -98,6 +99,12 @@ class GeneralController extends Controller {
         // dd($result);
         if($result) {
             $typeTrans = "Penjualan";
+            $isValid = false;
+        }
+        $result = Inventory::where(['product_id' => $request->product_id])->count();
+        // dd($result);
+        if($result) {
+            $typeTrans = "Update Stock";
             $isValid = false;
         }
         if($isValid === true) {
