@@ -80,7 +80,7 @@ function cancelOrder(code) {
     $("#cancelOrder").modal("show");
 
     $("#Y").click(function () {
-        var route = "/cancel-order";
+        var route = "/cancel-order-req";
 
         $.ajax({
             type: "DELETE",
