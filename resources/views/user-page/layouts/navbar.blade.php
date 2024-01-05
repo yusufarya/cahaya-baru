@@ -1,7 +1,7 @@
 <?php 
 if(auth('customer')->user()) {
   $getCountCart = DB::table('shopping_carts')
-                      ->where(['customer_code' => auth('customer')->user()->code, 'updated_at' => NULL])
+                      ->where(['customer_code' => auth('customer')->user()->code])
                       ->count();
 }
 ?>

@@ -20,7 +20,7 @@ class ShoppingCartController extends Controller
         $filename = 'shopping_carts';
         $filename_script = getContentScript(false, $filename);
 
-        $result = ShoppingCart::with('customers', 'products.categories', 'products.sizes')->where(['customer_code' => $user->code, 'updated_at' => NULL])->get();
+        $result = ShoppingCart::with('customers', 'products.categories', 'products.sizes')->where(['customer_code' => $user->code])->get();
         // dd($result);
         return view('user-page.'.$filename, [
             'script' => $filename_script,
