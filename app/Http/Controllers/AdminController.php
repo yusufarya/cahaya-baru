@@ -126,6 +126,7 @@ class AdminController extends Controller
             'level_id'      => 'required',
             'place_of_birth'=> 'required|max:40',
             'date_of_birth' => 'required',
+            'address'        => 'required',
             'image'         => 'file|image|max:1024'
         ]);
         
