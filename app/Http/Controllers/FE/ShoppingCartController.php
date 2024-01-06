@@ -79,6 +79,7 @@ class ShoppingCartController extends Controller
     }
 
     function submitCart(Request $request) {
+        $auth_user = Auth::guard('customer')->user();
         $requestId = explode(',', $request->id_cart);
         $seq = 1;
         
@@ -90,17 +91,25 @@ class ShoppingCartController extends Controller
             'date' => date('Y-m-d'),
         ];
 
+        if(ucwords(trim($auth_user->city)) == 'Jakarta') {
+            $deliveryId = 1;
+        } else {
+            $deliveryId = 2;
+        }
+        $charge = getCharge($deliveryId)->charge;
+
         $headerInserted = SalesOrder::create($dataHeader);
         if($headerInserted) {
             foreach ($requestId as $item) {
                 $getCart = ShoppingCart::with('products')->where('id', $item)->first();
-                
+                // dd($getCart);
                 $dataDetail = [
                     'sequence' => $seq++,
                     'sales_order_code' => $sales_code,
                     'product_id' => $getCart->product_id,
                     'date' => date('Y-m-d'),
                     'qty' => $getCart->qty,
+                    'charge' => $charge,
                     'price' => $getCart->products->selling_price,
                 ];
                 
@@ -115,6 +124,7 @@ class ShoppingCartController extends Controller
 
             $dataHeader = [
                 'qty' => $qty,
+                'charge' => $charge,
                 'total_price' => $total_price,
             ];
             // dd($dataHeader);
