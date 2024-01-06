@@ -5,7 +5,6 @@ namespace App\Http\Controllers\FE;
 use App\Models\Customer;
 use App\Models\SalesOrder;
 use App\Models\OrderPayment;
-use App\Models\ShoppingCart;
 use Illuminate\Http\Request;
 use App\Models\PaymentMethod;
 use App\Models\SalesOrderDetail;
@@ -29,7 +28,6 @@ class PaymentController extends Controller
                                           ->where('sales_order_code', $code_tr)->get();
         
         $checkOrderPayment = OrderPayment::where(['order_code' => $code_tr])->first();
-        // dd($checkOrderPayment);
         
         if($checkOrderPayment) {
             $where = ['sales_order_code' => $code_tr];
@@ -92,7 +90,6 @@ class PaymentController extends Controller
         SalesOrder::where(['customer_code' => $code_pelanggan, 'code' => $sales_order_code])->update($orderHD);
         SalesOrderDetail::where(['sales_order_code' => $sales_order_code])->update($orderDT);
         
-        // dd($code_pelanggan);
         $order_result = SalesOrder::with('salesOrderDetails.products.categories', 'salesOrderDetails.products.sizes', 'salesOrderDetails.products.brands')
                 ->find($sales_order_code);
         // dd($order_result);
@@ -126,7 +123,7 @@ class PaymentController extends Controller
             $filename = 'pay_order';
             $filename_script = getContentScript(false, $filename);
     
-            $user = Customer::find(Auth::guard('customer')->user()->code)->first();
+            $user = Auth::guard('customer')->user();
             
             $payment_method = PaymentMethod::get();  
             
@@ -136,6 +133,30 @@ class PaymentController extends Controller
             if(!$result) {
                 return redirect('/');    
             }
+
+            if(ucwords(trim($user->city)) == 'Jakarta') {
+                $deliveryId = 1;
+            } else {
+                $deliveryId = 2;
+            }
+            $charge = getCharge($deliveryId)->charge;
+            
+            $where = ['sales_order_code' => $sales_order_code];
+        
+            $qty = SalesOrderDetail::where($where)->sum('qty');
+            $total_price = SalesOrderDetail::where($where)
+                                            ->sum(DB::raw('price * qty'));
+            $nett = SalesOrderDetail::where($where)
+                                            ->sum(DB::raw('(price * qty)+charge'));
+            
+            $dataHeader = [
+                'qty' => $qty,
+                'charge' => $charge,
+                'total_price' => $total_price,
+                'nett' => $nett,
+            ];
+            // dd($dataHeader);
+            $update = SalesOrder::where(['code' => $sales_order_code])->update($dataHeader);
     
             $checkOrderPayment = OrderPayment::where(['order_code' => $sales_order_code])->first();
     
