@@ -1,4 +1,5 @@
 $(function () {
+    $("#done_payment").hide();
     const payment_method = $("#payment_method").val();
     if (payment_method) {
         var val = payment_method ? payment_method.split("-") : "";
@@ -7,6 +8,7 @@ $(function () {
         $("#account_number").append(html);
         $("#OK").hide();
         $("#payment_method").prop("disabled", true);
+        $("#done_payment").show();
     }
 
     $("#OK").on("click", function () {
@@ -79,6 +81,7 @@ function updatePaymentMethod(pay_method) {
         success: function (response) {
             // console.log(response);
             if (response) {
+                $("#done_payment").show();
                 $("#payment_method").prop("disabled", true);
                 $("#OK").hide();
             }

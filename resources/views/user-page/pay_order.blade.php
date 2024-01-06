@@ -42,7 +42,7 @@
         </div>
         <hr>
         <div class="col-md-6 col-lg-6 mt-4">
-          <p class="ms-2">
+          <p class="ms-2" id="done_payment">
             Telah melakukan pembayaran ? <a href="#" class="text-decoration-none" id="proof_of_payment">Kirim bukti klik disini.</a>
           </p>
         </div>
