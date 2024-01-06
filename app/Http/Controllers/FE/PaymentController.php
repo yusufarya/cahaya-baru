@@ -29,7 +29,7 @@ class PaymentController extends Controller
                                           ->where('sales_order_code', $code_tr)->get();
         
         $checkOrderPayment = OrderPayment::where(['order_code' => $code_tr])->first();
-        dd($checkOrderPayment);
+        // dd($checkOrderPayment);
         
         if($checkOrderPayment) {
             $where = ['sales_order_code' => $code_tr];
@@ -42,7 +42,7 @@ class PaymentController extends Controller
                 'qty' => $qty,
                 'total_price' => $total_price,
             ];
-            dd($dataHeader);
+            // dd($dataHeader);
             $update = SalesOrder::where(['code' => $code_tr])->update($dataHeader);
             if($total_price > 0) {
                 return redirect('/pay-order/'.$code_tr);
