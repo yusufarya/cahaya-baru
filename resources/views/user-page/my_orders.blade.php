@@ -60,7 +60,11 @@
                 <div class="row">
                     <div class="col-lg-8">
                         <h5 style="font-weight: 600;">{{$order_code}}</h5>
-                        <h2>{{$item->salesOrderDetails->products->name}} <small><sup style="font-size: 11px;" class="alert alert-info py-0"> {{$item->salesOrderDetails->products->categories->name}}</sup></small></h2>
+                        <h2>{{$item->salesOrderDetails->products->name}}</h2>
+                        <hr class="p-0 mt-1">
+                        <small class="pt-5">
+                          <sup style="font-size: 11px;" class="alert alert-info py-0"><b>Kategori :</b> &nbsp;  {{$item->salesOrderDetails->products->categories->name}}</sup>
+                        </small>
                         <p class="mt-2">{{$item->description}}</p>
                         <div class="alert alert-warning px-2 py-0">
                           Merek &nbsp; : {{$item->salesOrderDetails->products->brands->name}} <br>
