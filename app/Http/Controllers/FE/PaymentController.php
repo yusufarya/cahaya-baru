@@ -9,6 +9,7 @@ use App\Models\ShoppingCart;
 use Illuminate\Http\Request;
 use App\Models\PaymentMethod;
 use App\Models\SalesOrderDetail;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,11 +27,26 @@ class PaymentController extends Controller
                 ->find($code_tr);
         $resultDetail = SalesOrderDetail::with('sales_order', 'products.categories', 'products.sizes', 'products.brands')
                                           ->where('sales_order_code', $code_tr)->get();
-        // dd($resultDetail);
+        
         $checkOrderPayment = OrderPayment::where(['order_code' => $code_tr])->first();
+        // dd($checkOrderPayment);
         
         if($checkOrderPayment) {
-            return redirect('/pay-order/'.$code_tr);
+            $where = ['sales_order_code' => $code_tr];
+        
+            $qty = SalesOrderDetail::where($where)->sum('qty');
+            $total_price = SalesOrderDetail::where($where)
+                                            ->sum(DB::raw('price * qty'));
+
+            $dataHeader = [
+                'qty' => $qty,
+                'total_price' => $total_price,
+            ];
+            // dd($dataHeader);
+            $update = SalesOrder::where(['code' => $code_tr])->update($dataHeader);
+            if($total_price > 0) {
+                return redirect('/pay-order/'.$code_tr);
+            }
         }
 
         return view('user-page.'.$filename, [

@@ -35,13 +35,14 @@ class GeneralController extends Controller {
             }
 
             $checkOrderHeader = SalesOrder::with('salesOrderDetails.products')
-            ->where(['customer_code' => $user->code])
-            ->first();
+                                            ->where(['customer_code' => $user->code])
+                                            ->first();
+            
             if($checkOrderHeader) {
                 if($checkOrderHeader->status == 'N') {
                     $salesOrderDetails = SalesOrderDetail::where('product_id', $productId)->first();
-                    // dd($salesOrderDetails);
                     if($salesOrderDetails != NULL) {
+                        
                         if($productId == $salesOrderDetails->product_id) {
                             $request->session()->flash('message', 'Anda mempunyai pesanan pada produk yang sama, <a href="/payment/'.$checkOrderHeader->code.'">lihat pesanan</a>.');
                             return redirect('/detail-product/'.$productId);

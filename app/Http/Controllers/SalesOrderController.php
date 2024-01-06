@@ -50,7 +50,6 @@ class SalesOrderController extends Controller
                 }
             } 
 
-
         }
 
         $user = Auth::guard('admin')->user();

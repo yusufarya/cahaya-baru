@@ -42,4 +42,77 @@ class InventoryController extends Controller
         ]);
     }
 
+    function calculateStock() {
+        // $Inventory = Inventory::get();
+
+        $products = Product::get();
+        $stockProduct = 0;
+        foreach ($products as $items) {
+            $id_product = $items->id;
+            
+            $InventoryUpdates = InventoryUpdates::with('products')->get();
+            echo '<pre>';
+            echo '<b>Inventory Update</b>';
+            echo '</b>';
+            foreach ($InventoryUpdates as $item1) {
+
+                if($id_product == $item1->product_id) {
+                    $stockProduct += $item1->qty;
+                    echo '<pre>';
+                    print_r($item1->products->name);
+                    echo '</pre>';
+                    echo '<pre>';
+                    print_r($stockProduct);
+                    echo '</pre>';
+                }
+                // Inventory::where(['product_id' => $item->product_id])->update(['stock' => $item->qty]);
+            }
+
+            $PurchaseOrderDetail = PurchaseOrderDetail::with('products')->get();
+            echo '<hr>';
+            echo '<pre>';
+            echo '<b>Pembelian</b>';
+            echo '</b>';
+            foreach ($PurchaseOrderDetail as $item2) {
+                if($id_product == $item2->product_id) {
+                    $stockProduct += $item2->qty;
+                    echo '<pre>';
+                    print_r($item2->products->name);
+                    echo '</pre>';
+                    echo '<pre>';
+                    print_r($stockProduct);
+                    echo '</pre>';
+                }
+
+            }
+
+            
+            // echo '<h2>';
+            // echo '<pre>';
+            // print_r($items->name);
+            // echo '</pre>';
+            // echo '<pre>';
+            // print_r($stockProduct);
+            // echo '</pre>';
+            // echo '</h2>';
+            
+        }
+        exit;
+        echo '<hr>';
+        echo '<pre>';
+        echo '<b>Penjualan</b>';
+        echo '</b>';
+        $SalesOrderDetail = SalesOrderDetail::with('products', 'sales_order')->get();
+        foreach ($SalesOrderDetail as $item) {
+            if($item->sales_order->status == 'Y') {
+                echo '<pre>';
+                print_r($item->products->name);
+                echo '</pre>';
+                echo '<pre>';
+                print_r($item->qty);
+                echo '</pre>';
+            }
+        }
+        die();
+    }
 }
