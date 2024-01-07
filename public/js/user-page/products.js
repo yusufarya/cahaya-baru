@@ -65,7 +65,7 @@ function getServicesList(categoryId = "", search_name) {
                         : "";
                     if (item.image) {
                         var logo =
-                            `<img src="storage/` +
+                            `<img src="/storage/` +
                             item.image +
                             `" class="card-img-top img-services p-2" alt="` +
                             item.id +
