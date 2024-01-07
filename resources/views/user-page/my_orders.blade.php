@@ -44,7 +44,8 @@
       @if (count($my_orders) > 0)
         @foreach ($my_orders as $item)
         <?php 
-        dd($item->salesOrderDetails);
+        echo "<pre>";
+        print_r($item->salesOrderDetails);
         $qty_dt = $item->salesOrderDetails->qty;
         $price_dt = $item->salesOrderDetails->price;
         $charge = $item->salesOrderDetails->charge;
@@ -56,7 +57,7 @@
         $checkPayment = DB::table('order_payments')->where('order_code', $order_code)->first();
         
         ?>
-            <div class="mt-3 p-3 card shadow-lg">
+            <div class="mt-3 p-3 card shadow-lg" hidden>
                 <div class="row">
                     <div class="col-lg-8">
                         <h5 style="font-weight: 600;">{{$order_code}}</h5>
