@@ -44,8 +44,8 @@
       @if (count($my_orders) > 0)
         @foreach ($my_orders as $item)
         <?php 
-        echo "<pre>";
-        print_r($item->salesOrderDetails);
+        
+        if($item->qty>0)
         $qty_dt = $item->salesOrderDetails->qty;
         $price_dt = $item->salesOrderDetails->price;
         $charge = $item->salesOrderDetails->charge;
