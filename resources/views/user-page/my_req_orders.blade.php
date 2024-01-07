@@ -28,11 +28,12 @@
             <div class="col-md-4">
               <label for="status"> Status Pengiriman</label>
               <select name="delivery" id="delivery" class="form-select form-control">
-                {{-- <option value=""> » Status Pengiriman</option> --}}
+                <option value=""> » Status Pengiriman</option>
                 {{-- <option value="0" {{ $delivery == '0' ? 'selected' : '' }}> Pemesanan</option> --}}
                 <option value="1" {{ $delivery == '1' ? 'selected' : '' }}> Siap untuk dikirim</option>
                 <option value="2" {{ $delivery == '2' ? 'selected' : '' }}> Dalam Perjalanan Pengiriman</option>
-                <option value="3" {{ $delivery == '3' ? 'selected' : '' }}> Pesanan telah diterima</option>
+                <option value="3" {{ $delivery == '3' ? 'selected' : '' }}> Pesanan telah sampai</option>
+                <option value="4" {{ $delivery == '4' ? 'selected' : '' }}> Pesanan telah diterima</option>
               </select>
             </div>
           @endif
