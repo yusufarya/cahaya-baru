@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Customer;
 use App\Models\Inventory;
 use App\Models\SalesOrder;
+use App\Models\OrderPayment;
 use Illuminate\Http\Request;
 use App\Models\SalesOrderDetail;
 use Illuminate\Support\Facades\DB;
@@ -113,6 +114,12 @@ class GeneralController extends Controller {
         } else {
             return response()->json(['status' => 'failed', 'message' => "Produk tidak dapat dihapus, karna telah digunakan pada transaksi ". $typeTrans]);
         }
+    }
+    
+    function checkPayment(Request $request) {
+        $getPaymentOrder = OrderPayment::with('payment_methods')->where(['order_code' => $request->code])->count();
+        
+        return response()->json($getPaymentOrder);
     }
 
 }

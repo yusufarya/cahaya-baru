@@ -64,7 +64,10 @@ Route::middleware('guest')->group(function () {
 
 
 Route::middleware('admin')->group(function () {
+    
     Route::get('/check-product', [GeneralController::class, 'checkTransactionProduct']);
+    Route::get('/check-payment', [GeneralController::class, 'checkPayment']);
+
     Route::get('/profile', [AdminController::class, 'index']);
     Route::get('/dashboard', [Dashboard::class, 'index']);
     

@@ -119,4 +119,23 @@
   </div>
 </div>
 
+<div class="modal fade" id="modal-failed" tabindex="-1">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title ml-2 font-weight-bold">Pemberitahuan !</h5> 
+      </div>
+      <form action="/update-req-status-delivery" method="POST">
+        @csrf
+        <div class="modal-body p-3"> 
+          <span class="alert alert-danger">Tidak dapat diproses, Belum ada pembayaran masuk.</span>
+        </div> 
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="n">Tutup</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 @endsection
