@@ -35,7 +35,7 @@ function getCategory(id) {
                 $(".btn-category-all").css("color", "#000");
             }
         }
-        console.log(categoryId);
+        // console.log(categoryId);
         getServicesList(categoryId);
     }
 }
