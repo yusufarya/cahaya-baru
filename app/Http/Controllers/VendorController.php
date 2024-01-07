@@ -39,7 +39,11 @@ class VendorController extends Controller
      */
     public function store(Request $request)
     {
-        $result = Vendor::create(['name' => ucwords($request['name']), 'address' => ucwords($request['address'])]);
+        $dataInsert = [
+            'name'=>ucwords($request['name']), 
+            'address' => ucwords($request['address']),
+        ];
+        $result = Vendor::create($dataInsert);
         if($result) {
             $request->session()->flash('success', 'Vendor berhasil dibuat');
         } else {
@@ -68,7 +72,11 @@ class VendorController extends Controller
      */
     public function update(Request $request, int $code)
     {
-        $result = Vendor::where('code', $code)->update(['name'=>ucwords($request['name']), 'address' => ucwords($request['address'])]);
+        $dataUpdate = [
+            'name'=>ucwords($request['name']), 
+            'address' => ucwords($request['address']),
+        ];
+        $result = Vendor::find($code)->update($dataUpdate);
         if($result) {
             $request->session()->flash('success', 'Vendor berhasil diubah');
         } else {

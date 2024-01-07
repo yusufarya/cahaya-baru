@@ -1,4 +1,8 @@
-getServicesList();
+$(function () {
+    getServicesList();
+    var id_cat = $("#id_cat").val();
+    getCategory(id_cat);
+});
 
 function getCategory(id) {
     const countCategory = $("#count-id-category").val();
@@ -31,7 +35,7 @@ function getCategory(id) {
                 $(".btn-category-all").css("color", "#000");
             }
         }
-
+        console.log(categoryId);
         getServicesList(categoryId);
     }
 }
@@ -43,7 +47,7 @@ function searchButton() {
 }
 
 function getServicesList(categoryId = "", search_name) {
-    var route = "getDataProducts";
+    var route = "/getDataProducts";
     $.ajax({
         type: "GET",
         dataType: "JSON",
