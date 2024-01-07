@@ -44,21 +44,21 @@
       @if (count($my_orders) > 0)
         @foreach ($my_orders as $item)
 
-        @if($item->qty>0)
-          <?php 
-          
-          
-          $qty_dt = $item->salesOrderDetails->qty;
-          $price_dt = $item->salesOrderDetails->price;
-          $charge = $item->salesOrderDetails->charge;
-          $purchase_price = $item->salesOrderDetails->products->purchase_price;
-          $total_price = $item->total_price;
-          $nett = $item->nett;
+          @if($item->qty>0)
+        
+            <?php 
+            
+              $qty_dt = $item->salesOrderDetails->qty;
+              $price_dt = $item->salesOrderDetails->price;
+              $charge = $item->salesOrderDetails->charge;
+              $purchase_price = $item->salesOrderDetails->products->purchase_price;
+              $total_price = $item->total_price;
+              $nett = $item->nett;
 
-          $order_code = $item->code;
-          $checkPayment = DB::table('order_payments')->where('order_code', $order_code)->first();
-          
-          ?>
+              $order_code = $item->code;
+              $checkPayment = DB::table('order_payments')->where('order_code', $order_code)->first();
+            
+            ?>
               <div class="mt-3 p-3 card shadow-lg">
                   <div class="row">
                       <div class="col-lg-8">
@@ -160,6 +160,7 @@
                   </div>
               </div>
           @endif
+
         @endforeach
             
       @else
