@@ -70,24 +70,21 @@
                           </small>
                           <p class="mt-2">{{$item->description}}</p>
                           <div class="alert alert-warning px-2 py-0">
-                            Merek &nbsp; : {{$item->salesOrderDetails->products->brands->name}} <br>
-                            Ukuran &nbsp; : {{$item->salesOrderDetails->products->sizes->initial}} <br>
+                            {{-- Merek &nbsp; : {{$item->salesOrderDetails->products->brands->name}} <br>
+                            Ukuran &nbsp; : {{$item->salesOrderDetails->products->sizes->initial}} <br> --}}
+                            Tanggal pesanan &nbsp; : {{date('d-m-Y', strtotime($item->date))}} <br> 
                           </div>
                           <div class="shadow px-2 py-0">
                             <table class="table">
                               <tr>
                                 <th>Quantity</th>
-                                <th style="text-align: right;">{{ $qty_dt == 0 ? 1 : $qty_dt }}</th>
-                              </tr>
-                              <tr>
-                                <th>Harga</th>
-                                <th style="text-align: right;">{{ $qty_dt == 0 ? number_format($purchase_price,2) : number_format($price_dt,2) }}</th>
-                              </tr>
+                                <th style="text-align: right;">{{ $item->qty }}</th>
+                              </tr> 
                               <tr>
                                 <th>Jumlah</th>
                                 <th style="text-align: right;">
-                                  <small><sub>{{ $qty_dt == 0 ? 1 : $qty_dt }} x</sub></small>
-                                  {{ $qty_dt > 0 ? number_format($total_price,2) : number_format($purchase_price*$qty_dt,2) }}
+                                  <small><sub>{{ $item->qty }} x</sub></small>
+                                  {{ $qty_dt > 0 ? number_format($total_price,2) : number_format($purchase_price*$item->qty,2) }}
                                 </th>
                               </tr>
                               <tr>
@@ -98,7 +95,7 @@
                                 <th>Total Harga</th>
                                 <th style="text-align: right;">
                                   {{-- <small><sub>{{ $qty_dt == 0 ? 1 : $qty_dt }} x</sub></small> --}}
-                                  {{ $qty_dt > 0 ? number_format($nett,2) : number_format($purchase_price*$qty_dt,2) }}
+                                  {{ number_format($nett,2) }}
                                 </th>
                               </tr>
                             </table>
@@ -108,9 +105,9 @@
                                   
                             @if (!$checkPayment->image)
 
-                              <a href="/pay-order/{{ $order_code }}" type="button" style="float: right;" class="btn btn-danger ms-2" >Pembayaran</a>
-                              <span class="pt-1" style="float: right;">Anda belum mengirimkan bukti pembayaran</span> 
-                              <button type="button" style="float: right;" class="btn btn-secondary me-3" onclick="cancelOrder(`{{$order_code}}`)">
+                              <a href="/pay-order/{{ $order_code }}" type="button" style="float: right;" class="btn btn-danger btn-sm ms-2" >Pembayaran</a>
+                              <span class="pt-1" style="float: right;">Anda belum menyelesaikan pembayaran</span> 
+                              <button type="button" style="float: right;" class="btn btn-secondary btn-sm me-3" onclick="cancelOrder(`{{$order_code}}`)">
                                   Batalkan Pesanan
                               </button>
                             @else
@@ -146,16 +143,19 @@
                           @else
                             <a href="/payment/{{ $item->code }}" class="btn btn-warning btn-sm mt-3" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Lanjutkan Pembelian">
                               <i class="fas fa-comment-dollar"></i>&nbsp; Pembayaran
-                            </a>
-                            <a href="/detail-product/{{ $item->salesOrderDetails->products->id }}" class="btn btn-info btn-sm mt-3" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Lanjutkan Detail Produk">
-                              <i class="fas fa-info-circle"></i>&nbsp; Detail Produk
-                            </a>
+                            </a> 
                           @endif
                       </div>
                       <div class="col-lg-4">
-                        <div class="mt-5">&nbsp;</div>
-                        <div class="mt-4">&nbsp;</div>
-                          <img src="{{asset('/storage/'.$item->salesOrderDetails->products->image)}}" class="w-75" alt="serviceImg">
+                        <div class="mt-5">
+                          <img src="{{asset('/storage/'.$item->salesOrderDetails->products->image)}}" class="mt-5 pt-5 img-fluid" alt="serviceImg" style="max-height: 260px;">
+                        </div>
+                        <div>
+                          
+                          <a href="/my-orders-detail/{{ $item->code }}" class="btn btn-info btn-sm mt-3" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Lihat Detail Pesanan">
+                            <i class="fas fa-info-circle"></i>&nbsp; Detail Pesanan
+                          </a>
+                        </div>
                       </div>
                   </div>
               </div>

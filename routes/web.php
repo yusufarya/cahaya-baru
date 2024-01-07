@@ -166,6 +166,7 @@ Route::middleware('customer')->group(function () {
     Route::get('/my-req-orders', [RequestOrderController::class, 'myRequestOrders']);
 
     Route::get('/my-orders', [CustomerController::class, 'myOrders']);
+    Route::get('/my-orders-detail/{code}', [CustomerController::class, 'myOrderDetail']);
     Route::post('/acc-order', [CustomerController::class, 'accOrder']);
     
     Route::get('/_profile', [CustomerController::class, 'profile']);
