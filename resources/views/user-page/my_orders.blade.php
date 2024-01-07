@@ -45,7 +45,6 @@
         @foreach ($my_orders as $item)
         <?php 
         // dd($item);
-        if($item->salesOrderDetails)
         $qty_dt = $item->salesOrderDetails->qty;
         $price_dt = $item->salesOrderDetails->price;
         $charge = $item->salesOrderDetails->charge;
