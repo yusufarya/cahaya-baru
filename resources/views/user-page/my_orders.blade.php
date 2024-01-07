@@ -59,7 +59,7 @@
           $checkPayment = DB::table('order_payments')->where('order_code', $order_code)->first();
           
           ?>
-              <div class="mt-3 p-3 card shadow-lg" hidden>
+              <div class="mt-3 p-3 card shadow-lg">
                   <div class="row">
                       <div class="col-lg-8">
                           <h5 style="font-weight: 600;">{{$order_code}}</h5>
@@ -159,8 +159,8 @@
                       </div>
                   </div>
               </div>
-          @endforeach
-        @endif
+          @endif
+        @endforeach
             
       @else
         <br><br><br>
