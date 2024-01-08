@@ -8,7 +8,7 @@ function add_vendor() {
                         <label for="name">Nama Vendor<label>
                     </div>
                     <div class="col-md-8 mb-2">
-                        <input type="text" autocomplete="off" name="name" id="name" class="form-control" style="margin-left: 0px;">
+                        <input type="text" autocomplete="off" name="name" id="name" class="form-control" style="margin-left: 0px;" maxlength="20">
                     </div>
                     <div class="col-md-4 mb-2">
                         <label for="address">Alamat<label>
@@ -33,7 +33,7 @@ function edit_vendor(id, name, address) {
                     <label for="name">Nama Vendor<label>
                 </div>
                 <div class="col-md-8 mb-2">
-                    <input type="text" autocomplete="off" name="name" id="name" class="form-control" style="margin-left: 0px;" value="` +
+                    <input type="text" autocomplete="off" name="name" id="name" class="form-control" style="margin-left: 0px;" maxlength="20" value="` +
         name +
         `">
                 </div>
