@@ -140,7 +140,7 @@
                         <div class="elevation-1">
                             <img src="{{ asset('img/who_icon.jpg')}}" class="img-fluid" alt="defaul_user" id="blah" style="height: 390px; padding: 10px;">
                             <div class="col-lg-12 col-md-12 col-sm-12" style="padding-bottom: 10px; margin-top: -10px;">
-                                <input type="file" class="form-control border-0" name="image" id="image">
+                                <input type="file" class="form-control border-0 @error('image')is-invalid @enderror" name="image" id="image">
                             </div>
                         </div>
                         <div class="row">

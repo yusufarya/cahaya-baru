@@ -75,13 +75,14 @@ class AdminController extends Controller
             'place_of_birth'    => 'required|max:40',
             'date_of_birth'     => 'required',
             'phone'       => 'required|max:15',
+            'address'       => 'required',
             'email'         => 'required|max:100|email|unique:admins',
             'password'      => 'required|min:6|max:255',
             'image'         => 'file|image|max:1024'
         ]);
         
         if($request->file('image')) {
-            $validatedData['image'] = $request->file('image')->store('user-images');
+            $validatedData['image'] = $request->file('image')->store('profile-images');
         }
         
         $validatedData['code'] = getLasCodeAdmin();
@@ -90,7 +91,7 @@ class AdminController extends Controller
         $validatedData['password'] = Hash::make($validatedData['password']);
         $validatedData['is_active'] = $request['is_active'] ? "Y" : "N";
         
-        // dd($validatedData);
+        dd($validatedData);
         $result = Admin::create($validatedData);
         if($result) {
             $request->session()->flash('success', 'Akun berhasil dibuat');
@@ -132,7 +133,7 @@ class AdminController extends Controller
         ]);
         
         if($request->file('image')) {
-            $validatedData['image'] = $request->file('image')->store('user-images');
+            $validatedData['image'] = $request->file('image')->store('profile-images');
         }
         
         $username_exist = false;
