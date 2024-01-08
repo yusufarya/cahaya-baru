@@ -63,7 +63,7 @@
                         <td>{{ $row->customers->fullname }}</td>
                         <td>{{ date('d - m - Y', strtotime($row->date)) }}</td>
                         <td style=" text-align: right;">{{ number_format($row->qty,2) }}</td> 
-                        <td style=" text-align: right;">{{ number_format($row->total_price,2) }}</td> 
+                        <td style=" text-align: right;">{{ number_format($row->nett,2) }}</td> 
                         {{-- <td style=" text-align: center;">{{ $row->status_payment }}</td> --}}
                         <td style=" text-align: center;"><?= $delivery_status ?> </td>
                         <td style=" text-align: center;">
@@ -119,7 +119,8 @@
                         <td>{{ $row->customers->fullname }}</td>
                         <td>{{ date('d - m - Y', strtotime($row->date)) }}</td>
                         <td style=" text-align: right;">{{ number_format($row->qty,2) }}</td> 
-                        <td style=" text-align: right;">{{ number_format($row->price+$row->charge,2) }}</td> 
+                        <td style=" text-align: right;">{{ number_format($row->nett,2) }}</td> 
+                        {{-- <td style=" text-align: right;">{{ number_format($row->price+$row->charge,2) }}</td>  --}}
                         <td style=" text-align: center;"><?= $delivery_status ?> </td>
                         <td style=" text-align: center;">
                           @if ($row->delivery == 4)
