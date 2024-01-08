@@ -91,7 +91,7 @@ class AdminController extends Controller
         $validatedData['password'] = Hash::make($validatedData['password']);
         $validatedData['is_active'] = $request['is_active'] ? "Y" : "N";
         
-        dd($validatedData);
+        // dd($validatedData);
         $result = Admin::create($validatedData);
         if($result) {
             $request->session()->flash('success', 'Akun berhasil dibuat');
