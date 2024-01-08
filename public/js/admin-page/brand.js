@@ -8,7 +8,7 @@ function add_m_brand() {
                         <label for="name" style="margin: ;">Nama Merek<label>
                     </div>
                     <div class="col-md-7">
-                        <input type="text" autocomplete="off" name="name" id="name" class="form-control w-100" placeholder="My Brand">
+                        <input type="text" autocomplete="off" name="name" id="name" class="form-control w-100" placeholder="My Brand" maxlength="30">
                     </div>
                 </div>`;
 
@@ -27,7 +27,7 @@ function edit_m_brand(id, name) {
                         <label for="name" style="margin: ;">Nama Merek<label>
                     </div>
                     <div class="col-md-7">
-                        <input type="text" autocomplete="off" name="name" id="name" class="form-control w-100" value="` +
+                        <input type="text" autocomplete="off" name="name" id="name" class="form-control w-100" maxlength="30" value="` +
         name +
         `">
                     </div>
