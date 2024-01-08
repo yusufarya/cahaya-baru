@@ -8,7 +8,7 @@ function add_m_size() {
                         <label for="initial" style="margin: ;">initial<label>
                     </div>
                     <div class="col-md-7">
-                        <input type="text" autocomplete="off" name="initial" id="initial" maxlength="3" class="form-control w-100" placeholder="S">
+                        <input type="text" autocomplete="off" name="initial" id="initial" maxlength="4" class="form-control w-100" placeholder="S">
                     </div>
                     <div class="col-md-5">
                         <label for="name" style="margin: ;">Nama Ukuran<label>
@@ -33,7 +33,7 @@ function edit_m_size(id, initial, name) {
                         <label for="initial" style="margin: ;">initial<label>
                     </div>
                     <div class="col-md-7">
-                        <input type="text" autocomplete="off" name="initial" id="initial" maxlength="3" class="form-control w-100" value="` +
+                        <input type="text" autocomplete="off" name="initial" id="initial" maxlength="4" class="form-control w-100" value="` +
         initial +
         `">
                     </div>
