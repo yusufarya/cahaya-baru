@@ -76,14 +76,24 @@
     
                             <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
                                 <label for="level_id">Level</label>
-                                <select class="form-control @error('level_id')is-invalid @enderror" name="level_id" id="level_id">
-                                    <option value="">Pilih</option>
-                                    @foreach ($level as $val)
-                                        @if ($val->id > 1)
-                                        <option value="{{$val->id}}" {{ $data_admin->level_id == $val->id ? 'selected' : '' }} >{{ $val->id . ' - ' . $val->name }}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
+                                @if ($val->id == 1)
+                                    <select class="form-control @error('level_id')is-invalid @enderror" name="level_id" id="level_id" readonly>
+                                        <option value="">Pilih</option>
+                                        @foreach ($level as $val)
+                                            <option value="{{$val->id}}" {{ $data_admin->level_id == $val->id ? 'selected' : '' }} >{{ $val->id . ' - ' . $val->name }}</option>
+                                        @endforeach
+                                    </select>
+                                @else
+                                    <select class="form-control @error('level_id')is-invalid @enderror" name="level_id" id="level_id">
+                                        <option value="">Pilih</option>
+                                        @foreach ($level as $val)
+                                            @if ($val->id > 1)
+                                                <option value="{{$val->id}}" {{ $data_admin->level_id == $val->id ? 'selected' : '' }} >{{ $val->id . ' - ' . $val->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                    
+                                @endif
                                 @error('level_id')
                                 <small class="invalid-feedback">
                                     Level {{ $message }}
