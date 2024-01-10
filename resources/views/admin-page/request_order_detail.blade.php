@@ -61,6 +61,12 @@
                         <img src="{{ asset('/storage').'/'.$resultData->image }}" class="shadow p-2 mt-4 img-fluid w-100" alt="img-request">
                     </div>
                     <button type="button" id="detailPayment" class="btn btn-primary btn-sm mb-2 float-left"> Status Pembayaran </button>
+                    
+                    <div class="col-lg-12 col-md-12 col-sm-12 mt-2">
+                        <label for="address">Alamat :</label>
+                        <textarea rows="5" name="address" id="address" readonly class="form-control">{{ $resultData->customers->address }}</textarea>
+                    </div>
+                    
                 </div>
     
                 <hr style="margin: 0 22px 20px;">
