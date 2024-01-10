@@ -78,7 +78,9 @@
                                 <select class="form-control @error('level_id')is-invalid @enderror" name="level_id" id="level_id">
                                     <option value="">Pilih</option>
                                     @foreach ($level as $val)
-                                        <option value="{{$val->id}}" {{ old('level_id') == $val->id ? 'selected' : '' }} >{{ $val->id . ' - ' . $val->name }}</option>
+                                        @if ($val->id > 1)
+                                            <option value="{{$val->id}}" {{ old('level_id') == $val->id ? 'selected' : '' }} >{{ $val->id . ' - ' . $val->name }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                                 @error('level_id')
