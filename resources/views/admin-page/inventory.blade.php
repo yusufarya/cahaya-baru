@@ -52,20 +52,6 @@
                       </td>
                   </tr>
                 @endforeach
-                @foreach ($resultData as $row)
-                  <tr>
-                      <td>{{ $no++ }}</td>
-                      <td>{{ $row->products->name }}</td>
-                      <td>{{ $row->products->categories->name }}</td>
-                      <td>{{ $row->products->brands->name }}</td>
-                      <td>{{ $row->products->units->initial }}</td>
-                      <td>{{ $row->products->sizes->initial }}</td> 
-                      <td style=" text-align: right;">{{ number_format($row->stock,2) }}</td> 
-                      <td style=" text-align: center;">
-                        <a href="#" onclick="popupImg(`{{$row->products->image}}`)" class="text-info"><i class="fas fa-info-circle"></i> Lihat gambar</a>
-                      </td>
-                  </tr>
-                @endforeach
               </tbody>
           </table>
         </div>
