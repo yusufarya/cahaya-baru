@@ -67,6 +67,7 @@
                     <div class="col-lg-8">
                         <h5 style="font-weight: 600;">{{$order_code}}</h5>
                         <p class="mt-2"><b>Catatan :</b> &nbsp; {{$item->description}}</p>
+                        <small class="mt-2"><b>Tanggal :</b> &nbsp; {{date('d-m-Y', strtotime($item->date))}}</small>
                         <div class="alert alert-warning px-2 py-0">
                         </div>
                         <div class="shadow px-2 py-0">
