@@ -76,6 +76,15 @@
                         </table>
                     </div>
 
+                    <br>
+                    <hr>
+                    <div class="col-lg-12 card mt-3">
+                        <label for="address">Alamat :</label>
+                        <div>
+                            <p>{{ $dataHeader->customers->address }}</p>
+                        </div>
+                    </div>
+
                 </div>
     
                 <hr style="margin: 0 22px 20px;">

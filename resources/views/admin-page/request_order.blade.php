@@ -60,7 +60,8 @@
                 
                 ?>
                   <tr>
-                      <td><?= $row->code ?></td>
+                      {{-- <td><?= $row->code ?></td> --}}
+                      <td><a href="/request-order/{{ $row->code }}/detail" class="text-info px-2 py-1"> {{ $row->code }}</a></td>
                       <td>{{ $row->customers->fullname }}</td>
                       <td>{{ date('d - m - Y', strtotime($row->date)) }}</td>
                       <td style=" text-align: right;">{{ number_format($row->qty,2) }}</td> 
