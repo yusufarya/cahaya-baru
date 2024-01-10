@@ -77,7 +77,7 @@
                             <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
                                 <label for="level_id">Level</label>
                                 @if ($data_admin->level_id == 1)
-                                    <select class="form-control @error('level_id')is-invalid @enderror" name="level_id" id="level_id" disabled>
+                                    <select class="form-control @error('level_id')is-invalid @enderror" name="level_id" id="level_id" @readonly(true)>
                                         <option value="">Pilih</option>
                                         @foreach ($level as $val)
                                             <option value="{{$val->id}}" {{ $data_admin->level_id == $val->id ? 'selected' : '' }} >{{ $val->id . ' - ' . $val->name }}</option>
