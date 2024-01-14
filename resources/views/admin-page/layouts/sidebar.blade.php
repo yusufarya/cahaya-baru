@@ -208,7 +208,7 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview ml-3">
-                        <li class="nav-item">
+                        <li class="nav-item" hidden>
                             <a href="/delivery-types" class="nav-link {{ Request::segment(1) === 'delivery-types' ? 'submenu-active' : '' }}">
                                 » &nbsp;
                                 <p>Jenis Pengiriman</p>
