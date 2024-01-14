@@ -18,7 +18,7 @@
     <div class="container-fluid">
         <div class="row mx-2">
           <div class="row justify-content-end mb-2 w-100">
-            <button onclick="add_data()" class="btn float-right btn-add "><i class="fas fa-plus-square"></i> &nbsp; Data</button>
+            {{-- <button onclick="add_data()" class="btn float-right btn-add "><i class="fas fa-plus-square"></i> &nbsp; Data</button> --}}
           </div>
           <table class="table table-bordered table-sm">
               <thead>
@@ -39,8 +39,8 @@
                       <td style="text-align: right;">{{ number_format($row->charge,2) }}</td>
                       <td style=" text-align: center;">
                         <a href="#" onclick="edit_data(`{{$row->id}}`, `{{$row->name}}` , `{{$row->description}}`)" class="text-warning"><i class="fas fa-edit"></i></a>
-                        &nbsp;
-                        <a href="#" onclick="delete_data(`{{$row->id}}`, `{{$row->name}}`)" class="text-danger"><i class="fas fa-trash-alt"></i></i></a> 
+                        {{-- &nbsp; --}}
+                        {{-- <a href="#" onclick="delete_data(`{{$row->id}}`, `{{$row->name}}`)" class="text-danger"><i class="fas fa-trash-alt"></i></i></a>  --}}
                       </td>
                   </tr>
                 @endforeach
