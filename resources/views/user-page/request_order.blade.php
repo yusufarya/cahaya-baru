@@ -10,7 +10,7 @@
     </div>
     <a href="/my-req-orders" class="ms-3 btn btn-danger">Permintaan Saya</a> 
     <div class="pt-2 ms-3"> <p>Note : Jasa pengiriman luar Jakarta akan di alihkan ke jasa expedisi</p> </div>
-    <form action="/send-custom-request" method="POST" enctype="multipart/form-data">
+    <form action="/send-custom-request" method="POST" enctype="multipart/form-data" id="form-custom-request">
         <div class="row mt-3 bg-secondary-color mx-3 p-3">
             @csrf
             <div class="col-md-8">
@@ -62,7 +62,8 @@
                     </div>
                     
                     <div class="col">
-                        <button type="submit" class="btn button-submit secondary-color mt-2">Submit Pesanan</button>
+                        <button type="button" class="btn button-submit secondary-color mt-2" id="submit">Submit Pesanan</button>
+                        <button type="submit" class="btn button-submit secondary-color mt-2" hidden id="xxx">xxx</button>
                     </div>
 
                 </div>
@@ -83,19 +84,68 @@
 
 @endsection
 
-<div class="modal fade" id="cancelOrder" tabindex="-1">
+<div class="modal fade" id="submit-order" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title"><b><i class="fas fa-exclamation-triangle text-warning"></i>&nbsp; Batalkan Pesanan</b></h5>
+          <h5 class="modal-title"><b> Submit Pesanan</b></h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p>Anda yakin ingin membatalkan pembayaran? <br> Pesanan ini akan dihapus.</p>
+            <div class="row">
+                <div class="col-md-12 mt-2">
+                    <label for="uang-muka">Uang Muka</label>
+                    <input type="text" name="price" id="price" class="form-control" value="30.000">
+                </div>
+                <div class="col-md-12 mt-2">
+                    <label for="paymentMethod">Metode Pembayaran</label>
+                    <select name="payment_method" id="payment_method" class="form-control form-select">
+                        <option value="">Pilih</option>
+                        @foreach ($paymentMethod as $item)
+                            <option value="{{ $item->id . ' - ' . $item->bank_name . ' - ' . $item->account_number }}">
+                                {{ $item->bank_name . ' - ' . $item->account_number }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary" id="Y">Ya</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="modal fade" id="pay-order" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><b> Pembayaran Uang Muka</b></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12 mt-2">
+                    <label for="uang-muka">Uang Muka</label>
+                    <input type="text" name="price" id="price" class="form-control" value="30.000" readonly>
+                </div>
+                <div class="col-md-12 mt-2">
+                    <label for="paymentMethod">Metode Pembayaran</label> <br>
+                    <div id="bank_name">
+                    </div>
+                    <div id="account_number">
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-12">
+                    <label for="img" class="ms-1">Upload Bukti Pembayaran</label>
+                    <input type="file" name="imagePay" id="imagePay" class="form-control">
+                  </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" id="btnSend">Selesai</button>
         </div>
       </div>
     </div>

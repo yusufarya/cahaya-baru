@@ -104,6 +104,7 @@ class PaymentRequestController extends Controller
                 'auth_user' => Auth::guard('customer')->user(),
                 'resultData' => $result,
                 'payment_method' => $payment_method,
+                'dp' => $checkOrderPayment ? $checkOrderPayment->dp : false,
                 'payment_id' => $checkOrderPayment ? $checkOrderPayment->payment_method_id : ''
             ]);
         } else {
@@ -122,7 +123,7 @@ class PaymentRequestController extends Controller
         $order_code = $request->order_code;
         $image = $request->file('images')->store('payment-upload');
 
-        $data = ['image' => $image];
+        $data = ['image' => $image, 'dp' => 0];
 
         $updated = OrderPayment::where(['order_code' => $order_code])->update($data);
 

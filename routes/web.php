@@ -188,6 +188,8 @@ Route::middleware('customer')->group(function () {
     Route::get('/payment/{code}/{page}', [PaymentController::class, 'index']);
     Route::post('/prosesPayOrder', [PaymentController::class, 'prosesPayOrder']);
     Route::get('/pay-order/{code}', [PaymentController::class, 'payOrder']);
+    Route::post('/dpPayment', [PaymentController::class, 'dpPayment']);
+    Route::post('/uploadImgDp', [PaymentController::class, 'uploadImgDp']);
     Route::post('/updatePaymentMethod', [PaymentController::class, 'updatePaymentMethod']);
     Route::post('/uploadImgPayment', [PaymentController::class, 'uploadImgPayment']);
     Route::delete('/cancel-order', [PaymentController::class, 'cancelOrders']);

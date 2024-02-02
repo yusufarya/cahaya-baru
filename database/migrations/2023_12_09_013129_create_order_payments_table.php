@@ -17,6 +17,7 @@ return new class extends Migration
             $table->dateTime('date')->nullable();
             $table->enum('status', ['Approve', 'Reject', 'Waiting'])->default('Waiting');
             $table->text('image')->nullable();
+            $table->text('image1')->nullable();
             $table->unsignedBigInteger('payment_method_id')->nullable();
             $table->foreign('payment_method_id')->on('payment_methods')->references('id');
         });

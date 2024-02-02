@@ -112,7 +112,9 @@ class Customer extends Authenticatable
         //         ->where(['customer_code' => Auth::guard('customer')->user()->code])->get();
 
         $data = RequestOrder::with('customers', 'sizes')
-                            ->where($where_)->get();
+                            ->where($where_)
+                            ->orderBy('code', 'desc')
+                            ->get();
         return $data;
     }
 }

@@ -174,6 +174,39 @@ class PaymentController extends Controller
 
     }
 
+    function dpPayment(Request $request) {
+        $data = [
+            'code' => getLastPayCode(),
+            'order_code' => $request->order_code,
+            'payment_method_id' => $request->payment_method,
+            'date' => date('Y-m-d H:i:s'),
+            'dp' => 1
+        ];
+        $result = OrderPayment::create($data);
+        if($result) {
+            return response()->json(['success' => true, 'result' => $result]);
+        } else {
+            return response()->json(['success' => false, 'result' => 0]);
+        }
+    }
+
+    function uploadImgDp(Request $request) {
+        // dd($request);
+        $order_code = $request->order_code;
+        $image = $request->file('images')->store('payment-upload');
+
+        $data = ['image1' => $image];
+
+        $updated = OrderPayment::where(['order_code' => $order_code])->update($data);
+
+        if($updated) {
+            return response()->json(['status' => 'success']);
+        } else {
+            return response()->json(['status' => 'failed']);
+        }
+    }
+
+
     function updatePaymentMethod(Request $request) {
         $result = OrderPayment::where(['order_code' => $request->order_code])->update(['payment_method_id' => $request->payment_method]);
         return response()->json(['result' => $result]);

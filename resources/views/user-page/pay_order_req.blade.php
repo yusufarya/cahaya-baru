@@ -36,8 +36,17 @@
             <h2 id="account_number">
               {{-- load in js --}}
             </h2>
-
-            <h4>Nominal Bayar : Rp. {{ number_format($resultData->nett,2) }}</h4>
+            <br>
+            <h4>Total Harga : Rp. {{ number_format($resultData->nett,2) }}</h4>
+            <h4>Uang Muka : Rp. 30.000.00 </h4>
+            <b class="p-0 m-0">&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; --</b>
+            <hr class="p-0 m-0">
+            <h4>Nominal Bayar : Rp. {{ number_format($resultData->nett-30000,2) }}</h4>
+            @if ($dp == 1)
+            
+            @else
+                
+            @endif
             <p class="mt-5 ms-2"> <small>Lakukan pembayaran sebelum 1 X 24 jam</small></p>
         </div>
         <hr>

@@ -116,20 +116,34 @@
 
         <div class="modal-body">
             @if ($orderPayment && $orderPayment->payment_methods)
-                
+
                 <div class="row">
-                    <div class="col-md-6 col-lg-6 col-sm-5">
-                        <img src="{{ asset('/storage').'/'.$orderPayment->image }}" class="img-fluid" alt="imgpayment" style="height: 300px; width: auto;">
-                    </div>
+                    @if ($orderPayment->dp == 1)
+                        <div class="col-md-6 col-lg-6 col-sm-5">
+                            <img src="{{ asset('/storage').'/'.$orderPayment->image1 }}" class="img-fluid" alt="imgpayment" style="height: 300px; width: auto;">
+                        </div>        
+                    @else
+                        <div class="col-md-6 col-lg-6 col-sm-5">
+                            <img src="{{ asset('/storage').'/'.$orderPayment->image }}" class="img-fluid" alt="imgpayment" style="height: 300px; width: auto;">
+                        </div>
+                    @endif
+                    
                     <div class="col">
                         <div class="mt-3">
                             <label for="payment_methods">Metode Pembayaran</label>
                             <div>{{ $orderPayment->payment_methods->bank_name }} - {{ $orderPayment->payment_methods->account_number }}</div>
                         </div>
-                        <div class="mt-3">
-                            <label for="payment_methods">Nominal Pembayaran</label>
-                            <div>Rp. {{ number_format($resultData->nett,2) }},-</div>
-                        </div>
+                        @if ($orderPayment->dp == 1)  
+                            <div class="mt-3">
+                                <label for="payment_methods">Nominal Pembayaran  (DP)</label>
+                                <div>Rp. 30.000.00,-</div>
+                            </div>
+                        @else
+                            <div class="mt-3">
+                                <label for="payment_methods">Nominal Pembayaran (Total)</label>
+                                <div>Rp. {{ number_format($resultData->nett,2) }},-</div>
+                            </div>
+                        @endif
                         <div class="mt-3">
                             <label for="payment_methods">Status Pesanan</label>
                             <div class="w-50 text-center">

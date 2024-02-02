@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Models\DeliveryType;
 use App\Models\RequestOrder;
 use Illuminate\Http\Request;
+use App\Models\PaymentMethod;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -34,6 +35,7 @@ class RequestOrderController extends Controller
             'user' => $user,
             'sizes' => $sizes,
             'delivery' => $delivery,
+            'paymentMethod' => PaymentMethod::get(),
         ]);
     }
 
