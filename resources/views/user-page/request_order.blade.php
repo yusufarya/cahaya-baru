@@ -95,7 +95,7 @@
             <div class="row">
                 <div class="col-md-12 mt-2">
                     <label for="uang-muka">Uang Muka</label>
-                    <input type="text" name="price" id="price" class="form-control" value="30.000">
+                    <input type="text" name="price" id="price" class="form-control" value="30.000" disabled>
                 </div>
                 <div class="col-md-12 mt-2">
                     <label for="paymentMethod">Metode Pembayaran</label>
